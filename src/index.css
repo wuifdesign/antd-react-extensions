@@ -1,0 +1,23 @@
+.ant-layout-header {
+  box-shadow: 4px 4px 40px 0 rgba(0, 0, 0, .05);
+}
+
+.ant-drawer-content-wrapper {
+  max-width: 95%;
+}
+
+.full-width-transfer-list.ant-transfer-customize-list .ant-transfer-list {
+  flex: 1;
+}
+
+.full-width-transfer-list.ant-transfer-customize-list .ant-transfer-list-body-search-wrapper {
+  padding-bottom: 12px;
+}
+
+.full-width-transfer-list.ant-transfer-customize-list .ant-transfer-list-content {
+  height: 250px;
+}
+
+.ant-badge-status-text:empty {
+  display: none;
+}

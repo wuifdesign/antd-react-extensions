@@ -1,0 +1,108 @@
+{
+  "env": {
+    "jest": true,
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ],
+        "paths": [
+          "./src"
+        ]
+      }
+    }
+  },
+  "rules": {
+    "import/extensions": [
+      "error",
+      {
+        "tsx": "never",
+        "ts": "never"
+      }
+    ],
+    "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/prefer-default-export": "off",
+    "no-plusplus": "off",
+    "no-param-reassign": "off",
+    "no-unused-vars": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ],
+    "operator-linebreak": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "object-curly-newline": [
+      "error",
+      {
+        "multiline": true,
+        "consistent": true
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
+    "react/jsx-curly-brace-presence": [
+      "error",
+      "ignore"
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-boolean-value": "off",
+    "react/jsx-tag-spacing": [
+      "error",
+      {
+        "closingSlash": "never",
+        "beforeSelfClosing": "never",
+        "afterOpening": "never",
+        "beforeClosing": "never"
+      }
+    ],
+    "react/no-array-index-key": "off",
+    "react/no-unused-state": "off",
+    "react/prop-types": "off"
+  }
+}

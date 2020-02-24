@@ -1,0 +1,105 @@
+.data-display-row-group {
+  margin-bottom: 16px;
+  border-radius: 2px;
+}
+
+.data-display-row-group .data-display-row-group-title {
+  background: #1890ff;
+  color: #fff;
+  border-radius: 2px 2px 0 0;
+  border-bottom: 0;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 8px;
+  font-weight: bold;
+}
+
+.data-display-row:first-child .data-display-label {
+  border-radius: 2px 0 0 0;
+}
+
+.data-display-row:first-child .data-display-control {
+  border-radius: 0 2px 0 0;
+}
+
+.data-display-row:last-child .data-display-label {
+  border-radius: 0 0 0 2px;
+}
+
+.data-display-row:last-child .data-display-control {
+  border-radius: 0 0 2px 0;
+}
+
+@media (max-width: 575px) {
+  .data-display-row:first-child .data-display-label {
+    border-radius: 2px 2px 0 0;
+  }
+
+  .data-display-row:first-child .data-display-control {
+    border-radius: 0;
+  }
+
+  .data-display-row:last-child .data-display-label {
+    border-radius: 0;
+  }
+
+  .data-display-row:last-child .data-display-control {
+    border-radius: 0 0 2px 2px;
+  }
+}
+
+.data-display-row-group .data-display-row + .data-display-row {
+  margin-top: -1px;
+}
+
+
+.data-display-label {
+  font-weight: bold;
+  text-align: right;
+  background: #fafafa;
+  border: 1px solid #e2e2e2;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 8px;
+}
+
+.data-display-control {
+  min-height: 34px;
+  border: 1px solid #e2e2e2;
+  border-left: 0;
+  display: flex;
+  align-items: center;
+  padding: 3px 11px;
+}
+
+.data-display-control .editable-text {
+  margin: -3px -11px;
+}
+
+.data-display-control > div {
+  flex: 1;
+}
+
+.data-display-control .ant-input,
+.data-display-control .ant-picker,
+.data-display-control .ant-input-affix-wrapper {
+  border: 0;
+  z-index: 1;
+}
+
+
+@media (max-width: 575px) {
+  .data-display-label {
+    justify-content: flex-start;
+  }
+
+  .data-display-control {
+    margin-top: -1px;
+    border-left: 1px solid #e2e2e2;
+  }
+}
+
