@@ -1,0 +1,97 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Color Palette" />
+
+# Color Palette
+
+Helper to generate and Ant Design colors ant to be used with https://github.com/wuifdesign/postcss-replace-values.
+
+### getFullColorPalette
+
+```ts
+import React from 'react'
+import { getFullColorPalette } from 'antd-react-extensions'
+
+const palette = getFullColorPalette('#1890ff', (i: number) => `var(--primary-color-${i})`)
+/*
+palette = {
+  '#e6f7ff': 'var(--primary-color-1)',
+  '#bae7ff': 'var(--primary-color-2)',
+  '#91d5ff': 'var(--primary-color-3)',
+  '#69c0ff': 'var(--primary-color-4)',
+  '#40a9ff': 'var(--primary-color-5)',
+  '#1890ff': 'var(--primary-color-6)',
+  '#096dd9': 'var(--primary-color-7)',
+  '#0050b3': 'var(--primary-color-8)',
+  '#003a8c': 'var(--primary-color-9)',
+  '#002766': 'var(--primary-color-10)'
+}
+*/
+```
+
+### getFullColorPaletteForVariable
+
+```ts
+import React from 'react'
+import { getFullColorPaletteForVariable } from 'antd-react-extensions'
+
+const palette = getFullColorPaletteForVariable('#1890ff', 'primary-color')
+/*
+palette = {
+  '#e6f7ff': 'var(--primary-color-1)',
+  '#bae7ff': 'var(--primary-color-2)',
+  '#91d5ff': 'var(--primary-color-3)',
+  '#69c0ff': 'var(--primary-color-4)',
+  '#40a9ff': 'var(--primary-color-5)',
+  '#1890ff': 'var(--primary-color)',
+  '#096dd9': 'var(--primary-color-7)',
+  '#0050b3': 'var(--primary-color-8)',
+  '#003a8c': 'var(--primary-color-9)',
+  '#002766': 'var(--primary-color-10)'
+}
+*/
+```
+
+```ts
+import React from 'react'
+import { getFullColorPaletteForVariable } from 'antd-react-extensions'
+
+const palette = getFullColorPaletteForVariable('#1890ff', 'primary-color', /.btn/)
+/*
+palette = {
+  '#e6f7ff': { value: 'var(--primary-color-1)', selector: /.btn/ },
+  '#bae7ff': { value: 'var(--primary-color-2)', selector: /.btn/ },
+  '#91d5ff': { value: 'var(--primary-color-3)', selector: /.btn/ },
+  '#69c0ff': { value: 'var(--primary-color-4)', selector: /.btn/ },
+  '#40a9ff': { value: 'var(--primary-color-5)', selector: /.btn/ },
+  '#1890ff': { value: 'var(--primary-color)', selector: /.btn/ },
+  '#096dd9': { value: 'var(--primary-color-7)', selector: /.btn/ },
+  '#0050b3': { value: 'var(--primary-color-8)', selector: /.btn/ },
+  '#003a8c': { value: 'var(--primary-color-9)', selector: /.btn/ },
+  '#002766': { value: 'var(--primary-color-10)', selector: /.btn/ }
+}
+*/
+```
+
+### getCssVariablesFromColor
+
+```ts
+import React from 'react'
+import { getCssVariablesFromColor } from 'antd-react-extensions'
+
+const palette = getCssVariablesFromColor('#1890ff', 'primary-color')
+/*
+palette = {
+  '--primary-color-1': '#e6f7ff',
+  '--primary-color-2': '#bae7ff',
+  '--primary-color-3': '#91d5ff',
+  '--primary-color-4': '#69c0ff',
+  '--primary-color-5': '#40a9ff',
+  '--primary-color': '#1890ff',
+  '--primary-color-7': '#096dd9',
+  '--primary-color-8': '#0050b3',
+  '--primary-color-9': '#003a8c',
+  '--primary-color-10': '#002766'
+}
+*/
+```

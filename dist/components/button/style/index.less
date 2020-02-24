@@ -1,0 +1,80 @@
+@import '~antd/es/style/themes/index';
+@import '~antd/es/style/mixins/index';
+@import '~antd/lib/button/style/mixin';
+
+@btn-prefix-cls: ~'@{ant-prefix}-btn';
+
+@btn-warning-color: #fff;
+@btn-warning-bg: @orange-5;
+
+@btn-success-color: #fff;
+@btn-success-bg: @green-5;
+
+.button-variant(@name, @color, @bg-color) {
+  .@{btn-prefix-cls} {
+    &-@{name} {
+      .button-color(@bg-color, @color, @bg-color);
+
+      &:hover,
+      &:focus {
+        .button-color(lighten(@bg-color, 8%); @color; lighten(@bg-color, 8%));
+      }
+
+      &:active {
+        .button-color(darken(@bg-color, 8%); @color; darken(@bg-color, 8%));
+      }
+    }
+
+    &-primary&-@{name} {
+      .button-variant-primary(@color, @bg-color);
+    }
+
+    &-link&-@{name} {
+      .button-variant-other(@bg-color, transparent, transparent);
+      box-shadow: none;
+
+      &:hover,
+      &:focus {
+        .button-color(@bg-color; transparent; transparent);
+      }
+
+      &:active {
+        .button-color(@bg-color; transparent; transparent);
+      }
+
+      .button-disabled(@disabled-color; transparent; transparent);
+    }
+
+    &-text&-@{name} {
+      .button-variant-other(@bg-color, transparent, transparent);
+
+      box-shadow: none;
+
+      &:hover,
+      &:focus {
+        color: @bg-color;
+        background: @btn-text-hover-bg;
+        border-color: transparent;
+      }
+
+      &:active {
+        color: @bg-color;
+        background: fadein(@btn-text-hover-bg, 1%);
+        border-color: transparent;
+      }
+
+      .button-disabled(@disabled-color; transparent; transparent);
+    }
+
+    &-background-ghost&-@{name} {
+      .button-variant-ghost(@bg-color);
+    }
+
+    &-background-ghost&-@{name}&-link {
+      .button-variant-ghost(@bg-color, transparent);
+    }
+  }
+}
+
+.button-variant(warning, @btn-warning-color, @btn-warning-bg);
+.button-variant(success, @btn-success-color, @btn-success-bg);

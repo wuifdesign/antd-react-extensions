@@ -1,0 +1,52 @@
+@import '~antd/es/style/themes/index';
+@import '~antd/es/style/mixins/index';
+
+.transparent-bg {
+  border-radius: 2px;
+  background: url('../../../img/transparent-bg.png');
+}
+
+.image-modal {
+  text-align: center;
+
+  .ant-modal-content {
+    text-align: left;
+    display: inline-block;
+    max-width: 900px;
+    width: auto !important;
+  }
+
+  @media (max-width: 767px) {
+    max-width: calc(100vw - 35px) !important;
+  }
+
+  .ant-modal-body {
+    min-width: 50px;
+    min-height: 50px;
+  }
+
+  .ant-modal-close {
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, .2);
+
+    .ant-modal-close-x {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+
+  .ant-modal-body {
+    padding: 5px;
+
+    img {
+      border-radius: 2px;
+    }
+  }
+}

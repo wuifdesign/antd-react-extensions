@@ -1,0 +1,111 @@
+{
+  "name": "antd-react-extensions",
+  "version": "0.0.1-development",
+  "license": "MIT",
+  "repository": "https://github.com/wuifdesign/antd-react-extensions",
+  "main": "dist/index.js",
+  "source": "src/lib/index.tsx",
+  "typings": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10"
+  },
+  "sideEffects": [
+    "dist/*",
+    "dist/**/style/*",
+    "*.less"
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "start": "npm run storybook",
+    "build": "npm run clear-dist && npm run babel && npm run ts-declaration && npm run copy-less",
+    "start-react-app": "react-scripts start",
+    "build-react-app": "react-scripts build && npm run analyze-react-app",
+    "analyze-react-app": "source-map-explorer 'build/static/js/*.js'",
+    "clear-dist": "rimraf dist",
+    "babel": "babel --extensions .ts,.tsx src/lib --out-dir dist",
+    "ts-declaration": "tsc src/lib/index.tsx --declaration --emitDeclarationOnly --jsx react --esModuleInterop --outDir dist --skipLibCheck",
+    "copy-less": "copyfiles -u 2 \"src/lib/**/*.less\" \"src/lib/img/**/*\" dist",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "test": "npm run test:unit && npm run test:lint",
+    "test:unit": "react-scripts test --ci --watchAll=false",
+    "test:lint": "eslint \"./src/**/*.{js,ts,tsx}\"",
+    "test:lint:fix": "eslint \"./src/**/*.{js,ts,tsx}\" --fix",
+    "test:e2e:open": "cypress open",
+    "test:e2e:run": "cypress run"
+  },
+  "peerDependencies": {
+    "@ant-design/icons": "^4.6.2",
+    "antd": "^4.16.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@dnd-kit/core": "^3.1.1",
+    "@dnd-kit/modifiers": "^3.0.0",
+    "@dnd-kit/sortable": "^4.0.0",
+    "react-dropzone": "^11.3.4",
+    "react-router-breadcrumbs-hoc": "^4.0.1",
+    "react-router-dom": "^5.2.0",
+    "tinycolor2": "^1.4.2"
+  },
+  "devDependencies": {
+    "@ant-design/icons": "^4.6.2",
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@storybook/addon-actions": "^6.3.5",
+    "@storybook/addon-essentials": "^6.3.5",
+    "@storybook/addon-links": "^6.3.5",
+    "@storybook/node-logger": "^6.3.5",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.3.5",
+    "@storybook/testing-react": "^0.0.21",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.0",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-router-dom": "^5.1.8",
+    "@types/tinycolor2": "^1.4.3",
+    "antd": "^4.16.8",
+    "babel-loader": "8.1.0",
+    "copyfiles": "^2.4.1",
+    "cypress": "^8.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-config-standard-react": "^11.0.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "husky": "^7.0.1",
+    "less": "^4.1.1",
+    "less-loader": "^7.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "rimraf": "^3.0.2",
+    "source-map-explorer": "^2.5.2",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1",
+    "webpack": "4.44.2"
+  }
+}

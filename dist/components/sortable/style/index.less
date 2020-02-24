@@ -1,0 +1,35 @@
+@import '~antd/es/style/themes/index';
+@import '~antd/es/style/mixins/index';
+
+.sortable-item {
+  position: relative;
+  background: @white;
+  border: @border-width-base solid @border-color-base;
+  margin-bottom: -1px;
+  display: flex;
+  align-items: center;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.dragging {
+    z-index: 1;
+    box-shadow: @box-shadow-base;
+  }
+}
+
+.sortable-handle {
+  cursor: move;
+  border: 0;
+  background: transparent;
+  height: 100%;
+  padding: 0 8px;
+  margin-right: -5px;
+  color: @border-color-base;
+}
+
+.sortable-content {
+  padding: 3px 8px;
+  flex: 1;
+}

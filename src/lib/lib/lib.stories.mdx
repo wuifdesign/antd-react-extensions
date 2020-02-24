@@ -1,0 +1,72 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Library Functions" />
+
+# Library Functions
+
+List of helpers added by this library.
+
+### Deep Equal
+
+Compare 2 values and returns a boolean.
+
+```ts
+import React from 'react'
+import { deepEqual } from 'antd-react-extensions'
+
+const a = deepEqual({ a: 1, b: 2 }, { a: 1, b: 3 })
+// a == false
+```
+
+### Deep Diff
+
+Get difference of 2 values.
+
+```ts
+import React from 'react'
+import { deepDiff } from 'antd-react-extensions'
+
+const a = deepDiff({ a: 1, b: 2 }, { a: 1, b: 3 })
+// a == { b: 3 }
+```
+
+### Truncate
+
+Truncates a string (default length = 10).
+
+```ts
+import React from 'react'
+import { truncate } from 'antd-react-extensions'
+
+const a = truncate('VeryLongString', 10)
+// a == 'VeryLongSt…'
+```
+
+### Has Common Elements
+
+Checks if 2 Arrays have common elements.
+
+```ts
+import React from 'react'
+import { hasCommonElements } from 'antd-react-extensions'
+
+const a = hasCommonElements([1, 2, 3], [1])
+// a == true
+```
+
+### Confirm Dialogs
+
+Confirm actions before continuing.
+
+```ts
+import React from 'react'
+import { confirmDelete, confirmAction } from 'antd-react-extensions'
+
+confirmDelete({
+  onOk: () => console.log('delete')
+})
+
+confirmAction({
+  onOk: () => console.log('run action')
+})
+```

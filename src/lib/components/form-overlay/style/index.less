@@ -1,0 +1,22 @@
+@import '~antd/es/style/themes/index';
+@import '~antd/es/style/mixins/index';
+
+.ant-drawer-custom {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-self: stretch;
+}
+
+.ant-drawer-custom-body {
+  flex: 1;
+  padding-bottom: @padding-lg;
+}
+
+.ant-drawer-custom-footer {
+  display: flex;
+  text-align: right;
+  margin: 0 -@padding-lg -@padding-lg;
+  padding: @padding-md @padding-lg;
+  border-top: 1px solid @border-color-split;
+}
