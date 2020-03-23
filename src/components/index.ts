@@ -1,4 +1,4 @@
-export * from './admin-layout';
+export * from './layouts';
 export * from './calendar';
 export * from './data-display';
 export * from './date-picker';

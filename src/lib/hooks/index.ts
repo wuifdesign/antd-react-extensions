@@ -1,3 +1,4 @@
+export { default as useBodyClass } from './use-body-class';
 export { default as useDocumentTitle } from './use-document-title';
 export { default as useIsMounted } from './use-is-mounted';
 export { default as useReselectSelector } from './use-reselect-selector';

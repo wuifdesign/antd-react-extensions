@@ -74,7 +74,23 @@ const testSelector = createSelector(
 
 const Page: React.FC = () => {
   const value = useReselectSelector(testSelector, { key: a });
+
   return <div>{JSON.stringify(value)}</div>;
+};
+
+export default Page;
+```
+
+### Add Class to Body
+
+```ts
+import React from 'react';
+import { useBodyClass } from 'antd-react-extensions';
+
+const Page: React.FC = () => {
+  useBodyClass('class-name');
+
+  return <div>Page</div>;
 };
 
 export default Page;

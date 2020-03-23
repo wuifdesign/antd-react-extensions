@@ -5,7 +5,7 @@ export type AdminLayoutContextType = {
   setMobileNavOpen: (open: boolean) => void
 }
 
-export const AdminLayoutContext = React.createContext<AdminLayoutContextType>({
+export const DefaultLayoutContext = React.createContext<AdminLayoutContextType>({
   mobileNavOpen: true,
   setMobileNavOpen: () => null,
 });

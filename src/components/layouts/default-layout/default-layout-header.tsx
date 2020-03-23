@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Col, Dropdown, Layout, Row } from 'antd';
-import useIsMobile from '../../lib/hooks/use-is-mobile';
-import { SIDEBAR_WIDTH } from './admin-layout-sidebar';
-import { AdminLayoutContext } from './admin-layout-context';
-import { IconMenu, IconSetting } from '../../lib/icons';
+import useIsMobile from '../../../lib/hooks/use-is-mobile';
+import { SIDEBAR_WIDTH } from './default-layout-sidebar';
+import { DefaultLayoutContext } from './default-layout-context';
+import { IconMenu, IconSetting } from '../../../lib/icons';
 
 const { Header } = Layout;
 
@@ -13,9 +13,9 @@ export type AdminLayoutHeaderProps = {
   logoMobile: React.ReactNode | string
 }
 
-const AdminLayoutHeader: React.FC<AdminLayoutHeaderProps> = ({ logoMobile }) => {
+const DefaultLayoutHeader: React.FC<AdminLayoutHeaderProps> = ({ logoMobile }) => {
   const isMobile = useIsMobile();
-  const { mobileNavOpen, setMobileNavOpen } = useContext(AdminLayoutContext);
+  const { mobileNavOpen, setMobileNavOpen } = useContext(DefaultLayoutContext);
 
   const menu = (
     <>
@@ -67,4 +67,4 @@ const AdminLayoutHeader: React.FC<AdminLayoutHeaderProps> = ({ logoMobile }) => 
   );
 };
 
-export default AdminLayoutHeader;
+export default DefaultLayoutHeader;

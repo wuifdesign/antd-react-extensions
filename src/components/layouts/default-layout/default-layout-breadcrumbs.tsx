@@ -6,7 +6,7 @@ type Props = {
   breadcrumbs: any[]
 }
 
-const AdminLayoutBreadcrumbs: React.FC<Props> = ({ breadcrumbs }) => {
+const DefaultLayoutBreadcrumbs: React.FC<Props> = ({ breadcrumbs }) => {
   let has404 = false;
   breadcrumbs = breadcrumbs.filter((item) => {
     if (item.is404 && !has404) {
@@ -29,4 +29,4 @@ const AdminLayoutBreadcrumbs: React.FC<Props> = ({ breadcrumbs }) => {
   );
 };
 
-export default AdminLayoutBreadcrumbs;
+export default DefaultLayoutBreadcrumbs;

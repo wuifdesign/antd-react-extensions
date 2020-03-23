@@ -90,6 +90,7 @@
       "error",
       "ignore"
     ],
+    "react/static-property-placement": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-boolean-value": "off",
     "react/jsx-tag-spacing": [

@@ -11,6 +11,8 @@ export default {
 
 export const Modal = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonVisible, setButtonVisible] = useState(true);
 
   return (
     <>
@@ -25,8 +27,16 @@ export const Modal = () => {
         }}
         submitButtonIcon={<IconSave/>}
         submitButtonText={'Save'}
+        submitButtonDisabled={buttonDisabled}
+        hideActionButtons={!buttonVisible}
         initialValues={{ name: 'John Doe' }}
       >
+        <Button style={{ marginBottom: 16 }} block onClick={() => setButtonDisabled(!buttonDisabled)}>
+          Toggle Submit Disabled
+        </Button>
+        <Button style={{ marginBottom: 16 }} block onClick={() => setButtonVisible(!buttonVisible)}>
+          Hide Action Buttons
+        </Button>
         <Form.Item
           name="name"
           label="Name"

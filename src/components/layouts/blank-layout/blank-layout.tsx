@@ -1,0 +1,14 @@
+import React from 'react';
+import useBodyClass from '../../../lib/hooks/use-body-class';
+
+export const BlankLayout: React.FC = ({ children }) => {
+  useBodyClass('blank-page');
+
+  return (
+    <>
+      {children}
+    </>
+  );
+};
+
+export default BlankLayout;

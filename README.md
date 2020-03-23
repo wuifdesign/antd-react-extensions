@@ -1,6 +1,7 @@
 # antd-react-extensions
 
-[![NPM](https://img.shields.io/npm/v/antd-react-extensions.svg)](https://www.npmjs.com/package/antd-react-extensions) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![Lint & Test](https://github.com/wuifdesign/antd-react-extensions/workflows/Lint%20&%20Test/badge.svg)
+[![NPM](https://img.shields.io/npm/v/antd-react-extensions.svg)](https://www.npmjs.com/package/antd-react-extensions)
 
 ## Install
 

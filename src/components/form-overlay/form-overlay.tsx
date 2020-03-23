@@ -11,9 +11,11 @@ export type FormDrawerProps = {
   onSubmit: (value: any) => Promise<unknown>,
   title?: string,
   type?: 'drawer' | 'modal',
+  hideActionButtons?: boolean,
   submitButtonType?: ButtonType,
   submitButtonIcon?: JSX.Element,
   submitButtonText?: string,
+  submitButtonDisabled?: boolean,
   initialValues?: object,
 };
 
@@ -26,6 +28,8 @@ export const FormOverlay: React.FC<FormDrawerProps> = (
     type = 'modal',
     initialValues = {},
     visible = true,
+    hideActionButtons = false,
+    submitButtonDisabled = false,
     onClose,
     submitButtonType = 'primary',
     submitButtonText = 'Save',
@@ -83,20 +87,35 @@ export const FormOverlay: React.FC<FormDrawerProps> = (
           borderTop: '1px solid #f0f0f0',
         }}
       >
-        <Button
-          type="link"
-          onClick={() => (formRef.current ? formRef.current.resetFields() : null)}
-          style={{ marginRight: 'auto' }}
-          icon={<IconUndo/>}
-        >
-          Reset
-        </Button>
+        <div style={{ marginRight: 'auto' }}>
+          {
+            !hideActionButtons && (
+              <Button
+                type="link"
+                onClick={() => (formRef.current ? formRef.current.resetFields() : null)}
+                icon={<IconUndo/>}
+              >
+                Reset
+              </Button>
+            )
+          }
+        </div>
         <Button onClick={onClose} style={{ marginRight: 8 }}>
           Cancel
         </Button>
-        <Button htmlType="submit" type={submitButtonType} loading={loading} icon={submitButtonIcon}>
-          {submitButtonText}
-        </Button>
+        {
+          !hideActionButtons && (
+            <Button
+              disabled={submitButtonDisabled}
+              htmlType="submit"
+              type={submitButtonType}
+              loading={loading}
+              icon={submitButtonIcon}
+            >
+              {submitButtonText}
+            </Button>
+          )
+        }
       </div>
     </Form>
   );

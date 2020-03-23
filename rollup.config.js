@@ -25,7 +25,9 @@ export default {
   plugins: [
     del({ targets: 'dist/*' }),
     external(),
-    postcss({ modules: true }),
+    postcss({
+      extract: true,
+    }),
     typescript({
       tsconfigOverride: {
         exclude: [
