@@ -44,7 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
     "antd": "4.0.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-react-docgen": "^4.1.0",
     "dayjs": "^1.8.20",
