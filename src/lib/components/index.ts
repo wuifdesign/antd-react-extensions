@@ -1,6 +1,7 @@
 export * from './button'
 export * from './data-display-group'
 export * from './editable'
+export * from './ellipsis-middle'
 export * from './error-boundary'
 export * from './error-page'
 export * from './form-overlay'

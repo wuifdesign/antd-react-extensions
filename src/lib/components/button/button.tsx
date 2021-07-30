@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button as AntdButton } from 'antd'
 import { ButtonProps as AntdButtonProps } from 'antd/es/button'
+import clsx from 'clsx'
 
 export type ButtonProps = AntdButtonProps & {
   warning?: boolean
@@ -11,15 +12,8 @@ export type ButtonProps = AntdButtonProps & {
  * Add new color options (waring/success) to the default ant design buttons (https://ant.design/components/button/).
  */
 export const Button: React.FC<ButtonProps> = ({ warning, success, children, ...props }) => {
-  const classNames = []
-  if (success) {
-    classNames.push('ant-btn-success')
-  }
-  if (warning) {
-    classNames.push('ant-btn-warning')
-  }
   return (
-    <AntdButton className={classNames.join(' ')} {...props}>
+    <AntdButton className={clsx({ 'ant-btn-success': success, 'ant-btn-warning': warning })} {...props}>
       {children}
     </AntdButton>
   )
