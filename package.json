@@ -1,6 +1,6 @@
 {
   "name": "antd-react-extensions",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "repository": "https://github.com/wuifdesign/antd-react-extensions",
   "main": "dist/index.js",
@@ -36,7 +36,7 @@
     "clear-dist": "rimraf dist",
     "babel": "babel --extensions .ts,.tsx src/lib --out-dir dist",
     "ts-declaration": "tsc src/lib/index.tsx --declaration --emitDeclarationOnly --jsx react --esModuleInterop --outDir dist --skipLibCheck",
-    "copy-less": "copyfiles -u 2 \"src/lib/**/*.less\" \"src/lib/img/**/*\" dist",
+    "copy-less": "copyfiles -u 2 \"src/lib/**/*.less\" dist",
     "fix-node-export": "replace-in-file 'export {};' '' dist/lib/color-palette-node.js",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
