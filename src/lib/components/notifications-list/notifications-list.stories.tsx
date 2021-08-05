@@ -10,36 +10,53 @@ export default {
 
 const Template: Story<Partial<PropsWithChildren<NotificationsListProps>>> = (args) => (
   <NotificationsList
-    maxHeight={200}
     dataSource={[
       {
         icon: <MailOutlined />,
         title: 'Title 1',
         description: 'This is description number 1',
+        date: '2020-12-12 12:30',
         onClick: () => console.log('item 1')
       },
       {
+        type: 'primary',
         icon: <MailOutlined />,
         title: 'Title 2',
         description: 'This is description number 2',
+        date: '2020-12-12 12:30',
         onClick: () => console.log('item 2')
       },
       {
+        type: 'success',
         icon: <MailOutlined />,
         title: 'Title 3',
         description: 'This is description number 3',
+        date: '2020-12-12 12:30',
         onClick: () => console.log('item 3')
       },
       {
+        type: 'warning',
         icon: <MailOutlined />,
         title: 'Title 4',
         description: 'This is description number 4',
+        date: '2020-12-12 12:30',
         onClick: () => console.log('item 4')
       },
       {
+        type: 'danger',
         icon: <MailOutlined />,
         title: 'Title 5',
         description: 'This is description number 5',
+        date: '2020-12-12 12:30',
+        onClick: () => console.log('item 5')
+      },
+      {
+        type: 'danger',
+        icon: <MailOutlined />,
+        title: 'Title 5',
+        read: true,
+        description: 'This is description number 5',
+        date: '2020-12-12 12:30',
         onClick: () => console.log('item 5')
       }
     ]}

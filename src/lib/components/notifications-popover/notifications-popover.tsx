@@ -28,7 +28,7 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
       placement="bottomRight"
       overlayClassName="notifications-popover"
       overlayInnerStyle={{ padding: 0 }}
-      content={<NotificationsList {...notificationListProps} />}
+      content={<NotificationsList width={300} {...notificationListProps} />}
       {...popoverProps}
     >
       <Button style={{ height: 'auto' }} type="text">
