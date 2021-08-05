@@ -24,7 +24,7 @@ const DefaultLayoutHeader: React.FC<AdminLayoutHeaderProps> = ({
 
   return (
     <Header style={{ left: isMobile ? 0 : sidebarCollapsed ? sidebarCollapsedWidth : sidebarWidth }}>
-      <Row align="top" style={{ flexWrap: 'nowrap', justifyContent: 'space-between', marginTop: isMobile ? 1 : 0 }}>
+      <Row align="stretch" style={{ flexWrap: 'nowrap', justifyContent: 'space-between', marginTop: isMobile ? 1 : 0 }}>
         {isMobile && (
           <>
             <Col flex="1 1">
@@ -54,8 +54,8 @@ const DefaultLayoutHeader: React.FC<AdminLayoutHeaderProps> = ({
           </Col>
         )}
         {headerRight && (
-          <Col flex="1 1" className="ant-layout-header-right">
-            <div className="ant-layout-header-right-content">{headerRight}</div>
+          <Col flex="1 1">
+            <div className="ant-layout-header-right">{headerRight}</div>
           </Col>
         )}
       </Row>

@@ -50,13 +50,15 @@
 }
 
 .ant-layout-header-right {
-  height: 100%;
   overflow: hidden;
-  text-align: right;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: stretch;
+  justify-content: flex-end;
 
-  .ant-layout-header-right-content {
-    display: inline-block;
-    max-width: 100%;
+  & > * {
+    height: auto;
   }
 }
 

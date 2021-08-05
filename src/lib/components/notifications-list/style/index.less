@@ -1,0 +1,15 @@
+@import '~antd/es/style/themes/index';
+@import '~antd/es/style/mixins/index';
+
+.notification-list {
+  overflow: auto;
+}
+
+.notification-list-element {
+  transition: background @animation-duration-slow, width @animation-duration-slow cubic-bezier(0.2, 0, 0, 1) 0s;
+  cursor: pointer;
+
+  &:hover {
+    background: @background-color-base;
+  }
+}

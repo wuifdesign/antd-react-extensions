@@ -1,16 +1,17 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
 import AdminLayout from './admin-layout'
-import { DashboardOutlined as IconDashboard, LockOutlined, UserOutlined } from '@ant-design/icons'
+import { DashboardOutlined as IconDashboard, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { RouteElement } from './route-element.type'
 import { PageContent } from '../page-content'
 import { Button } from '../button'
 import { ErrorPage } from '../error-page'
 import { MenuElement } from './menu-element.type'
-import { Checkbox, Col, Form, Input, Menu, Row } from 'antd'
+import { Checkbox, Col, Dropdown, Form, Input, Menu, Row } from 'antd'
 import AuthLayout from './auth-layout/auth-layout'
 import DefaultLayout from './default-layout/default-layout'
 import BlankLayout from './blank-layout/blank-layout'
+import { NotificationsPopover } from '../notifications-popover'
 
 export default {
   component: AdminLayout,
@@ -153,20 +154,56 @@ export const Base = () => {
           ),
           headerRight: (
             <>
-              <Menu mode="horizontal">
-                <Menu.Item key="1">Menu 1</Menu.Item>
-                <Menu.Item key="2">Menu 2</Menu.Item>
-                <Menu.SubMenu title="Submenu 1" key="submenu">
-                  <Menu.ItemGroup title="Item 1">
-                    <Menu.Item key="item:1">Option 1</Menu.Item>
-                    <Menu.Item key="item:2">Option 2</Menu.Item>
-                  </Menu.ItemGroup>
-                  <Menu.ItemGroup title="Item 2">
-                    <Menu.Item key="item:3">Option 3</Menu.Item>
-                    <Menu.Item key="item:4">Option 4</Menu.Item>
-                  </Menu.ItemGroup>
-                </Menu.SubMenu>
-              </Menu>
+              <NotificationsPopover
+                dot
+                notificationListProps={{
+                  maxHeight: 250,
+                  dataSource: [
+                    {
+                      icon: <MailOutlined />,
+                      title: 'Title 1',
+                      description: 'This is description number 1',
+                      onClick: () => console.log('item 1')
+                    },
+                    {
+                      icon: <MailOutlined />,
+                      title: 'Title 2',
+                      description: 'This is description number 2',
+                      onClick: () => console.log('item 2')
+                    },
+                    {
+                      icon: <MailOutlined />,
+                      title: 'Title 3',
+                      description: 'This is description number 3',
+                      onClick: () => console.log('item 3')
+                    },
+                    {
+                      icon: <MailOutlined />,
+                      title: 'Title 4',
+                      description: 'This is description number 4',
+                      onClick: () => console.log('item 4')
+                    },
+                    {
+                      icon: <MailOutlined />,
+                      title: 'Title 5',
+                      description: 'This is description number 5',
+                      onClick: () => console.log('item 5')
+                    }
+                  ]
+                }}
+              />
+              <Dropdown
+                key="languages"
+                overlay={
+                  <Menu>
+                    {['de', 'en'].map((lang) => (
+                      <Menu.Item key={`language-${lang}`}>{lang}</Menu.Item>
+                    ))}
+                  </Menu>
+                }
+              >
+                <Button type="text">de</Button>
+              </Dropdown>
             </>
           ),
           sidebarBottom: 'Version: 1.0'
