@@ -1,11 +1,10 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Drawer, Layout, Menu } from 'antd'
-import { matchPath } from 'react-router-dom'
+import { Link, matchPath } from 'react-router-dom'
 import useIsMobile from '../../../lib/hooks/use-is-mobile'
-import { EnhancedMenuElement, isMenuItemType, MenuElement } from '../menu-element.type'
+import { EnhancedMenuElement, MenuElement } from '../menu-element.type'
 import { DefaultLayoutContext } from './default-layout-context'
 import useReactRouter from '../../../lib/hooks/use-react-router'
-import { RouterHistory } from '../../../lib'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
@@ -13,38 +12,12 @@ const { SubMenu } = Menu
 export const SIDEBAR_WIDTH = 230
 export const SIDEBAR_COLLAPSED_WIDTH = 80
 
-const getActiveKeys = (pathname: string, menuPart: EnhancedMenuElement[]) => {
-  let defaultSelectedKeys: string[] = []
-  menuPart.forEach((item) => {
-    if ('type' in item && item.activeBy) {
-      item.activeBy.forEach((url) => {
-        const matchBy = matchPath(pathname, { path: url })
-        if (matchBy && item.key) {
-          defaultSelectedKeys.push(item.key)
-        }
-      })
-    } else if (!('type' in item) && item.url) {
-      const match = matchPath(pathname, { path: item.url, exact: !!item.exact })
-      if (match && item.key) {
-        defaultSelectedKeys.push(item.key)
-      }
-    }
-    if ('type' in item && item.elements) {
-      defaultSelectedKeys = defaultSelectedKeys.concat(getActiveKeys(pathname, item.elements))
-    }
-  })
-  return defaultSelectedKeys
-}
-
 const enhanceMenu = (menuPart: MenuElement[], prefix: string = ''): EnhancedMenuElement[] => {
   Object.keys(menuPart).forEach((index) => {
     const item = menuPart[parseInt(index, 10)] as EnhancedMenuElement
     item.key = prefix + index
     if ('type' in item && item.elements) {
-      if (!item.activeBy) {
-        item.activeBy = item.elements.filter(isMenuItemType).map((a) => ('url' in a ? a.url : ''))
-      }
-      enhanceMenu(item.elements, `${prefix + index}_`)
+      enhanceMenu(item.elements, `${item.key}_`)
     }
   })
   return menuPart as EnhancedMenuElement[]
@@ -69,10 +42,35 @@ const renderMenu = (item: EnhancedMenuElement) => {
     )
   }
   return (
-    <Menu.Item onClick={() => RouterHistory.getHistory().push(item.url)} key={item.key} icon={item.icon}>
-      {item.title}
+    <Menu.Item key={item.key} icon={item.icon}>
+      <Link to={item.url}>{item.title}</Link>
     </Menu.Item>
   )
+}
+
+const getActiveMenuKeys = (pathname: string, enhancedMenu: EnhancedMenuElement[]): string[] => {
+  let activeKeys: string[] = []
+  for (const item of enhancedMenu) {
+    let isActive = false
+    if ('type' in item && item.elements) {
+      const subActiveKeys = getActiveMenuKeys(pathname, item.elements)
+      if (subActiveKeys.length > 0) {
+        isActive = true
+      }
+      activeKeys = [...activeKeys, ...subActiveKeys]
+    } else if (!('type' in item) && item.url) {
+      if (matchPath(pathname, { path: item.url, exact: !!item.exact })) {
+        isActive = true
+      }
+    }
+    if (!isActive && 'isActive' in item && !!item.isActive && item.isActive(pathname)) {
+      isActive = true
+    }
+    if (isActive) {
+      activeKeys.push(item.key)
+    }
+  }
+  return activeKeys
 }
 
 export type AdminLayoutSidebarProps = {
@@ -104,8 +102,8 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
 
   const menuWithKeys = useMemo(() => enhanceMenu(menu), [menu])
 
-  const [selectedKeys, setSelectedKeys] = useState(getActiveKeys(location.pathname, menuWithKeys))
-  const [openKeys, setOpenKeys] = useState(getActiveKeys(location.pathname, menuWithKeys))
+  const [selectedKeys, setSelectedKeys] = useState(getActiveMenuKeys(location.pathname, menuWithKeys))
+  const [openKeys, setOpenKeys] = useState(getActiveMenuKeys(location.pathname, menuWithKeys))
   const latestMobileNavOpen = useRef<boolean>(mobileNavOpen)
 
   const hideNav = useCallback(() => {
@@ -115,7 +113,7 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
   }, [latestMobileNavOpen, setMobileNavOpen])
 
   useEffect(() => {
-    const activeKeys = getActiveKeys(location.pathname, menuWithKeys)
+    const activeKeys = getActiveMenuKeys(location.pathname, menuWithKeys)
     setSelectedKeys(activeKeys)
     setOpenKeys((keys) => [...Array.from(new Set([...keys].concat(activeKeys)))])
     hideNav()

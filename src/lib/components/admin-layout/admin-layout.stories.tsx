@@ -120,6 +120,28 @@ const menu: MenuElement[] = [
     ]
   },
   {
+    title: 'Demo Submenu 2',
+    type: 'submenu',
+    elements: [
+      {
+        title: 'Submenu Item 2',
+        url: '/sub-item2',
+        isActive: () => true
+      }
+    ]
+  },
+  {
+    title: 'Demo Submenu 3',
+    type: 'submenu',
+    isActive: () => true,
+    elements: [
+      {
+        title: 'Submenu Item 2',
+        url: '/sub-item3'
+      }
+    ]
+  },
+  {
     title: 'Demo Group',
     type: 'group',
     elements: [

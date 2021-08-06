@@ -5,6 +5,7 @@ export type MenuItem = {
   url: string
   exact?: boolean
   icon?: React.ReactNode
+  isActive?: (currentPath: string) => boolean
 }
 
 export type MenuGroup = {
@@ -18,14 +19,13 @@ export type MenuSubMenu = {
   type: 'submenu'
   elements: MenuElement[]
   icon?: React.ReactNode
+  isActive?: (currentPath: string) => boolean
 }
 
 export type MenuElement = MenuItem | MenuGroup | MenuSubMenu
 
 export type EnhancedMenuItem = MenuItem & { key: string }
-export type EnhancedMenuGroup = MenuGroup & { key: string; activeBy: string[]; elements: EnhancedMenuElement[] }
-export type EnhancedMenuSubMenu = MenuSubMenu & { key: string; activeBy: string[]; elements: EnhancedMenuElement[] }
+export type EnhancedMenuGroup = MenuGroup & { key: string; elements: EnhancedMenuElement[] }
+export type EnhancedMenuSubMenu = MenuSubMenu & { key: string; elements: EnhancedMenuElement[] }
 
 export type EnhancedMenuElement = EnhancedMenuItem | EnhancedMenuGroup | EnhancedMenuSubMenu
-
-export const isMenuItemType = (item: EnhancedMenuElement): item is EnhancedMenuItem => !(item as EnhancedMenuGroup).type
