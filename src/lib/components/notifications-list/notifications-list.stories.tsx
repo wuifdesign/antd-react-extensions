@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
 import { NotificationsList, NotificationsListProps } from './notifications-list'
 import { MailOutlined } from '@ant-design/icons'
+import { Button } from '../button'
 
 export default {
   component: NotificationsList,
@@ -66,3 +67,14 @@ const Template: Story<Partial<PropsWithChildren<NotificationsListProps>>> = (arg
 
 export const Base = Template.bind({})
 Base.args = {}
+
+export const WithHeaderAndFooter = Template.bind({})
+WithHeaderAndFooter.args = {
+  maxHeight: 500,
+  header: <div style={{ textAlign: 'center' }}>All your Notifications</div>,
+  footer: (
+    <Button type="link" block>
+      Show all Notifications
+    </Button>
+  )
+}

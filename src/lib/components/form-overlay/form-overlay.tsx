@@ -3,6 +3,7 @@ import { Drawer, Form, Modal, Space } from 'antd'
 import { FormInstance } from 'antd/es/form'
 import { IconUndo } from '../icons'
 import Button, { ButtonProps } from '../button/button'
+import useTranslations from '../config-provider/use-translations'
 
 export type FormOverlayButtons = 'reset' | 'cancel' | 'submit' | React.ReactNode
 
@@ -34,11 +35,11 @@ const FormOverlay: React.FC<FormOverlayProps> = ({
   title,
   type = 'modal',
   submitButtonProps = { type: 'primary' },
-  submitButtonText = 'Save',
+  submitButtonText,
   submitButtonIcon,
   submitButtonDisabled = false,
   cancelButtonProps = {},
-  cancelButtonText = 'Cancel',
+  cancelButtonText,
   buttons = {
     left: ['reset'],
     right: ['cancel', 'submit']
@@ -48,6 +49,7 @@ const FormOverlay: React.FC<FormOverlayProps> = ({
 }) => {
   const formRef = useRef<FormInstance>(null)
   const [loading, setLoading] = useState(false)
+  const translations = useTranslations()
 
   useEffect(() => {
     if (visible && formRef.current) {
@@ -79,14 +81,14 @@ const FormOverlay: React.FC<FormOverlayProps> = ({
               icon={submitButtonIcon}
               {...submitButtonProps}
             >
-              {submitButtonText}
+              {submitButtonText || translations.FormOverlay.btnSave}
             </Button>
           )
           break
         case 'cancel':
           parsedButtons.push(
             <Button onClick={onClose} {...cancelButtonProps}>
-              {cancelButtonText}
+              {cancelButtonText || translations.FormOverlay.btnCancel}
             </Button>
           )
           break
@@ -97,7 +99,7 @@ const FormOverlay: React.FC<FormOverlayProps> = ({
               onClick={() => (formRef.current ? formRef.current.resetFields() : null)}
               icon={<IconUndo />}
             >
-              Reset
+              {translations.FormOverlay.btnReset}
             </Button>
           )
           break

@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { Button } from 'antd'
 import { IconCancel, IconEdit, IconLoading, IconSave } from '../icons'
+import useTranslations from '../config-provider/use-translations'
 
 export type EditableProps = {
   onSubmit?: (value: any) => Promise<void>
@@ -33,6 +34,7 @@ const Editable: React.FC<BaseEditableProps> = ({
 }) => {
   const [loading, setLoading] = useState(false)
   const [editMode, setEditMode] = useState(false)
+  const translations = useTranslations()
 
   const onInitEdit = useCallback(() => {
     setEditMode(true)
@@ -85,11 +87,16 @@ const Editable: React.FC<BaseEditableProps> = ({
           <>{loading ? <IconLoading /> : <IconSave />}</>
         ) : (
           <>
-            <button className="editable-btn" onClick={onCancel} title="Cancel">
+            <button className="editable-btn" onClick={onCancel} title={translations.Editable.btnCancelTitle}>
               <IconCancel />
             </button>
             {!!saveHandler && (
-              <button className="editable-btn" style={{ marginLeft: 10 }} onClick={saveHandler} title="Save">
+              <button
+                className="editable-btn"
+                style={{ marginLeft: 10 }}
+                onClick={saveHandler}
+                title={translations.Editable.btnSaveTitle}
+              >
                 <IconSave />
               </button>
             )}
@@ -97,7 +104,7 @@ const Editable: React.FC<BaseEditableProps> = ({
         )}
       </>
     ),
-    [loading, onCancel]
+    [loading, onCancel, translations]
   )
 
   if (editMode) {
@@ -111,7 +118,12 @@ const Editable: React.FC<BaseEditableProps> = ({
           {valueDisplay(value) || valuePlaceholder}
         </span>
         {editAble && (
-          <Button title="Edit Data" type="link" style={{ padding: 0, marginLeft: 5 }} onClick={onInitEdit}>
+          <Button
+            title={translations.Editable.btnEditTitle}
+            type="link"
+            style={{ padding: 0, marginLeft: 5 }}
+            onClick={onInitEdit}
+          >
             <IconEdit />
           </Button>
         )}

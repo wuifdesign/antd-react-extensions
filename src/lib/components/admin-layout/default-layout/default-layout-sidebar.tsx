@@ -63,8 +63,8 @@ const getActiveMenuKeys = (pathname: string, enhancedMenu: EnhancedMenuElement[]
         isActive = true
       }
     }
-    if (!isActive && 'isActive' in item && !!item.isActive && item.isActive(pathname)) {
-      isActive = true
+    if ('isActive' in item && !!item.isActive) {
+      isActive = item.isActive(pathname)
     }
     if (isActive) {
       activeKeys.push(item.key)

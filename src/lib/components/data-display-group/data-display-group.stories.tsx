@@ -7,7 +7,7 @@ import { EditableDate, EditableDateRange, EditableInput, EditableSelect, Editabl
 export default {
   component: DataDisplayGroup,
   subcomponents: { DataDisplayRow },
-  title: 'Components/DataDisplayGroup',
+  title: 'Components/Data Display',
   parameters: { controls: { include: ['title'] } }
 } as Meta
 

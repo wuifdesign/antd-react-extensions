@@ -1,0 +1,48 @@
+import ConfigProvider from './config-provider'
+import { Canvas, Meta } from '@storybook/addon-docs'
+import { ErrorPage } from '../error-page'
+import useTheme from './use-theme'
+
+<Meta title="Config Provider" />
+
+# Config Provider
+
+## Translations
+
+If you want to change translations you can pass translations to the ConfigProvider.
+
+<Canvas>
+  <ConfigProvider translations={{ ErrorPage: { 404: { title: 'Custom 404 Title' } } }}>
+    <ErrorPage type={404} />
+  </ConfigProvider>
+</Canvas>
+
+
+## Theme
+
+If you want to change theme you can pass use ConfigProvider and use `useTheme` and it's functions
+`setCss` and `setCssVariables` in child components.
+
+export const CssVariableContent = () => {
+  const { setCssVariables } = useTheme()
+  return <button onClick={() => setCssVariables({ '--primary-color': '#a00' })}>Change Background Color</button>
+}
+
+<Canvas>
+  <ConfigProvider>
+    <div style={{ background: 'var(--primary-color)' }}>This background changes</div>
+    <CssVariableContent />
+  </ConfigProvider>
+</Canvas>
+
+export const CssContent = () => {
+  const { setCss } = useTheme()
+  return <button onClick={() => setCss('.test { color: #a00 }')}>Change Text Color</button>
+}
+
+<Canvas>
+  <ConfigProvider>
+    <div className="test">This text color changes</div>
+    <CssContent />
+  </ConfigProvider>
+</Canvas>

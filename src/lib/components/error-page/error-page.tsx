@@ -1,40 +1,24 @@
 import React from 'react'
 import { Result } from 'antd'
+import useTranslations from '../config-provider/use-translations'
 
 type ErrorKeysType = 403 | 404 | 500
 
-type ErrorPageTranslationType = {
-  [key in ErrorKeysType]: {
-    title?: string
-    description?: string
-  }
-}
-
 export type ErrorPageProps = {
   type: ErrorKeysType
+  title?: string
   description?: string
-  translations?: ErrorPageTranslationType
 }
 
-const baseTranslations: ErrorPageTranslationType = {
-  403: {
-    title: '403',
-    description: 'Sorry, you are not authorized to access this page.'
-  },
-  404: {
-    title: '404',
-    description: 'Sorry, the page you visited does not exist.'
-  },
-  500: {
-    title: '500',
-    description: 'Sorry, something went wrong please try again.'
-  }
-}
-
-const ErrorPage: React.FC<ErrorPageProps> = ({ type, description, translations = {} }) => {
-  const _title = translations[type]?.title || baseTranslations[type].title
-  const _description = description || translations[type]?.description || baseTranslations[type].description
-  return <Result status={type} title={_title} subTitle={_description} />
+const ErrorPage: React.FC<ErrorPageProps> = ({ type, title, description }) => {
+  const translations = useTranslations()
+  return (
+    <Result
+      status={type}
+      title={title || translations.ErrorPage[type]?.title}
+      subTitle={description || translations.ErrorPage[type]?.description}
+    />
+  )
 }
 
 export default ErrorPage

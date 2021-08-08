@@ -28,35 +28,37 @@ export const NotificationsList: React.FC<NotificationsListProps> = ({
   ...props
 }) => {
   return (
-    <List
-      className="notification-list"
-      bordered
-      size="small"
-      style={{ border: 0, maxHeight, width, ...style }}
-      dataSource={dataSource}
-      renderItem={(item) => (
-        <List.Item
-          className={`notification-list-element notification-list-element-${item.type || 'default'} ${
-            !!item.read && 'notification-list-element-read'
-          }`}
-          onClick={() => {
-            if (item.onClick) {
-              item.onClick()
-            }
-          }}
-        >
-          {!!item.icon && <div className="notification-list-icon">{item.icon}</div>}
-          <div style={{ flex: 1 }}>
-            <Row>
-              <Col flex={1}>{!!item.title && <div className="notification-list-title">{item.title}</div>}</Col>
-              <Col>{!!item.date && <div className="notification-list-date">{item.date}</div>}</Col>
-            </Row>
-            {!!item.description && <div className="notification-list-description">{item.description}</div>}
-          </div>
-        </List.Item>
-      )}
-      {...props}
-    />
+    <>
+      <List
+        className="notification-list"
+        bordered
+        size="small"
+        style={{ border: 0, maxHeight, width, ...style }}
+        dataSource={dataSource}
+        renderItem={(item) => (
+          <List.Item
+            className={`notification-list-element notification-list-element-${item.type || 'default'} ${
+              !!item.read && 'notification-list-element-read'
+            }`}
+            onClick={() => {
+              if (item.onClick) {
+                item.onClick()
+              }
+            }}
+          >
+            {!!item.icon && <div className="notification-list-icon">{item.icon}</div>}
+            <div style={{ flex: 1 }}>
+              <Row>
+                <Col flex={1}>{!!item.title && <div className="notification-list-title">{item.title}</div>}</Col>
+                <Col>{!!item.date && <div className="notification-list-date">{item.date}</div>}</Col>
+              </Row>
+              {!!item.description && <div className="notification-list-description">{item.description}</div>}
+            </div>
+          </List.Item>
+        )}
+        {...props}
+      />
+    </>
   )
 }
 

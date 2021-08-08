@@ -3,6 +3,7 @@ import { Button } from 'antd'
 import { IconDelete, IconEdit, IconFullscreen } from '../icons'
 import { confirmDelete } from '../../lib/confirm-dialogs'
 import ImageModal from './image-modal'
+import useTranslations from '../config-provider/use-translations'
 
 export type ImagePreviewProps = {
   url: string | undefined | null
@@ -36,20 +37,16 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
   size = 100,
   fullscreenButton = true,
   hideBackground = false,
-  askForDeleteConfirmation = true,
-  emptyText = 'No Image',
-  deleteConfirmText = 'Do you really want to delete this image?',
-  showFullSizeTitle = 'Show Full Size',
-  editImageTitle = 'Edit Image',
-  deleteImageTitle = 'Delete Image'
+  askForDeleteConfirmation = true
 }) => {
   const [previewVisible, setPreviewVisible] = useState(false)
+  const translations = useTranslations()
 
   const triggerDelete = () => {
     if (onDelete) {
       if (askForDeleteConfirmation) {
         confirmDelete({
-          title: deleteConfirmText,
+          title: translations.ImagePreview.confirmDeleteText,
           onOk: () => {
             return onDelete()
           }
@@ -101,7 +98,7 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
             letterSpacing: 0.5
           }}
         >
-          {emptyText}
+          {translations.ImagePreview.emptyText}
         </div>
       )}
       <div style={buttonsContainerStyle}>
@@ -109,7 +106,7 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
           <Button
             type="primary"
             shape="circle"
-            title={showFullSizeTitle}
+            title={translations.ImagePreview.btnFullSizeTitle}
             size="small"
             onClick={() => setPreviewVisible(true)}
           >
@@ -122,7 +119,7 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
             type="primary"
             shape="circle"
             size="small"
-            title={editImageTitle}
+            title={translations.ImagePreview.btnEditImageTitle}
             style={{ marginLeft: 5 }}
           >
             <IconEdit />
@@ -134,7 +131,7 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
             danger
             shape="circle"
             size="small"
-            title={deleteImageTitle}
+            title={translations.ImagePreview.btnDeleteImageTitle}
             style={{ marginLeft: 5 }}
           >
             <IconDelete />
