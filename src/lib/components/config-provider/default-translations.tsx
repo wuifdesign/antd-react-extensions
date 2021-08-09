@@ -40,6 +40,14 @@ export const defaultTranslations = {
   },
   SortableItem: {
     btnDeleteTitle: 'Delete'
+  },
+  confirmDelete: {
+    okText: 'Delete',
+    content: 'This action cannot be undone.'
+  },
+  confirmAction: {
+    okText: 'Continue',
+    content: 'Do you want to continue?'
   }
 }
 

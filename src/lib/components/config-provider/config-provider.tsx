@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { PartialTranslationsType } from './default-translations'
+import React, { useMemo, useState } from 'react'
+import { defaultTranslations, PartialTranslationsType, TranslationsType } from './default-translations'
+import deepmerge from 'deepmerge'
 
 export type CssVariablesType = Record<string, string>
 
@@ -12,7 +13,7 @@ export type ConfigContextType = {
 }
 
 export const ConfigContext = React.createContext<ConfigContextType>({
-  translations: {},
+  translations: defaultTranslations,
   css: undefined,
   setCss: () => null,
   cssVariables: {},
@@ -34,6 +35,7 @@ const mapCssVariables = (cssVariables: CssVariablesType) => {
 export const ConfigProvider: React.FC<ConfigProviderProps> = ({ translations = {}, children }) => {
   const [css, setCss] = useState<string>()
   const [cssVariables, setCssVariables] = useState<CssVariablesType>({})
+  translations = useMemo(() => deepmerge(defaultTranslations, translations) as TranslationsType, [translations])
 
   return (
     <ConfigContext.Provider value={{ cssVariables, setCssVariables, css, setCss, translations }}>

@@ -2,12 +2,21 @@ import { Modal } from 'antd'
 import { IconDelete, IconWarning } from '../components/icons'
 import React from 'react'
 import { ModalFuncProps } from 'antd/lib/modal/Modal'
+import { ConfigContext } from '../components/config-provider/config-provider'
 
-export const confirmDelete = (props: ModalFuncProps) => {
+export const confirmDelete = (props?: ModalFuncProps) => {
   Modal.confirm({
     icon: <IconWarning />,
-    content: 'This action cannot be undone.',
-    okText: 'Delete',
+    content: (
+      <ConfigContext.Consumer>
+        {({ translations }) => <>{translations.confirmDelete?.content}</>}
+      </ConfigContext.Consumer>
+    ),
+    okText: (
+      <ConfigContext.Consumer>
+        {({ translations }) => <span>{translations.confirmDelete?.okText}</span>}
+      </ConfigContext.Consumer>
+    ),
     okButtonProps: {
       icon: <IconDelete />
     },
@@ -16,10 +25,19 @@ export const confirmDelete = (props: ModalFuncProps) => {
   })
 }
 
-export const confirmAction = (props: ModalFuncProps) => {
+export const confirmAction = (props?: ModalFuncProps) => {
   Modal.confirm({
     icon: <IconWarning />,
-    okText: 'Continue',
+    content: (
+      <ConfigContext.Consumer>
+        {({ translations }) => <>{translations.confirmAction?.content}</>}
+      </ConfigContext.Consumer>
+    ),
+    okText: (
+      <ConfigContext.Consumer>
+        {({ translations }) => <span>{translations.confirmAction?.okText}</span>}
+      </ConfigContext.Consumer>
+    ),
     okType: 'primary',
     ...props
   })
