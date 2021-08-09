@@ -50,7 +50,7 @@ describe('Sortable', () => {
       expect(data).toStrictEqual({ index: 0, newItems: [2, 3] })
     })
     render(<Sortable {...defaultProps} onDelete={onDelete} />)
-    const btn = screen.getAllByTitle('Delete Item')
+    const btn = screen.getAllByTitle('Delete')
     const firstBtn = btn[0]
     expect(firstBtn).toBeInTheDocument()
     act(() => {

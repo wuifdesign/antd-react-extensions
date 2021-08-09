@@ -7,25 +7,6 @@ describe('ImagePreview', () => {
     render(<ImagePreview url="/test.png" />)
   })
 
-  it('should change titles', () => {
-    render(
-      <ImagePreview
-        url="/test.png"
-        deleteImageTitle="Delete Title"
-        editImageTitle="Edit Title"
-        showFullSizeTitle="Full Size Title"
-        onDelete={() => Promise.resolve()}
-        onEdit={() => Promise.resolve()}
-      />
-    )
-    const deleteTitle = screen.getByTitle(/Delete Title/i)
-    expect(deleteTitle).toBeInTheDocument()
-    const editTitle = screen.getByTitle(/Edit Title/i)
-    expect(editTitle).toBeInTheDocument()
-    const fullSizeTitle = screen.getByTitle(/Full Size Title/i)
-    expect(fullSizeTitle).toBeInTheDocument()
-  })
-
   it('should render thumb', () => {
     render(<ImagePreview url="/test.png" thumbUrl="/test2.png" />)
     const thumbImage = screen.getByAltText(/test2.png/i)
@@ -89,8 +70,8 @@ describe('ImagePreview', () => {
   })
 
   it('should display no image text', () => {
-    render(<ImagePreview url={undefined} emptyText="My empty Text" />)
-    const emptyText = screen.getByText(/My empty Text/i)
+    render(<ImagePreview url={undefined} />)
+    const emptyText = screen.getByText(/No Image/i)
     expect(emptyText).toBeInTheDocument()
   })
 })

@@ -7,12 +7,6 @@ describe('InputImage', () => {
     render(<InputImage />)
   })
 
-  it('should display no image text', () => {
-    render(<InputImage imagePreviewProps={{ emptyText: 'My empty Text' }} />)
-    const emptyText = screen.getByText(/My empty Text/i)
-    expect(emptyText).toBeInTheDocument()
-  })
-
   it('should display default image', () => {
     render(<InputImage defaultImage="/test.png" />)
     const thumbImage = screen.getByAltText(/test.png/i)
