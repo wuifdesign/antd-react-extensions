@@ -11,7 +11,7 @@ export type AuthLayoutProps = {
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth = 400, children }) => {
-  useBodyClass('auth-page')
+  useBodyClass('auth-layout')
 
   const isMobile = useIsMobile()
 

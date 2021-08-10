@@ -1,41 +1,67 @@
 import React, { Suspense, useState } from 'react'
 import { Layout, Spin } from 'antd'
-import { Route, Switch } from 'react-router-dom'
+import { Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { Router } from 'react-router'
 import ErrorBoundary from '../error-boundary/error-boundary'
 import { CustomLayoutRouteElement, RouteElement } from './route-element.type'
 import DefaultLayout, { DefaultLayoutProps } from './default-layout/default-layout'
 import AuthLayout, { AuthLayoutProps } from './auth-layout/auth-layout'
 import BlankLayout from './blank-layout/blank-layout'
-import RouterHistory from '../../lib/router-history'
+import RouterHistory, { RouterHistoryTypesType } from '../../lib/router-history'
 import { LayoutContext } from './layout-context'
+import { ErrorPage } from '../error-page'
 
-const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => (
-  <Route
-    path={route.path}
-    exact={!!route.exact}
-    render={(props) => (
-      <route.layout {...route.layoutProps}>
-        <ErrorBoundary>
-          <Suspense
-            fallback={
-              <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
-                <Spin />
-              </div>
-            }
-          >
-            <route.component {...props} routes={route.routes} />
-          </Suspense>
-        </ErrorBoundary>
-      </route.layout>
-    )}
-  />
-)
+const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => {
+  let withLayout = true
+  const canActivate = route.canActivate ? route.canActivate(route) : true
+  if (!canActivate) {
+    if (typeof route.baseCanActivateFallback !== 'undefined') {
+      withLayout = route.baseCanActivateFallback.renderLayout === true
+    }
+    if (typeof route.canActivateFallback !== 'undefined') {
+      withLayout = route.canActivateFallback.renderLayout === true
+    }
+  }
+  const routeFallback = route.canActivateFallback?.component || route.baseCanActivateFallback?.component || (
+    <ErrorPage type={403} />
+  )
+  const routeElement = (props: RouteComponentProps<any>) => (
+    <ErrorBoundary>
+      <Suspense
+        fallback={
+          <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
+            <Spin />
+          </div>
+        }
+      >
+        {canActivate ? <route.component {...props} routes={route.routes} /> : routeFallback}
+      </Suspense>
+    </ErrorBoundary>
+  )
+
+  return (
+    <Route
+      path={route.path}
+      exact={!!route.exact}
+      render={(props) => (
+        <>
+          {withLayout ? <route.layout {...route.layoutProps}>{routeElement(props)}</route.layout> : routeElement(props)}
+        </>
+      )}
+    />
+  )
+}
+
+export type CanActivateFallbackType = {
+  renderLayout?: boolean
+  component?: React.ReactNode
+}
 
 export type AdminLayoutProps = {
   routes: RouteElement[]
+  canActivateFallback?: CanActivateFallbackType
   loading?: boolean
-  useHashRouter?: boolean
+  history?: RouterHistoryTypesType
   authLayoutProps?: AuthLayoutProps
   defaultLayoutProps?: DefaultLayoutProps
 }
@@ -48,13 +74,14 @@ export type AdminLayoutProps = {
  */
 export const AdminLayout: React.FC<AdminLayoutProps> = ({
   routes,
+  canActivateFallback,
   loading = false,
-  useHashRouter = false,
+  history,
   authLayoutProps,
   defaultLayoutProps
 }) => {
   const [fullPageLoading, setFullPageLoading] = useState(false)
-  RouterHistory.setHistoryByType(useHashRouter ? 'hash' : 'browser')
+  RouterHistory.setHistoryByType(history)
 
   if (loading) {
     return (
@@ -89,6 +116,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                   ...layoutRoute.layoutProps
                 }
               }
+              layoutRoute.baseCanActivateFallback = canActivateFallback
               if (typeof layoutRoute.layout === 'string') {
                 throw new Error(`'Layout with name ${layoutRoute.layout} not supported!`)
               }

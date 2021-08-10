@@ -40,6 +40,36 @@ const routes: RouteElement[] = [
     exact: true
   },
   {
+    path: '/restricted',
+    layout: 'default',
+    breadcrumb: 'Restricted',
+    component: () => (
+      <PageContent>
+        <PageContent.Header title="Restricted" />
+        {console.log('restricted')}
+      </PageContent>
+    ),
+    canActivate: () => false,
+    exact: true
+  },
+  {
+    path: '/restricted-with-route-fallback',
+    layout: 'default',
+    breadcrumb: 'Restricted with Route Fallback',
+    component: () => (
+      <PageContent>
+        <PageContent.Header title="Restricted with Route Fallback" />
+        {console.log('restricted with route fallback')}
+      </PageContent>
+    ),
+    canActivate: () => false,
+    canActivateFallback: {
+      renderLayout: true,
+      component: 'My Custom Fallback without Layout'
+    },
+    exact: true
+  },
+  {
     path: '/auth',
     layout: 'auth',
     component: () => (
@@ -100,6 +130,18 @@ const menu: MenuElement[] = [
     exact: true
   },
   {
+    title: 'Restricted',
+    icon: <LockOutlined />,
+    url: '/restricted',
+    exact: true
+  },
+  {
+    title: 'Restricted with Fallback',
+    icon: <LockOutlined />,
+    url: '/restricted-with-route-fallback',
+    exact: true
+  },
+  {
     title: 'Auth',
     url: '/auth',
     exact: true
@@ -135,7 +177,6 @@ export const Base = () => {
   return (
     <div style={{ transform: 'translateZ(0)' }}>
       <AdminLayout
-        useHashRouter
         routes={routes}
         defaultLayoutProps={{
           menu,

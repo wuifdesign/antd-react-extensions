@@ -52,7 +52,7 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
   sidebarCollapsedWidth = SIDEBAR_COLLAPSED_WIDTH,
   children
 }) => {
-  useBodyClass('default-page')
+  useBodyClass('default-layout')
 
   const isMobile = useIsMobile()
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
