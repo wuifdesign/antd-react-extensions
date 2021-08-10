@@ -49,7 +49,7 @@ const routes: RouteElement[] = [
         {console.log('restricted')}
       </PageContent>
     ),
-    canActivate: () => false,
+    canActivate: () => undefined,
     exact: true
   },
   {

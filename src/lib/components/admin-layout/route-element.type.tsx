@@ -19,7 +19,7 @@ type RouteElementBase = {
   routes?: RouteElement[]
   exact?: boolean
   is404?: boolean
-  canActivate?: (route: RouteElement) => boolean
+  canActivate?: (route: RouteElement) => boolean | undefined
   canActivateFallback?: CanActivateFallbackType
 }
 

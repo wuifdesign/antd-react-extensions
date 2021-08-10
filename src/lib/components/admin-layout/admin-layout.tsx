@@ -25,19 +25,28 @@ const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => {
   const routeFallback = route.canActivateFallback?.component || route.baseCanActivateFallback?.component || (
     <ErrorPage type={403} />
   )
-  const routeElement = (props: RouteComponentProps<any>) => (
-    <ErrorBoundary>
-      <Suspense
-        fallback={
-          <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
-            <Spin />
-          </div>
-        }
-      >
-        {canActivate ? <route.component {...props} routes={route.routes} /> : routeFallback}
-      </Suspense>
-    </ErrorBoundary>
-  )
+  const routeElement = (props: RouteComponentProps<any>) => {
+    if (typeof canActivate === 'undefined') {
+      return (
+        <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
+          <Spin />
+        </div>
+      )
+    }
+    return (
+      <ErrorBoundary>
+        <Suspense
+          fallback={
+            <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
+              <Spin />
+            </div>
+          }
+        >
+          {canActivate ? <route.component {...props} routes={route.routes} /> : routeFallback}
+        </Suspense>
+      </ErrorBoundary>
+    )
+  }
 
   return (
     <Route

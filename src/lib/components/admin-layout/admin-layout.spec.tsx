@@ -31,6 +31,14 @@ const routes: RouteElement[] = [
       component: 'My Custom Fallback without Layout'
     },
     exact: true
+  },
+  {
+    path: '/restricted-with-undefined',
+    layout: 'default',
+    breadcrumb: 'Restricted',
+    component: () => <div data-testid="name">Restricted</div>,
+    canActivate: () => undefined,
+    exact: true
   }
 ]
 
@@ -71,5 +79,12 @@ describe('AdminLayout', () => {
     render(<AdminLayout {...defaultProps} />)
     expect(screen.getByText('My Custom Fallback without Layout')).toBeInTheDocument()
     expect(screen.queryByText('Restricted')).not.toBeInTheDocument()
+  })
+
+  it('should render spinner on undefined canActivate', () => {
+    RouterHistory.setHistoryByType('memory')
+    RouterHistory.getHistory().push('/restricted-with-undefined')
+    const { baseElement } = render(<AdminLayout {...defaultProps} />)
+    expect(baseElement.querySelector('.ant-spin.ant-spin-spinning')).toBeInTheDocument()
   })
 })
