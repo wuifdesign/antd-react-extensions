@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { SelectProps } from 'antd/es'
-import EditableSelect from './editable-select'
+import { EditableSelect } from './editable-select'
 
 type SelectValueType = string | number | string[] | number[]
 

@@ -1,12 +1,11 @@
 import React from 'react'
-import { PageHeader } from 'antd'
-import { PageHeaderProps } from 'antd/lib/page-header'
+import { PageHeader, PageHeaderProps } from 'antd'
 
 export type PageContentHeaderProps = PageHeaderProps & {
   icon?: React.ReactNode
 }
 
-const PageContentHeader: React.FC<PageContentHeaderProps> = ({ icon, title, children, ...props }) => (
+export const PageContentHeader: React.FC<PageContentHeaderProps> = ({ icon, title, children, ...props }) => (
   <PageHeader
     title={
       <>
@@ -20,5 +19,3 @@ const PageContentHeader: React.FC<PageContentHeaderProps> = ({ icon, title, chil
     {children}
   </PageHeader>
 )
-
-export default PageContentHeader

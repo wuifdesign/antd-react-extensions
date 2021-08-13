@@ -10,5 +10,3 @@ export const useTheme = () => {
     setCssVariables: context.setCssVariables
   }
 }
-
-export default useTheme

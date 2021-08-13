@@ -1,4 +1,4 @@
-import truncate from './truncate'
+import { truncate } from './truncate'
 
 const demoString = 'abcdefghijklmniopqrstufvwxyz'
 

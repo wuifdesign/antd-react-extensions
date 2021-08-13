@@ -1,5 +1,5 @@
 import React from 'react'
-import DataDisplayRow, { DataDisplayRowProps } from './data-display-row'
+import { DataDisplayRow, DataDisplayRowProps } from './data-display-row'
 
 export type DataDisplayGroupProps = {
   title?: string
@@ -24,4 +24,4 @@ const DataDisplayGroup: React.FC<DataDisplayGroupProps> & ChildComponents = ({ c
 
 DataDisplayGroup.Row = DataDisplayRow
 
-export default DataDisplayGroup
+export { DataDisplayGroup }

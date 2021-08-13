@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
-import ErrorPage, { ErrorPageProps } from './error-page'
+import { ErrorPage, ErrorPageProps } from './error-page'
 
 export default {
   component: ErrorPage,

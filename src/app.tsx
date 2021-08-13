@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
-import Button from './lib/components/button/button'
-import { EditableDate, EditableInput } from './lib'
-import FormOverlay from './lib/components/form-overlay/form-overlay'
-import Sortable from './lib/components/sortable'
+import { Button, FormOverlay, Sortable, EditableDate, EditableInput } from './lib'
 
 function App() {
   const [items, setItems] = useState([{ name: 'Name 1' }, { name: 'Name 2' }, { name: 'Name 3' }])

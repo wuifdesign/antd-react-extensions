@@ -1,10 +1,9 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Drawer, Layout, Menu } from 'antd'
-import { Link, matchPath } from 'react-router-dom'
-import useIsMobile from '../../../lib/hooks/use-is-mobile'
+import { Link, matchPath, useLocation } from 'react-router-dom'
+import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
 import { EnhancedMenuElement, MenuElement } from '../menu-element.type'
 import { DefaultLayoutContext } from './default-layout-context'
-import useReactRouter from '../../../lib/hooks/use-react-router'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
@@ -96,7 +95,7 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
   sidebarCollapsedWidth,
   menuPrepend
 }) => {
-  const { location } = useReactRouter()
+  const location = useLocation()
   const isMobile = useIsMobile()
   const { mobileNavOpen, setMobileNavOpen, sidebarCollapsed } = useContext(DefaultLayoutContext)
 

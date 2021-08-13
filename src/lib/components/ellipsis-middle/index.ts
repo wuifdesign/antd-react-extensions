@@ -1,1 +1,2 @@
-export { default as EllipsisMiddle } from './ellipsis-middle'
+export { EllipsisMiddle } from './ellipsis-middle'
+export type { EllipsisMiddleProps } from './ellipsis-middle'

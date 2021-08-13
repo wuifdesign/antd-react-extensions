@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useIsMobile = (maxWidth: number = 850) => {
+export const useIsMobile = (maxWidth: number = 850) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= maxWidth)
 
   useEffect(() => {
@@ -15,5 +15,3 @@ const useIsMobile = (maxWidth: number = 850) => {
 
   return isMobile
 }
-
-export default useIsMobile

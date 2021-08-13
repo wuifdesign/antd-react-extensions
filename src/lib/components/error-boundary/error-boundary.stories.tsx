@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
-import ErrorBoundary, { ErrorBoundaryProps } from './error-boundary'
+import { ErrorBoundary, ErrorBoundaryProps } from './error-boundary'
 
 export default {
   component: ErrorBoundary,

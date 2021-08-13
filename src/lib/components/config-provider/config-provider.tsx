@@ -45,5 +45,3 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ translations = {
     </ConfigContext.Provider>
   )
 }
-
-export default ConfigProvider

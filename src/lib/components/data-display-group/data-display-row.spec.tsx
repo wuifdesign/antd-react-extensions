@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import DataDisplayRow from './data-display-row'
+import { DataDisplayRow } from './data-display-row'
 
 describe('DataDisplayRow', () => {
   it('should render', () => {

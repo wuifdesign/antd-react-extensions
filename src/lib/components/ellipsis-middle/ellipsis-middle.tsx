@@ -11,7 +11,11 @@ export type EllipsisMiddleProps = {
 /**
  * You can ellipsis in middle of string (https://ant.design/components/typography/#components-typography-demo-ellipsis-middle).
  */
-const EllipsisMiddle: React.FC<EllipsisMiddleProps> = ({ suffixCount, getTitle = (content) => content, children }) => {
+export const EllipsisMiddle: React.FC<EllipsisMiddleProps> = ({
+  suffixCount,
+  getTitle = (content) => content,
+  children
+}) => {
   if (!children || typeof children !== 'string') {
     return null
   }
@@ -23,5 +27,3 @@ const EllipsisMiddle: React.FC<EllipsisMiddleProps> = ({ suffixCount, getTitle =
     </Text>
   )
 }
-
-export default EllipsisMiddle

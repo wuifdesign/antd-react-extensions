@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import ErrorPage from './error-page'
+import { ErrorPage } from './error-page'
 
 describe('ErrorPage', () => {
   it('should render 404', () => {

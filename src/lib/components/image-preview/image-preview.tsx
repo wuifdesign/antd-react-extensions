@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Button } from 'antd'
 import { IconDelete, IconEdit, IconFullscreen } from '../icons'
-import { confirmDelete } from '../../lib/confirm-dialogs'
-import ImageModal from './image-modal'
-import useTranslations from '../config-provider/use-translations'
+import { confirmDelete } from '../../utils/confirm-dialogs'
+import { ImageModal } from './image-modal'
+import { useTranslations } from '../config-provider/use-translations'
 
 export type ImagePreviewProps = {
   url: string | undefined | null
@@ -142,5 +142,3 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
     </div>
   )
 }
-
-export default ImagePreview

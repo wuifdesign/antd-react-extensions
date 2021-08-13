@@ -8,7 +8,7 @@ const hasProp = Object.prototype.hasOwnProperty
  * @param a
  * @param b
  */
-function deepEqual(a: any, b: any) {
+export const deepEqual = (a: any, b: any) => {
   if (a === b) return true
 
   if (a && b && typeof a === 'object' && typeof b === 'object') {
@@ -62,5 +62,3 @@ function deepEqual(a: any, b: any) {
   // eslint-disable-next-line
   return a !== a && b !== b
 }
-
-export default deepEqual

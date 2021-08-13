@@ -1,6 +1,6 @@
 import React from 'react'
 import { Result } from 'antd'
-import useTranslations from '../config-provider/use-translations'
+import { useTranslations } from '../config-provider/use-translations'
 
 type ErrorKeysType = 403 | 404 | 500
 
@@ -10,7 +10,7 @@ export type ErrorPageProps = {
   description?: string
 }
 
-const ErrorPage: React.FC<ErrorPageProps> = ({ type, title, description }) => {
+export const ErrorPage: React.FC<ErrorPageProps> = ({ type, title, description }) => {
   const translations = useTranslations()
   return (
     <Result
@@ -20,5 +20,3 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ type, title, description }) => {
     />
   )
 }
-
-export default ErrorPage

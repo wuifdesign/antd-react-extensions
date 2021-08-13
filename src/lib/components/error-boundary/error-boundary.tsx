@@ -1,5 +1,5 @@
 import React from 'react'
-import ErrorPage from '../error-page/error-page'
+import { ErrorPage } from '../error-page/error-page'
 
 export type ErrorBoundaryProps = {
   showFallback?: boolean
@@ -11,7 +11,7 @@ export type ErrorBoundaryProps = {
  *
  * Use `ErrorBoundary.setOnErrorHandler((error, info) => console.log(error, info))` to log errors if needed.
  */
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: boolean }> {
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: boolean }> {
   static defaultProps: ErrorBoundaryProps = {
     showFallback: true,
     fallback: <ErrorPage type={500} />
@@ -47,5 +47,3 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, { hasError: bool
     return children
   }
 }
-
-export default ErrorBoundary

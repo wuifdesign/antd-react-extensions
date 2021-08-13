@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout } from 'antd'
-import useIsMobile from '../../../lib/hooks/use-is-mobile'
-import useBodyClass from '../../../lib/hooks/use-body-class'
+import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
+import { useBodyClass } from '../../../utils/hooks/use-body-class'
 import { PageContent } from '../../page-content'
 import { PAGE_PADDING } from '../admin-layout-config'
 
@@ -48,5 +48,3 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth =
     </>
   )
 }
-
-export default AuthLayout

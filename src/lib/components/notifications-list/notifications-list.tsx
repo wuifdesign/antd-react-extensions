@@ -61,5 +61,3 @@ export const NotificationsList: React.FC<NotificationsListProps> = ({
     </>
   )
 }
-
-export default NotificationsList

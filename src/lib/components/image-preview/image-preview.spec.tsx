@@ -1,6 +1,6 @@
 import React from 'react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import ImagePreview from './image-preview'
+import { ImagePreview } from './image-preview'
 
 describe('ImagePreview', () => {
   it('should render', () => {

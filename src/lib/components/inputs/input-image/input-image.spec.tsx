@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import InputImage from './input-image'
+import { InputImage } from './input-image'
 
 describe('InputImage', () => {
   it('should render', () => {

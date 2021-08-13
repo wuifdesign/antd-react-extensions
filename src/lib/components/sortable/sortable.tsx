@@ -3,7 +3,7 @@ import { closestCenter, DndContext, MouseSensor, PointerSensor, useSensor, useSe
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers'
 import SortableItem from './sortable-item'
-import { confirmAction } from '../../lib/confirm-dialogs'
+import { confirmAction } from '../../utils/confirm-dialogs'
 import { CancelDropArguments } from '@dnd-kit/core/dist/components/DndContext/DndContext'
 import { DragEndEvent } from '@dnd-kit/core/dist/types'
 
@@ -23,7 +23,7 @@ export type SortableProps<T extends any> = {
   disabled?: boolean
 }
 
-const Sortable = <T,>({
+export const Sortable = <T,>({
   items,
   onSortEnd,
   getItemKey,
@@ -122,5 +122,3 @@ const Sortable = <T,>({
     </DndContext>
   )
 }
-
-export default Sortable

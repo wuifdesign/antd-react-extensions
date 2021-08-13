@@ -1,14 +1,14 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { Layout } from 'antd'
 import withBreadcrumbs, { BreadcrumbsRoute } from 'react-router-breadcrumbs-hoc'
-import useIsMobile from '../../../lib/hooks/use-is-mobile'
+import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
 import DefaultLayoutBreadcrumbs from './default-layout-breadcrumbs'
 import DefaultLayoutSidebar, { SIDEBAR_COLLAPSED_WIDTH, SIDEBAR_WIDTH } from './default-layout-sidebar'
 import DefaultLayoutHeader from './default-layout-header'
 import { MenuElement } from '../menu-element.type'
 import { RouteElement } from '../route-element.type'
 import { DefaultLayoutContext } from './default-layout-context'
-import useBodyClass from '../../../lib/hooks/use-body-class'
+import { useBodyClass } from '../../../utils/hooks/use-body-class'
 import { PAGE_PADDING } from '../admin-layout-config'
 
 export type DefaultLayoutProps = {
@@ -115,5 +115,3 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
     </DefaultLayoutContext.Provider>
   )
 }
-
-export default DefaultLayout

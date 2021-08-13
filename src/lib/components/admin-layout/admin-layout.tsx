@@ -2,12 +2,12 @@ import React, { Suspense, useState } from 'react'
 import { Layout, Spin } from 'antd'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { Router } from 'react-router'
-import ErrorBoundary from '../error-boundary/error-boundary'
+import { ErrorBoundary } from '../error-boundary/error-boundary'
 import { CustomLayoutRouteElement, RouteElement } from './route-element.type'
-import DefaultLayout, { DefaultLayoutProps } from './default-layout/default-layout'
-import AuthLayout, { AuthLayoutProps } from './auth-layout/auth-layout'
-import BlankLayout from './blank-layout/blank-layout'
-import RouterHistory, { RouterHistoryTypesType } from '../../lib/router-history'
+import { DefaultLayout, DefaultLayoutProps } from './default-layout/default-layout'
+import { AuthLayout, AuthLayoutProps } from './auth-layout/auth-layout'
+import { BlankLayout } from './blank-layout/blank-layout'
+import { RouterHistory, RouterHistoryTypesType } from '../../utils/router-history'
 import { LayoutContext } from './layout-context'
 import { ErrorPage } from '../error-page'
 
@@ -142,5 +142,3 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
     </LayoutContext.Provider>
   )
 }
-
-export default AdminLayout

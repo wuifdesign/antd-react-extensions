@@ -4,7 +4,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { MenuOutlined } from '@ant-design/icons'
 import { IconDelete } from '../icons'
 import { Button } from '../button'
-import useTranslations from '../config-provider/use-translations'
+import { useTranslations } from '../config-provider/use-translations'
 
 export type SortableItemProps = {
   id: string

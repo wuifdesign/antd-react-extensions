@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useState } from 'react'
 import { Meta, Story } from '@storybook/react'
-import FullWidthTransfer from './full-width-transfer'
-import { TransferProps } from 'antd/lib/transfer'
+import { FullWidthTransfer } from './full-width-transfer'
+import { TransferProps } from 'antd'
 
 export default {
   component: FullWidthTransfer,

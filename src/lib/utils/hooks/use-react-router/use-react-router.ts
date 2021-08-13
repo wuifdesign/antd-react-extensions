@@ -1,6 +1,6 @@
 import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom'
 
-const useReactRouter = <Params extends { [K in keyof Params]?: string } = {}>() => {
+export const useReactRouter = <Params extends { [K in keyof Params]?: string } = {}>() => {
   const history = useHistory()
   const location = useLocation()
   const params = useParams<Params>()
@@ -20,5 +20,3 @@ const useReactRouter = <Params extends { [K in keyof Params]?: string } = {}>() 
     searchParams
   }
 }
-
-export default useReactRouter

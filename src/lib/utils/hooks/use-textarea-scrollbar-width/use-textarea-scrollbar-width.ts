@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useTextareaScrollbarWidth = (ref: any | null) => {
+export const useTextareaScrollbarWidth = (ref: any | null) => {
   const [width, setWidth] = useState(0)
 
   useEffect(() => {
@@ -28,5 +28,3 @@ const useTextareaScrollbarWidth = (ref: any | null) => {
 
   return width
 }
-
-export default useTextareaScrollbarWidth

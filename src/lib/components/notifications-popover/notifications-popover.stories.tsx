@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
 import { MailOutlined } from '@ant-design/icons'
-import NotificationsPopover, { NotificationsPopoverProps } from './notifications-popover'
+import { NotificationsPopover, NotificationsPopoverProps } from './notifications-popover'
 
 export default {
   component: NotificationsPopover,

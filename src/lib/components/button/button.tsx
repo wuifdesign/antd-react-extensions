@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button as AntdButton } from 'antd'
-import { ButtonProps as AntdButtonProps } from 'antd/es/button'
+import { Button as AntdButton, ButtonProps as AntdButtonProps } from 'antd'
 import clsx from 'clsx'
 
 export type ButtonProps = AntdButtonProps & {
@@ -18,5 +17,3 @@ export const Button: React.FC<ButtonProps> = ({ warning, success, children, ...p
     </AntdButton>
   )
 }
-
-export default Button

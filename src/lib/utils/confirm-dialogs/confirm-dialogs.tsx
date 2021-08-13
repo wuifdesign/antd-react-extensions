@@ -1,8 +1,7 @@
-import { Modal } from 'antd'
-import { IconDelete, IconWarning } from '../components/icons'
 import React from 'react'
-import { ModalFuncProps } from 'antd/lib/modal/Modal'
-import { ConfigContext } from '../components/config-provider/config-provider'
+import { Modal, ModalFuncProps } from 'antd'
+import { IconDelete, IconWarning } from '../../components/icons'
+import { ConfigContext } from '../../components/config-provider/config-provider'
 
 export const confirmDelete = (props?: ModalFuncProps) => {
   Modal.confirm({

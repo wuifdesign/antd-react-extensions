@@ -1,8 +1,7 @@
 import React from 'react'
-import { DatePicker } from 'antd'
+import { DatePicker, DatePickerProps } from 'antd'
 import moment from 'moment'
-import { DatePickerProps } from 'antd/lib/date-picker'
-import Editable, { EditableProps } from '../editable'
+import { Editable, EditableProps } from '../editable'
 
 export type EditableDateProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   value?: string
@@ -11,7 +10,7 @@ export type EditableDateProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   datePickerProps?: DatePickerProps
 }
 
-const EditableDate: React.FC<EditableDateProps> = ({ datePickerProps, ...props }) => {
+export const EditableDate: React.FC<EditableDateProps> = ({ datePickerProps, ...props }) => {
   const defaultValue = props.value ? moment(props.value) : undefined
 
   return (
@@ -37,5 +36,3 @@ const EditableDate: React.FC<EditableDateProps> = ({ datePickerProps, ...props }
     />
   )
 }
-
-export default EditableDate

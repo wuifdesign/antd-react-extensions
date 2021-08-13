@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import EditableInput from './editable-input'
+import { EditableInput } from './editable-input'
 
 export const EditableInputParent: React.FC<{ value: string; handleSubmit: (value: any) => void }> = ({
   value,

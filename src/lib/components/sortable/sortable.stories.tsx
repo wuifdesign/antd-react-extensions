@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Meta } from '@storybook/react'
-import Sortable from './sortable'
+import { Sortable } from './sortable'
 
 export default {
   component: Sortable,

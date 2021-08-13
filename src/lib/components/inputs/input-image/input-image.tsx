@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { ImagePreviewProps } from '../../image-preview/image-preview'
 import { ImagePreview } from '../../image-preview'
-import useTranslations from '../../config-provider/use-translations'
+import { useTranslations } from '../../config-provider/use-translations'
 
 const getBase64 = (img: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -111,5 +111,3 @@ export const InputImage: React.FC<InputImageProps> = ({
     </div>
   )
 }
-
-export default InputImage

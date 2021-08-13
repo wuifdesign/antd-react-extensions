@@ -1,4 +1,4 @@
-import hasCommonElements from './has-common-elements'
+import { hasCommonElements } from './has-common-elements'
 
 describe('hasCommonElements', () => {
   it('has common elements', () => {

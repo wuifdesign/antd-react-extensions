@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
-import DataDisplayGroup from './data-display-group'
-import DataDisplayRow from './data-display-row'
+import { DataDisplayGroup } from './data-display-group'
+import { DataDisplayRow } from './data-display-row'
 import { EditableDate, EditableDateRange, EditableInput, EditableSelect, EditableTextarea } from '../editable'
 
 export default {

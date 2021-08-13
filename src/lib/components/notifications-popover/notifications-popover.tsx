@@ -39,5 +39,3 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
     </Popover>
   )
 }
-
-export default NotificationsPopover

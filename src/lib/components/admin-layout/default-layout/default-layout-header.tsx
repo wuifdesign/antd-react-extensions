@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Col, Layout, Row } from 'antd'
-import useIsMobile from '../../../lib/hooks/use-is-mobile'
+import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
 import { DefaultLayoutContext } from './default-layout-context'
 import { IconMenu, IconMenuClose, IconMenuOpen } from '../../icons'
 

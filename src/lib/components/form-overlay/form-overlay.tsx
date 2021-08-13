@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Drawer, Form, Modal, Space } from 'antd'
 import { FormInstance } from 'antd/es/form'
 import { IconUndo } from '../icons'
-import Button, { ButtonProps } from '../button/button'
-import useTranslations from '../config-provider/use-translations'
+import { Button, ButtonProps } from '../button/button'
+import { useTranslations } from '../config-provider/use-translations'
 
 export type FormOverlayButtons = 'reset' | 'cancel' | 'submit' | React.ReactNode
 
@@ -27,7 +27,7 @@ export type FormOverlayProps = {
   initialValues?: object
 }
 
-const FormOverlay: React.FC<FormOverlayProps> = ({
+export const FormOverlay: React.FC<FormOverlayProps> = ({
   visible,
   onClose,
   onSubmit,
@@ -140,5 +140,3 @@ const FormOverlay: React.FC<FormOverlayProps> = ({
     </Modal>
   )
 }
-
-export default FormOverlay

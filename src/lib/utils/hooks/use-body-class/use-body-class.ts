@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const useBodyClass = (className: string) => {
+export const useBodyClass = (className: string) => {
   useEffect(() => {
     document.body.classList.add(className)
     return () => {
@@ -8,5 +8,3 @@ const useBodyClass = (className: string) => {
     }
   }, [className])
 }
-
-export default useBodyClass

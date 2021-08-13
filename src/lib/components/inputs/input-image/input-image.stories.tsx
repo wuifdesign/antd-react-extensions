@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
-import InputImage, { InputImageProps } from './input-image'
+import { InputImage, InputImageProps } from './input-image'
 
 export default {
   component: InputImage,

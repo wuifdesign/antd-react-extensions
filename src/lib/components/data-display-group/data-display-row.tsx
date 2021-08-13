@@ -5,7 +5,7 @@ export type DataDisplayRowProps = {
   label: string
 }
 
-const DataDisplayRow: React.FC<DataDisplayRowProps> = ({ label, children }) => (
+export const DataDisplayRow: React.FC<DataDisplayRowProps> = ({ label, children }) => (
   <Row className="data-display-row">
     <Col xs={24} sm={8} className="data-display-label">
       <Typography.Text ellipsis title={label}>
@@ -17,5 +17,3 @@ const DataDisplayRow: React.FC<DataDisplayRowProps> = ({ label, children }) => (
     </Col>
   </Row>
 )
-
-export default DataDisplayRow

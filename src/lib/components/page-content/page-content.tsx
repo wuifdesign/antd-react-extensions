@@ -1,6 +1,6 @@
 import React from 'react'
 import { Spin } from 'antd'
-import PageContentHeader, { PageContentHeaderProps } from './page-content-header'
+import { PageContentHeader, PageContentHeaderProps } from './page-content-header'
 
 export type PageContentProps = {
   style?: React.CSSProperties
@@ -19,4 +19,4 @@ const PageContent: React.FC<PageContentProps> & { Header: React.FC<PageContentHe
 
 PageContent.Header = PageContentHeader
 
-export default PageContent
+export { PageContent }

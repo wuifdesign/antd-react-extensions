@@ -1,1 +1,1 @@
-export { default as FullWidthTransfer } from './full-width-transfer'
+export { FullWidthTransfer } from './full-width-transfer'

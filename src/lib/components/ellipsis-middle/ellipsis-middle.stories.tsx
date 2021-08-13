@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
-import EllipsisMiddle, { EllipsisMiddleProps } from './ellipsis-middle'
+import { EllipsisMiddle, EllipsisMiddleProps } from './ellipsis-middle'
 
 export default {
   component: EllipsisMiddle,

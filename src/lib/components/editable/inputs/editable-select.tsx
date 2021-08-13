@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Select } from 'antd'
-import { SelectProps } from 'antd/lib/select'
-import Editable, { EditableProps } from '../editable'
+import { Select, SelectProps } from 'antd'
+import { Editable, EditableProps } from '../editable'
 
 type SelectValueType = string | number | string[] | number[]
 
@@ -13,7 +12,7 @@ export type EditableSelectProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   renderDisplay?: (labels: { label: string; value: string | number }[]) => React.ReactNode
 }
 
-const EditableSelect: React.FC<EditableSelectProps> = ({ selectProps, renderDisplay, ...props }) => {
+export const EditableSelect: React.FC<EditableSelectProps> = ({ selectProps, renderDisplay, ...props }) => {
   const [value, setValue] = useState<SelectValueType | undefined>(props.value)
   const isSingleSelect = selectProps?.mode !== 'multiple' && selectProps?.mode !== 'tags'
 
@@ -68,5 +67,3 @@ const EditableSelect: React.FC<EditableSelectProps> = ({ selectProps, renderDisp
     />
   )
 }
-
-export default EditableSelect

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import EditableDate from './editable-date'
+import { EditableDate } from './editable-date'
 
 export const EditableDateParent: React.FC<{ value: string; handleSubmit: (value: any) => void }> = ({
   value,

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Input } from 'antd'
-import { useTextareaScrollbarWidth } from '../../../lib/hooks'
-import Editable, { EditableProps } from '../editable'
+import { useTextareaScrollbarWidth } from '../../../utils/hooks'
+import { Editable, EditableProps } from '../editable'
 
 export type EditableTextareaProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   value?: string
@@ -9,7 +9,7 @@ export type EditableTextareaProps = Omit<EditableProps, 'value' | 'onSubmit'> & 
   onSubmit?: (value: string | undefined) => Promise<void>
 }
 
-const EditableTextarea: React.FC<EditableTextareaProps> = ({ ...props }) => {
+export const EditableTextarea: React.FC<EditableTextareaProps> = ({ ...props }) => {
   const [value, setValue] = useState<string | undefined>(props.value)
   const [, setRenderTrigger] = useState(0)
   const textArea = useRef(null)
@@ -47,5 +47,3 @@ const EditableTextarea: React.FC<EditableTextareaProps> = ({ ...props }) => {
     />
   )
 }
-
-export default EditableTextarea

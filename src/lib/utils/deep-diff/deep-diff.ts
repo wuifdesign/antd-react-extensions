@@ -1,4 +1,4 @@
-import deepEqual from './deep-equal'
+import { deepEqual } from '../deep-equal'
 
 const isObject = (obj: any) => {
   return Object.prototype.toString.call(obj) === '[object Object]'
@@ -11,7 +11,7 @@ const isObject = (obj: any) => {
  * @param newData
  * @param deletedValue
  */
-function deepDiff<T>(oldData: any, newData: any, deletedValue: any = null): Partial<T> {
+export function deepDiff<T>(oldData: any, newData: any, deletedValue: any = null): Partial<T> {
   if (!newData || !isObject(newData)) {
     return newData
   }
@@ -47,5 +47,3 @@ function deepDiff<T>(oldData: any, newData: any, deletedValue: any = null): Part
 
   return diffs as Partial<T>
 }
-
-export default deepDiff

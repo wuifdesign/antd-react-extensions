@@ -1,3 +1,2 @@
-import Sortable from './sortable'
-
-export default Sortable
+export { Sortable } from './sortable'
+export type { SortableProps } from './sortable'

@@ -15,8 +15,7 @@ const Template: Story<PropsWithChildren<ImagePreviewProps>> = (args) => <ImagePr
 
 export const Base = Template.bind({})
 Base.args = {
-  url: 'https://placekitten.com/300/200',
-  size: 150
+  url: 'https://placekitten.com/300/200'
 }
 
 export const NoImage = Template.bind({})
@@ -34,4 +33,10 @@ export const WithEdit = Template.bind({})
 WithEdit.args = {
   ...Base.args,
   onEdit: () => Promise.resolve()
+}
+
+export const DifferentSize = Template.bind({})
+DifferentSize.args = {
+  ...Base.args,
+  size: 200
 }

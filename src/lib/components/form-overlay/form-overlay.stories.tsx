@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useState } from 'react'
 import { Meta, Story } from '@storybook/react'
-import FormOverlay, { FormOverlayProps } from './form-overlay'
-import Button from '../button/button'
+import { FormOverlay, FormOverlayProps } from './form-overlay'
+import { Button } from '../button/button'
 import { IconSave } from '../icons'
 import { Form, Input } from 'antd'
 

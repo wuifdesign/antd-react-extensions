@@ -1,1 +1,2 @@
-export { default as PageContent } from './page-content'
+export { PageContent } from './page-content'
+export type { PageContentProps } from './page-content'

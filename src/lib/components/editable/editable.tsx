@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { Button } from 'antd'
 import { IconCancel, IconEdit, IconLoading, IconSave } from '../icons'
-import useTranslations from '../config-provider/use-translations'
+import { useTranslations } from '../config-provider/use-translations'
 
 export type EditableProps = {
   onSubmit?: (value: any) => Promise<void>
@@ -21,7 +21,7 @@ export type BaseEditableProps = EditableProps & {
   ) => React.ReactNode
 }
 
-const Editable: React.FC<BaseEditableProps> = ({
+export const Editable: React.FC<BaseEditableProps> = ({
   value,
   valuePlaceholder = '-',
   editAble = true,
@@ -131,5 +131,3 @@ const Editable: React.FC<BaseEditableProps> = ({
     </div>
   )
 }
-
-export default Editable

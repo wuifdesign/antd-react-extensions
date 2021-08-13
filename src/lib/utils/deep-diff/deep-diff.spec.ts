@@ -1,4 +1,4 @@
-import deepDiff from './deep-diff'
+import { deepDiff } from './deep-diff'
 
 describe('deepDiff', () => {
   it('should return new value for simple values', () => {

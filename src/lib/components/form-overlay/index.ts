@@ -1,1 +1,2 @@
-export { default as FormOverlay } from './form-overlay'
+export { FormOverlay } from './form-overlay'
+export type { FormOverlayProps } from './form-overlay'

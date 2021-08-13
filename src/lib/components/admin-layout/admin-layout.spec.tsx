@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import AdminLayout from './admin-layout'
+import { AdminLayout } from './admin-layout'
 import { RouteElement } from './route-element.type'
-import { RouterHistory } from '../../lib'
+import { RouterHistory } from '../../utils'
 
 const routes: RouteElement[] = [
   {

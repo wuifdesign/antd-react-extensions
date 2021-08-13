@@ -26,5 +26,3 @@ export const ImageModal: React.FC<ImageModalProps> = ({ visible, imageUrl, onClo
     </Modal>
   )
 }
-
-export default ImageModal

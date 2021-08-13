@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { render, screen } from '@testing-library/react'
 import { ConfigProvider, useTheme } from './index'
-import useTranslations from './use-translations'
+import { useTranslations } from './use-translations'
 
 const TranslationConsumer: React.FC = () => {
   const translations = useTranslations()

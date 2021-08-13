@@ -1,4 +1,4 @@
-import deepEqual from './deep-equal'
+import { deepEqual } from './deep-equal'
 
 const object1 = { user: { name: 'Max', nickname: 'Maxi' } }
 const object1Clone = { ...object1 }

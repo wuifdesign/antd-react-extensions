@@ -1,6 +1,6 @@
 import React from 'react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import FormOverlay, { FormOverlayProps } from './form-overlay'
+import { FormOverlay, FormOverlayProps } from './form-overlay'
 import { Form, Input } from 'antd'
 
 const defaultProps: FormOverlayProps = {

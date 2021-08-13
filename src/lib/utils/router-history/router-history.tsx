@@ -2,7 +2,7 @@ import { createBrowserHistory, createHashHistory, createMemoryHistory, History }
 
 export type RouterHistoryTypesType = 'browser' | 'hash' | 'memory'
 
-class RouterHistory {
+export class RouterHistory {
   private static history: History
 
   static setHistoryByType(type?: RouterHistoryTypesType) {
@@ -22,5 +22,3 @@ class RouterHistory {
     return RouterHistory.history
   }
 }
-
-export default RouterHistory

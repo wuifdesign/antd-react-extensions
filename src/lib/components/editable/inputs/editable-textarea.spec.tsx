@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import EditableTextarea from './editable-textarea'
+import { EditableTextarea } from './editable-textarea'
 
 export const EditableTextareaParent: React.FC<{ value: string; handleSubmit: (value: any) => void }> = ({
   value,

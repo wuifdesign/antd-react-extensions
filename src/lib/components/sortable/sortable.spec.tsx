@@ -1,6 +1,6 @@
 import React from 'react'
 import { act, fireEvent, render, screen } from '@testing-library/react'
-import Sortable, { SortableProps } from './sortable'
+import { Sortable, SortableProps } from './sortable'
 
 const defaultProps: SortableProps<number> = {
   getItemKey: (item) => item.toString(),

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Transfer } from 'antd'
-import { TransferItem, TransferProps } from 'antd/lib/transfer'
+import { Transfer, TransferProps } from 'antd'
+import { TransferItem } from 'antd/lib/transfer'
 
 export const FullWidthTransfer = <RecordType extends TransferItem = TransferItem>(
   props: Partial<TransferProps<RecordType>>
@@ -14,5 +14,3 @@ export const FullWidthTransfer = <RecordType extends TransferItem = TransferItem
     />
   )
 }
-
-export default FullWidthTransfer

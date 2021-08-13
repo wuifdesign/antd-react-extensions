@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import NotificationsList from './notifications-list'
+import { NotificationsList } from './notifications-list'
 import { MailOutlined } from '@ant-design/icons'
 
 const data = [

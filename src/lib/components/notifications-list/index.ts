@@ -1,1 +1,2 @@
-export { default as NotificationsList } from './notifications-list'
+export { NotificationsList } from './notifications-list'
+export type { NotificationsListProps } from './notifications-list'

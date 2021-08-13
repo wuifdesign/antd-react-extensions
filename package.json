@@ -1,6 +1,6 @@
 {
   "name": "antd-react-extensions",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "license": "MIT",
   "repository": "https://github.com/wuifdesign/antd-react-extensions",
   "main": "dist/index.js",
@@ -40,7 +40,7 @@
     "fix-node-export": "replace-in-file 'export {};' '' dist/lib/color-palette-node.js",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public -o docs",
-    "test": "npm run test:unit && npm run test:lint",
+    "test": "npm run test:lint && npm run test:unit",
     "test:unit": "react-scripts test --ci --watchAll=false",
     "test:lint": "eslint \"./src/**/*.{js,ts,tsx}\"",
     "test:lint:fix": "eslint \"./src/**/*.{js,ts,tsx}\" --fix",
