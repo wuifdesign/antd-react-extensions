@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { Meta, Story } from '@storybook/react'
 import { UrlAwareTabs, UrlAwareTabsProps } from './url-aware-tabs'
 import { Tabs } from 'antd'
@@ -10,13 +10,17 @@ export default {
   title: 'Components/Url Aware Tabs'
 } as Meta
 
+const history = createHashHistory()
+
 const Template: Story<Partial<PropsWithChildren<UrlAwareTabsProps>>> = (args) => {
-  const history = createHashHistory()
   const [path, setPath] = useState<string | null>('/')
 
-  history.listen((location) => {
-    setPath(location.pathname + location.search)
-  })
+  useEffect(() => {
+    history.listen((location) => {
+      setPath(location.pathname + location.search)
+    })
+    setPath(history.location.pathname + history.location.search)
+  }, [])
 
   return (
     <Router history={history}>

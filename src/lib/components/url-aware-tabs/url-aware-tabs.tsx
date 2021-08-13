@@ -17,9 +17,9 @@ export const UrlAwareTabs: React.FC<UrlAwareTabsProps> = ({ paramName = 'tab', c
   const params = new URLSearchParams(location.search)
   const paramsObject: Record<string, string> = {}
 
-  for (const param of Array.from(params.entries())) {
-    paramsObject[param[0]] = param[1]
-  }
+  params.forEach((key, value) => {
+    paramsObject[value] = key
+  })
 
   return (
     <Tabs
