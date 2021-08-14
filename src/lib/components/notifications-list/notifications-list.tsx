@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, List, ListProps, Row } from 'antd'
 
-export type NotificationsListItem = {
+export type NotificationsListItemType = {
   icon?: React.ReactNode
   date?: React.ReactNode
   title?: React.ReactNode
@@ -11,8 +11,8 @@ export type NotificationsListItem = {
   onClick?: () => void
 }
 
-export type NotificationsListProps = Omit<ListProps<NotificationsListItem>, 'dataSource' | 'renderItem'> & {
-  dataSource: NotificationsListItem[]
+export type NotificationsListProps = Omit<ListProps<NotificationsListItemType>, 'dataSource' | 'renderItem'> & {
+  dataSource: NotificationsListItemType[]
   maxHeight?: number | string
   width?: number | string
 }
