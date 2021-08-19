@@ -44,7 +44,7 @@ const routes: RouteElement[] = [
 
 const defaultProps = {
   routes: routes,
-  defaultLayoutProps: { menu: [], logo: 'Logo' }
+  defaultLayoutProps: { menu: [], logo: () => 'Logo' }
 }
 
 describe('AdminLayout', () => {

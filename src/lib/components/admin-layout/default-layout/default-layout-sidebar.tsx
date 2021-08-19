@@ -131,19 +131,13 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
       collapsed={sidebarCollapsed}
       collapsedWidth={sidebarCollapsedWidth}
       width={sidebarWidth}
-      style={{
-        overflow: 'auto',
-        height: '100vh',
-        position: isMobile ? 'absolute' : 'fixed',
-        left: 0,
-        top: 0,
-        zIndex: 200
-      }}
+      className="default-layout-sider"
+      style={{ position: isMobile ? 'absolute' : 'fixed' }}
       theme={sidebarTheme}
     >
       <div style={{ display: 'flex', height: '100%', flexDirection: 'column' }}>
         <div className="logo-container">{sidebarCollapsed ? logoCollapsed : logo}</div>
-        <div style={{ flex: 1 }}>
+        <div className="menu-container">
           {menuPrepend}
           <Menu
             mode="inline"

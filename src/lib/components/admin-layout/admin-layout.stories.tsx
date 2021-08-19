@@ -1,17 +1,25 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
 import { AdminLayout } from './admin-layout'
-import { DashboardOutlined as IconDashboard, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
+import {
+  DashboardOutlined as IconDashboard,
+  GlobalOutlined,
+  LockOutlined,
+  LogoutOutlined,
+  MailOutlined,
+  UserOutlined
+} from '@ant-design/icons'
 import { RouteElement } from './route-element.type'
 import { PageContent } from '../page-content'
 import { Button } from '../button'
 import { ErrorPage } from '../error-page'
 import { MenuElement } from './menu-element.type'
-import { Checkbox, Col, Dropdown, Form, Input, Menu, Row } from 'antd'
+import { Avatar, Checkbox, Col, Dropdown, Form, Input, Menu, Row } from 'antd'
 import { AuthLayout } from './auth-layout/auth-layout'
 import { DefaultLayout } from './default-layout/default-layout'
 import { BlankLayout } from './blank-layout/blank-layout'
 import { NotificationsPopover } from '../notifications-popover'
+import { Link } from 'react-router-dom'
 
 export default {
   component: AdminLayout,
@@ -49,6 +57,19 @@ const routes: RouteElement[] = [
         {console.log('restricted')}
       </PageContent>
     ),
+    canActivate: () => false,
+    exact: true
+  },
+  {
+    path: '/restricted-loading',
+    layout: 'default',
+    breadcrumb: 'Restricted Loading',
+    component: () => (
+      <PageContent>
+        <PageContent.Header title="Restricted Loading" />
+        {console.log('restricted')}
+      </PageContent>
+    ),
     canActivate: () => undefined,
     exact: true
   },
@@ -73,7 +94,7 @@ const routes: RouteElement[] = [
     path: '/auth',
     layout: 'auth',
     component: () => (
-      <Form name="normal_login" className="login-form" initialValues={{ remember: true }}>
+      <Form initialValues={{ remember: true }}>
         <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
         </Form.Item>
@@ -136,6 +157,12 @@ const menu: MenuElement[] = [
     exact: true
   },
   {
+    title: 'Restricted Loading',
+    icon: <LockOutlined />,
+    url: '/restricted-loading',
+    exact: true
+  },
+  {
     title: 'Restricted with Fallback',
     icon: <LockOutlined />,
     url: '/restricted-with-route-fallback',
@@ -180,18 +207,16 @@ export const Base = () => {
         routes={routes}
         defaultLayoutProps={{
           menu,
-          logo: 'AdminLogo',
-          logoMobile: 'MAdminLogo',
-          logoCollapsed: 'AL',
-          sidebarMenuPrepend: (
-            <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>BeforeMenu</div>
+          logo: (type) => (type !== 'collapsed' ? 'AdminLogo' : 'AL'),
+          sidebarMenuPrepend: (collapsed) => (
+            <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
+              {!collapsed ? 'BeforeMenu' : 'BM'}
+            </div>
           ),
-          sidebarMenuPrependCollapsed: (
-            <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>BM</div>
-          ),
-          sidebarMenuAppend: <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>AfterMenu</div>,
-          sidebarMenuAppendCollapsed: (
-            <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>AM</div>
+          sidebarMenuAppend: (collapsed) => (
+            <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
+              {!collapsed ? 'AfterMenu' : 'AM'}
+            </div>
           ),
           headerRight: (
             <>
@@ -247,7 +272,42 @@ export const Base = () => {
               </Dropdown>
             </>
           ),
-          sidebarBottom: 'Version: 1.0'
+          sidebarBottom: (collapsed) => (
+            <div>
+              <Dropdown
+                trigger={['click']}
+                overlayStyle={{ minWidth: 0, paddingLeft: 15 }}
+                overlay={
+                  <Menu>
+                    <Menu.SubMenu title="Language" icon={<GlobalOutlined />} key="language">
+                      {['en', 'de'].map((lang) => (
+                        <Menu.Item
+                          className={lang === 'de' ? 'active-language' : undefined}
+                          key={`language-${lang}`}
+                          onClick={() => console.log(lang)}
+                        >
+                          {lang}
+                        </Menu.Item>
+                      ))}
+                    </Menu.SubMenu>
+                    <Menu.Item icon={<UserOutlined />} key="account">
+                      <Link to="/account">Account</Link>
+                    </Menu.Item>
+                    <Menu.Item icon={<LogoutOutlined />} key="logout">
+                      <Link to="/logout">Logout</Link>
+                    </Menu.Item>
+                  </Menu>
+                }
+              >
+                <Button type="text">
+                  <Avatar size="small" className="user-avatar" style={{ marginRight: collapsed ? 0 : 8 }}>
+                    UN
+                  </Avatar>
+                  {!collapsed && <span style={{ verticalAlign: 'middle' }}>UserName</span>}
+                </Button>
+              </Dropdown>
+            </div>
+          )
         }}
         authLayoutProps={{
           logo: 'AdminLogo'

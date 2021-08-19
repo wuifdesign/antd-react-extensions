@@ -13,19 +13,15 @@ import { PAGE_PADDING } from '../admin-layout-config'
 
 export type DefaultLayoutProps = {
   menu: MenuElement[]
-  logo: React.ReactNode | string
-  logoMobile?: React.ReactNode | string
-  logoCollapsed?: React.ReactNode | string
+  logo: (type: 'default' | 'mobile' | 'collapsed') => React.ReactNode | string
   sidebarTheme?: 'light' | 'dark'
-  sidebarBottom?: React.ReactNode | string
   hideFrame?: boolean
   hideBreadcrumbs?: boolean
   sidebarWidth?: number
   sidebarCollapsedWidth?: number
-  sidebarMenuPrepend?: React.ReactNode | string
-  sidebarMenuPrependCollapsed?: React.ReactNode | string
-  sidebarMenuAppend?: React.ReactNode | string
-  sidebarMenuAppendCollapsed?: React.ReactNode | string
+  sidebarMenuPrepend?: (collapsed: boolean) => React.ReactNode | string
+  sidebarMenuAppend?: (collapsed: boolean) => React.ReactNode | string
+  sidebarBottom?: (collapsed: boolean) => React.ReactNode | string
   headerRight?: React.ReactElement
 }
 
@@ -35,16 +31,12 @@ export type DefaultLayoutPropsInternal = DefaultLayoutProps & {
 
 export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
   logo,
-  logoMobile = logo,
-  logoCollapsed,
   routes,
   menu,
   hideFrame = false,
   hideBreadcrumbs = false,
   sidebarMenuPrepend,
-  sidebarMenuPrependCollapsed = sidebarMenuPrepend,
   sidebarMenuAppend,
-  sidebarMenuAppendCollapsed = sidebarMenuAppend,
   sidebarBottom,
   sidebarTheme = 'light',
   headerRight,
@@ -82,18 +74,18 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
       {!hideFrame && (
         <>
           <DefaultLayoutSidebar
-            sidebarBottom={sidebarBottom}
-            logo={logo}
-            logoCollapsed={logoCollapsed}
+            logo={logo('default')}
+            logoCollapsed={logo('collapsed')}
             menu={menu}
             sidebarTheme={sidebarTheme}
             sidebarWidth={sidebarWidth}
             sidebarCollapsedWidth={sidebarCollapsedWidth}
-            menuAppend={sidebarCollapsed ? sidebarMenuAppendCollapsed : sidebarMenuAppend}
-            menuPrepend={sidebarCollapsed ? sidebarMenuPrependCollapsed : sidebarMenuPrepend}
+            menuAppend={sidebarMenuAppend?.(sidebarCollapsed)}
+            menuPrepend={sidebarMenuPrepend?.(sidebarCollapsed)}
+            sidebarBottom={sidebarBottom?.(sidebarCollapsed)}
           />
           <DefaultLayoutHeader
-            logoMobile={logoMobile}
+            logoMobile={logo('mobile')}
             headerRight={headerRight}
             sidebarWidth={sidebarWidth}
             sidebarCollapsedWidth={sidebarCollapsedWidth}

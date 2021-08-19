@@ -2,7 +2,7 @@
 @import '~antd/es/style/mixins/index';
 
 @header-height: 55px;
-@header-box-shadow: 4px 4px 40px 0 rgba(0, 0, 0, .05);
+@header-box-shadow: 0 0 20px 0 rgba(0, 0, 0, .05);
 @layout-sider-border-color: lighten(desaturate(@layout-sider-background, 50%), 15%);
 
 .ant-drawer-content-wrapper {
@@ -67,22 +67,44 @@
   transition: margin-left @animation-duration-base;
 }
 
+.default-layout-sider {
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  overflow: hidden;
+}
+
 .logo-container {
   height: @header-height;
   flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: @layout-sider-background;
   z-index: 10000;
+}
+
+.menu-container {
+  flex: 1;
+  overflow: auto;
 }
 
 .sidebar-bottom {
   border-top: 1px solid @layout-sider-border-color;
-  padding: @padding-xs;
-  font-size: 9px;
-  font-family: monospace;
-  text-align: center;
+  box-shadow: @header-box-shadow;
+
+  .ant-btn {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: left;
+    height: auto;
+    width: 100%;
+
+    &.ant-btn-text {
+      color: inherit;
+    }
+  }
 }
 
 .header-menu-mobile {
