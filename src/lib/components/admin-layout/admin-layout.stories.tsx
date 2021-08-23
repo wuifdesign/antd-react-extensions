@@ -20,6 +20,8 @@ import { DefaultLayout } from './default-layout/default-layout'
 import { BlankLayout } from './blank-layout/blank-layout'
 import { NotificationsPopover } from '../notifications-popover'
 import { Link } from 'react-router-dom'
+import { PageHeader } from '../page-header'
+import { PageElement } from '../page-element'
 
 export default {
   component: AdminLayout,
@@ -37,12 +39,33 @@ const routes: RouteElement[] = [
     breadcrumb: 'Dashboard',
     component: () => (
       <PageContent>
-        <PageContent.Header
-          title="Dashboard"
-          icon={<IconDashboard />}
+        <PageHeader title="Dashboard" icon={<IconDashboard />} extra={<Button type="primary">Add Something</Button>} />
+        <PageElement>Dashboard</PageElement>
+        <PageElement title="My Title" subTitle="My SubTitle" extra={<Button type="primary">Add Something</Button>}>
+          Dashboard
+        </PageElement>
+        <PageElement
+          title="My Title"
+          subTitle="My SubTitle"
           extra={<Button type="primary">Add Something</Button>}
-        />
-        Dashboard
+          removeBodyPadding
+        >
+          Dashboard
+        </PageElement>
+      </PageContent>
+    ),
+    exact: true
+  },
+  {
+    path: '/sub-page',
+    layout: 'default',
+    breadcrumb: 'Sub Page',
+    component: () => (
+      <PageContent>
+        <PageHeader title="SubPage" icon={<IconDashboard />} extra={<Button type="primary">Add Something</Button>} />
+        <PageElement title="My Title" subTitle="My SubTitle" extra={<Button type="primary">Add Something</Button>}>
+          Dashboard
+        </PageElement>
       </PageContent>
     ),
     exact: true
@@ -53,7 +76,7 @@ const routes: RouteElement[] = [
     breadcrumb: 'Restricted',
     component: () => (
       <PageContent>
-        <PageContent.Header title="Restricted" />
+        <PageHeader title="Restricted" />
         {console.log('restricted')}
       </PageContent>
     ),
@@ -66,7 +89,7 @@ const routes: RouteElement[] = [
     breadcrumb: 'Restricted Loading',
     component: () => (
       <PageContent>
-        <PageContent.Header title="Restricted Loading" />
+        <PageHeader title="Restricted Loading" />
         {console.log('restricted')}
       </PageContent>
     ),
@@ -79,7 +102,7 @@ const routes: RouteElement[] = [
     breadcrumb: 'Restricted with Route Fallback',
     component: () => (
       <PageContent>
-        <PageContent.Header title="Restricted with Route Fallback" />
+        <PageHeader title="Restricted with Route Fallback" />
         {console.log('restricted with route fallback')}
       </PageContent>
     ),
@@ -151,6 +174,12 @@ const menu: MenuElement[] = [
     exact: true
   },
   {
+    title: 'Sub Page',
+    icon: <IconDashboard />,
+    url: '/sub-page',
+    exact: true
+  },
+  {
     title: 'Restricted',
     icon: <LockOutlined />,
     url: '/restricted',
@@ -202,117 +231,116 @@ const menu: MenuElement[] = [
 
 export const Base = () => {
   return (
-    <div style={{ transform: 'translateZ(0)' }}>
-      <AdminLayout
-        routes={routes}
-        defaultLayoutProps={{
-          menu,
-          logo: (type) => (type !== 'collapsed' ? 'AdminLogo' : 'AL'),
-          sidebarMenuPrepend: (collapsed) => (
-            <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
-              {!collapsed ? 'BeforeMenu' : 'BM'}
-            </div>
-          ),
-          sidebarMenuAppend: (collapsed) => (
-            <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
-              {!collapsed ? 'AfterMenu' : 'AM'}
-            </div>
-          ),
-          headerRight: (
-            <>
-              <NotificationsPopover
-                dot
-                notificationListProps={{
-                  maxHeight: 250,
-                  dataSource: [
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 1',
-                      description: 'This is description number 1',
-                      onClick: () => console.log('item 1')
-                    },
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 2',
-                      description: 'This is description number 2',
-                      onClick: () => console.log('item 2')
-                    },
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 3',
-                      description: 'This is description number 3',
-                      onClick: () => console.log('item 3')
-                    },
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 4',
-                      description: 'This is description number 4',
-                      onClick: () => console.log('item 4')
-                    },
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 5',
-                      description: 'This is description number 5',
-                      onClick: () => console.log('item 5')
-                    }
-                  ]
-                }}
-              />
-              <Dropdown
-                key="languages"
-                overlay={
-                  <Menu>
-                    {['de', 'en'].map((lang) => (
-                      <Menu.Item key={`language-${lang}`}>{lang}</Menu.Item>
+    <AdminLayout
+      routes={routes}
+      defaultLayoutProps={{
+        menu,
+        logo: (type) => (type !== 'collapsed' ? 'AdminLogo' : 'AL'),
+        sidebarTheme: 'light',
+        sidebarMenuPrepend: (collapsed) => (
+          <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
+            {!collapsed ? 'BeforeMenu' : 'BM'}
+          </div>
+        ),
+        sidebarMenuAppend: (collapsed) => (
+          <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
+            {!collapsed ? 'AfterMenu' : 'AM'}
+          </div>
+        ),
+        headerRight: (
+          <>
+            <NotificationsPopover
+              dot
+              notificationListProps={{
+                maxHeight: 250,
+                dataSource: [
+                  {
+                    icon: <MailOutlined />,
+                    title: 'Title 1',
+                    description: 'This is description number 1',
+                    onClick: () => console.log('item 1')
+                  },
+                  {
+                    icon: <MailOutlined />,
+                    title: 'Title 2',
+                    description: 'This is description number 2',
+                    onClick: () => console.log('item 2')
+                  },
+                  {
+                    icon: <MailOutlined />,
+                    title: 'Title 3',
+                    description: 'This is description number 3',
+                    onClick: () => console.log('item 3')
+                  },
+                  {
+                    icon: <MailOutlined />,
+                    title: 'Title 4',
+                    description: 'This is description number 4',
+                    onClick: () => console.log('item 4')
+                  },
+                  {
+                    icon: <MailOutlined />,
+                    title: 'Title 5',
+                    description: 'This is description number 5',
+                    onClick: () => console.log('item 5')
+                  }
+                ]
+              }}
+            />
+            <Dropdown
+              key="languages"
+              overlay={
+                <Menu>
+                  {['de', 'en'].map((lang) => (
+                    <Menu.Item key={`language-${lang}`}>{lang}</Menu.Item>
+                  ))}
+                </Menu>
+              }
+            >
+              <Button type="text">de</Button>
+            </Dropdown>
+          </>
+        ),
+        sidebarBottom: (collapsed) => (
+          <div>
+            <Dropdown
+              trigger={['click']}
+              overlayStyle={{ minWidth: 0, paddingLeft: 15 }}
+              overlay={
+                <Menu>
+                  <Menu.SubMenu title="Language" icon={<GlobalOutlined />} key="language">
+                    {['en', 'de'].map((lang) => (
+                      <Menu.Item
+                        className={lang === 'de' ? 'active-language' : undefined}
+                        key={`language-${lang}`}
+                        onClick={() => console.log(lang)}
+                      >
+                        {lang}
+                      </Menu.Item>
                     ))}
-                  </Menu>
-                }
-              >
-                <Button type="text">de</Button>
-              </Dropdown>
-            </>
-          ),
-          sidebarBottom: (collapsed) => (
-            <div>
-              <Dropdown
-                trigger={['click']}
-                overlayStyle={{ minWidth: 0, paddingLeft: 15 }}
-                overlay={
-                  <Menu>
-                    <Menu.SubMenu title="Language" icon={<GlobalOutlined />} key="language">
-                      {['en', 'de'].map((lang) => (
-                        <Menu.Item
-                          className={lang === 'de' ? 'active-language' : undefined}
-                          key={`language-${lang}`}
-                          onClick={() => console.log(lang)}
-                        >
-                          {lang}
-                        </Menu.Item>
-                      ))}
-                    </Menu.SubMenu>
-                    <Menu.Item icon={<UserOutlined />} key="account">
-                      <Link to="/account">Account</Link>
-                    </Menu.Item>
-                    <Menu.Item icon={<LogoutOutlined />} key="logout">
-                      <Link to="/logout">Logout</Link>
-                    </Menu.Item>
-                  </Menu>
-                }
-              >
-                <Button type="text">
-                  <Avatar size="small" className="user-avatar" style={{ marginRight: collapsed ? 0 : 8 }}>
-                    UN
-                  </Avatar>
-                  {!collapsed && <span style={{ verticalAlign: 'middle' }}>UserName</span>}
-                </Button>
-              </Dropdown>
-            </div>
-          )
-        }}
-        authLayoutProps={{
-          logo: 'AdminLogo'
-        }}
-      />
-    </div>
+                  </Menu.SubMenu>
+                  <Menu.Item icon={<UserOutlined />} key="account">
+                    <Link to="/account">Account</Link>
+                  </Menu.Item>
+                  <Menu.Item icon={<LogoutOutlined />} key="logout">
+                    <Link to="/logout">Logout</Link>
+                  </Menu.Item>
+                </Menu>
+              }
+            >
+              <Button type="text">
+                <Avatar size="small" className="user-avatar" style={{ marginRight: collapsed ? 0 : 8 }}>
+                  UN
+                </Avatar>
+                {!collapsed && <span style={{ verticalAlign: 'middle' }}>UserName</span>}
+              </Button>
+            </Dropdown>
+          </div>
+        )
+      }}
+      authLayoutProps={{
+        logo: 'AdminLogo'
+      }}
+    />
   )
 }

@@ -2,7 +2,8 @@
 @import '~antd/es/style/mixins/index';
 
 @header-height: 55px;
-@header-box-shadow: 0 0 20px 0 rgba(0, 0, 0, .05);
+@header-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.07); // 0 0 20px 0 rgba(0, 0, 0, .05);
+@header-box-shadow-top: 0 -2px 4px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.07); // 0 0 20px 0 rgba(0, 0, 0, .05);
 @layout-sider-border-color: lighten(desaturate(@layout-sider-background, 50%), 15%);
 
 .ant-drawer-content-wrapper {
@@ -74,6 +75,7 @@
   top: 0;
   z-index: 200;
   overflow: hidden;
+  box-shadow: @header-box-shadow;
 }
 
 .logo-container {
@@ -92,7 +94,6 @@
 
 .sidebar-bottom {
   border-top: 1px solid @layout-sider-border-color;
-  box-shadow: @header-box-shadow;
 
   .ant-btn {
     padding-top: 8px;
@@ -132,7 +133,6 @@
 .ant-layout-sider-light {
   .logo-container {
     background: @layout-sider-background-light;
-    box-shadow: @header-box-shadow;
   }
 
   .sidebar-bottom {

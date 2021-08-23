@@ -4,6 +4,7 @@ import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
 import { useBodyClass } from '../../../utils/hooks/use-body-class'
 import { PageContent } from '../../page-content'
 import { PAGE_PADDING } from '../admin-layout-config'
+import { PageElement } from '../../page-element'
 
 export type AuthLayoutProps = {
   logo: React.ReactNode | string
@@ -31,18 +32,21 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth =
             width: '100%',
             maxWidth: authPageMaxWidth
           }}
+          hideBreadcrumbs
         >
-          <div
-            className="auth-logo-container"
-            style={{
-              marginBottom: isMobile ? PAGE_PADDING / 2 : PAGE_PADDING,
-              display: 'flex',
-              justifyContent: 'center'
-            }}
-          >
-            {logo}
-          </div>
-          {children}
+          <PageElement>
+            <div
+              className="auth-logo-container"
+              style={{
+                marginBottom: isMobile ? PAGE_PADDING / 2 : PAGE_PADDING,
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            >
+              {logo}
+            </div>
+            {children}
+          </PageElement>
         </PageContent>
       </Layout>
     </>

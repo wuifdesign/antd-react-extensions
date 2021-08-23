@@ -1,0 +1,38 @@
+@import '~antd/es/style/themes/index';
+@import '~antd/es/style/mixins/index';
+
+@page-element-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.07);
+@page-element-padding: 16px;
+@page-element-border-radius: 5px;
+
+.page-content-element {
+  position: relative;
+  box-shadow: @page-element-shadow;
+  border-radius: @page-element-border-radius;
+  margin-bottom: @margin-md;
+  overflow: hidden;
+
+  & > .ant-card-head {
+    padding: 0 @page-element-padding;
+    border-bottom: 0;
+
+    .ant-card-head-wrapper {
+      min-height: 58px;
+    }
+
+    .ant-card-extra,
+    .ant-card-head-title {
+      padding: (@page-element-padding / 2) 0;
+    }
+  }
+
+  & > .ant-card-body {
+    padding: @page-element-padding;
+  }
+}
+
+.page-content-sub-title {
+  font-size: .8rem;
+  margin-top: -3px;
+  color: @text-color-secondary;
+}

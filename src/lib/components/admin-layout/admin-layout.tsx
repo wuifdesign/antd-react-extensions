@@ -101,7 +101,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   }
 
   return (
-    <LayoutContext.Provider value={{ fullPageLoading, setFullPageLoading }}>
+    <LayoutContext.Provider value={{ routes, fullPageLoading, setFullPageLoading }}>
       <Layout style={{ minHeight: '100vh' }}>
         <Router history={RouterHistory.getHistory()}>
           <Switch>

@@ -1,8 +1,6 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Layout } from 'antd'
-import withBreadcrumbs, { BreadcrumbsRoute } from 'react-router-breadcrumbs-hoc'
 import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
-import DefaultLayoutBreadcrumbs from './default-layout-breadcrumbs'
 import DefaultLayoutSidebar, { SIDEBAR_COLLAPSED_WIDTH, SIDEBAR_WIDTH } from './default-layout-sidebar'
 import DefaultLayoutHeader from './default-layout-header'
 import { MenuElement } from '../menu-element.type'
@@ -31,10 +29,8 @@ export type DefaultLayoutPropsInternal = DefaultLayoutProps & {
 
 export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
   logo,
-  routes,
   menu,
   hideFrame = false,
-  hideBreadcrumbs = false,
   sidebarMenuPrepend,
   sidebarMenuAppend,
   sidebarBottom,
@@ -51,11 +47,6 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
   const setMobileNavOpenFunction = useCallback((open) => setMobileNavOpen(open), [])
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const setSidebarCollapsedFunction = useCallback((open) => setSidebarCollapsed(open), [])
-
-  const BreadCrumbs = useMemo(
-    () => withBreadcrumbs(routes as BreadcrumbsRoute[], { disableDefaults: true })(DefaultLayoutBreadcrumbs),
-    [routes]
-  )
 
   let currentSidebarWidth = sidebarCollapsed ? sidebarCollapsedWidth : sidebarWidth
   if (hideFrame) {
@@ -101,7 +92,6 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
           padding: isMobile ? PAGE_PADDING / 2 : PAGE_PADDING
         }}
       >
-        {!hideBreadcrumbs && <BreadCrumbs />}
         {children}
       </Layout>
     </DefaultLayoutContext.Provider>

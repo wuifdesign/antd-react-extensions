@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Col, Layout, Row } from 'antd'
 import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
-import { DefaultLayoutContext } from './default-layout-context'
+import { useDefaultLayoutContext } from './default-layout-context'
 import { IconMenu, IconMenuClose, IconMenuOpen } from '../../icons'
 
 const { Header } = Layout
@@ -20,7 +20,7 @@ const DefaultLayoutHeader: React.FC<AdminLayoutHeaderProps> = ({
   sidebarCollapsedWidth
 }) => {
   const isMobile = useIsMobile()
-  const { mobileNavOpen, setMobileNavOpen, sidebarCollapsed, setSidebarCollapsed } = useContext(DefaultLayoutContext)
+  const { mobileNavOpen, setMobileNavOpen, sidebarCollapsed, setSidebarCollapsed } = useDefaultLayoutContext()
 
   return (
     <Header style={{ left: isMobile ? 0 : sidebarCollapsed ? sidebarCollapsedWidth : sidebarWidth }}>

@@ -6,7 +6,7 @@ type Props = {
   breadcrumbs: any[]
 }
 
-const DefaultLayoutBreadcrumbs: React.FC<Props> = ({ breadcrumbs }) => {
+const BreadcrumbDisplay: React.FC<Props> = ({ breadcrumbs }) => {
   let has404 = false
   breadcrumbs = breadcrumbs.filter((item) => {
     if (item.is404 && !has404) {
@@ -19,7 +19,7 @@ const DefaultLayoutBreadcrumbs: React.FC<Props> = ({ breadcrumbs }) => {
     return !item.is404
   })
   return (
-    <Breadcrumb style={{ marginBottom: 12 }}>
+    <Breadcrumb style={{ fontWeight: 'normal' }}>
       {breadcrumbs.map(({ breadcrumb, match }, index) => (
         <Breadcrumb.Item key={match.url}>
           {index < breadcrumbs.length - 1 ? <Link to={match.url}>{breadcrumb}</Link> : breadcrumb}
@@ -29,4 +29,4 @@ const DefaultLayoutBreadcrumbs: React.FC<Props> = ({ breadcrumbs }) => {
   )
 }
 
-export default DefaultLayoutBreadcrumbs
+export default BreadcrumbDisplay

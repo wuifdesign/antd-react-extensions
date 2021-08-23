@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useContext } from 'react'
 
 export type AdminLayoutContextType = {
   sidebarCollapsed: boolean
@@ -13,3 +14,5 @@ export const DefaultLayoutContext = React.createContext<AdminLayoutContextType>(
   mobileNavOpen: true,
   setMobileNavOpen: () => null
 })
+
+export const useDefaultLayoutContext = () => useContext(DefaultLayoutContext)
