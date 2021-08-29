@@ -14,7 +14,7 @@ import { PageContent } from '../page-content'
 import { Button } from '../button'
 import { ErrorPage } from '../error-page'
 import { MenuElement } from './menu-element.type'
-import { Avatar, Checkbox, Col, Dropdown, Form, Input, Menu, Row } from 'antd'
+import { Avatar, Checkbox, Col, Dropdown, Form, Input, Menu, Row, Table } from 'antd'
 import { AuthLayout } from './auth-layout/auth-layout'
 import { DefaultLayout } from './default-layout/default-layout'
 import { BlankLayout } from './blank-layout/blank-layout'
@@ -60,14 +60,53 @@ const routes: RouteElement[] = [
     path: '/sub-page',
     layout: 'default',
     breadcrumb: 'Sub Page',
-    component: () => (
-      <PageContent>
-        <PageHeader title="SubPage" icon={<IconDashboard />} extra={<Button type="primary">Add Something</Button>} />
-        <PageElement title="My Title" subTitle="My SubTitle" extra={<Button type="primary">Add Something</Button>}>
-          Dashboard
-        </PageElement>
-      </PageContent>
-    ),
+    component: () => {
+      const data = [
+        {
+          key: '1',
+          name: 'John Brown',
+          status: 'success'
+        },
+        {
+          key: '2',
+          name: 'Jim Green',
+          status: 'success'
+        },
+        {
+          key: '3',
+          name: 'Joe Black',
+          status: 'success'
+        },
+        {
+          key: '4',
+          name: 'Jim Red',
+          status: 'success'
+        }
+      ]
+
+      const columns = [
+        {
+          title: 'Name',
+          dataIndex: 'name'
+        },
+        {
+          title: 'Status',
+          dataIndex: 'status'
+        }
+      ]
+
+      return (
+        <PageContent>
+          <PageHeader title="SubPage" icon={<IconDashboard />} extra={<Button type="primary">Add Something</Button>} />
+          <PageElement removeBodyPadding>
+            <Table size="small" columns={columns} dataSource={data} />
+          </PageElement>
+          <PageElement title="My Title" subTitle="My SubTitle" extra={<Button type="primary">Add Something</Button>}>
+            Dashboard
+          </PageElement>
+        </PageContent>
+      )
+    },
     exact: true
   },
   {
@@ -114,44 +153,6 @@ const routes: RouteElement[] = [
     exact: true
   },
   {
-    path: '/auth',
-    layout: 'auth',
-    component: () => (
-      <Form initialValues={{ remember: true }}>
-        <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-        </Form.Item>
-        <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
-          <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
-        </Form.Item>
-
-        <Form.Item>
-          <Row>
-            <Col flex={1}>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-            </Col>
-            <Col style={{ textAlign: 'right' }}>
-              <a className="login-form-forgot" href="/">
-                Forgot password
-              </a>
-            </Col>
-          </Row>
-        </Form.Item>
-
-        <Button type="primary" htmlType="submit" block>
-          Log In
-        </Button>
-
-        <Button type="link" block style={{ marginTop: 10 }}>
-          Register Now
-        </Button>
-      </Form>
-    ),
-    exact: true
-  },
-  {
     path: '/blank',
     layout: 'blank',
     component: () => <>Blank</>,
@@ -195,11 +196,6 @@ const menu: MenuElement[] = [
     title: 'Restricted with Fallback',
     icon: <LockOutlined />,
     url: '/restricted-with-route-fallback',
-    exact: true
-  },
-  {
-    title: 'Auth',
-    url: '/auth',
     exact: true
   },
   {
@@ -338,6 +334,57 @@ export const Base = () => {
           </div>
         )
       }}
+    />
+  )
+}
+
+export const Auth = () => {
+  return (
+    <AdminLayout
+      routes={[
+        {
+          path: '/',
+          layout: 'auth',
+          component: () => (
+            <Form initialValues={{ remember: true }}>
+              <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
+                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+              </Form.Item>
+              <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="Password"
+                />
+              </Form.Item>
+
+              <Form.Item>
+                <Row>
+                  <Col flex={1}>
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                      <Checkbox>Remember me</Checkbox>
+                    </Form.Item>
+                  </Col>
+                  <Col style={{ textAlign: 'right' }}>
+                    <a className="login-form-forgot" href="/">
+                      Forgot password
+                    </a>
+                  </Col>
+                </Row>
+              </Form.Item>
+
+              <Button type="primary" htmlType="submit" block>
+                Log In
+              </Button>
+
+              <Button type="link" block style={{ marginTop: 10 }}>
+                Register Now
+              </Button>
+            </Form>
+          ),
+          exact: true
+        }
+      ]}
       authLayoutProps={{
         logo: 'AdminLogo'
       }}
