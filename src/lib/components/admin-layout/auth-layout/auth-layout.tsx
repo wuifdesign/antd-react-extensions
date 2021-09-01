@@ -3,8 +3,7 @@ import { Layout } from 'antd'
 import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
 import { useBodyClass } from '../../../utils/hooks/use-body-class'
 import { PageContent } from '../../page-content'
-import { PAGE_PADDING } from '../admin-layout-config'
-import { PageElement } from '../../page-element'
+import clsx from 'clsx'
 
 export type AuthLayoutProps = {
   logo: React.ReactNode | string
@@ -19,9 +18,8 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth =
   return (
     <>
       <Layout
-        className="auth-container"
+        className={clsx('ant-layout-content', 'auth-container', isMobile && 'ant-layout-content-mobile')}
         style={{
-          padding: isMobile ? PAGE_PADDING / 2 : PAGE_PADDING,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center'
@@ -34,11 +32,10 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth =
           }}
           hideBreadcrumbs
         >
-          <PageElement>
+          <PageContent.Element>
             <div
               className="auth-logo-container"
               style={{
-                marginBottom: isMobile ? PAGE_PADDING / 2 : PAGE_PADDING,
                 display: 'flex',
                 justifyContent: 'center'
               }}
@@ -46,7 +43,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth =
               {logo}
             </div>
             {children}
-          </PageElement>
+          </PageContent.Element>
         </PageContent>
       </Layout>
     </>

@@ -10,6 +10,7 @@ import { BlankLayout } from './blank-layout/blank-layout'
 import { RouterHistory, RouterHistoryTypesType } from '../../utils/router-history'
 import { LayoutContext } from './layout-context'
 import { ErrorPage } from '../error-page'
+import { LoadingSpinner } from '../loading-spinner'
 
 const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => {
   let withLayout = true
@@ -27,21 +28,11 @@ const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => {
   )
   const routeElement = (props: RouteComponentProps<any>) => {
     if (typeof canActivate === 'undefined') {
-      return (
-        <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
-          <Spin />
-        </div>
-      )
+      return <LoadingSpinner />
     }
     return (
       <ErrorBoundary>
-        <Suspense
-          fallback={
-            <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
-              <Spin />
-            </div>
-          }
-        >
+        <Suspense fallback={<LoadingSpinner />}>
           {canActivate ? <route.component {...props} routes={route.routes} /> : routeFallback}
         </Suspense>
       </ErrorBoundary>

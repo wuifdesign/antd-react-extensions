@@ -1,6 +1,8 @@
 import React from 'react'
-import { Spin } from 'antd'
 import Breadcrumbs from '../breadcrumbs/breadcrumbs'
+import { LoadingSpinner } from '../loading-spinner'
+import { PageContentHeader, PageContentHeaderProps } from './components/page-content-header'
+import { PageContentElement, PageContentElementProps } from './components/page-content-element'
 
 export type PageContentProps = {
   style?: React.CSSProperties
@@ -8,11 +10,24 @@ export type PageContentProps = {
   hideBreadcrumbs?: boolean
 }
 
-const PageContent: React.FC<PageContentProps> = ({ children, hideBreadcrumbs, style, loading = false }) => (
+type ChildComponents = {
+  Header: React.FC<PageContentHeaderProps>
+  Element: React.FC<PageContentElementProps>
+}
+
+const PageContent: React.FC<PageContentProps> & ChildComponents = ({
+  children,
+  hideBreadcrumbs,
+  style,
+  loading = false
+}) => (
   <div className="page-content" style={style}>
     {!hideBreadcrumbs && <Breadcrumbs />}
-    {loading ? <Spin size="large" style={{ margin: '3px auto -2px', display: 'block' }} /> : children}
+    {loading ? <LoadingSpinner paddingTopOffset={!hideBreadcrumbs ? -18 : 0} /> : children}
   </div>
 )
+
+PageContent.Header = PageContentHeader
+PageContent.Element = PageContentElement
 
 export { PageContent }

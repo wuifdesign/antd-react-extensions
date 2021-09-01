@@ -1,14 +1,22 @@
 import React from 'react'
 import { Card } from 'antd'
 
-export type PageElementProps = {
+export type PageContentElementProps = {
   title?: React.ReactNode
   subTitle?: React.ReactNode
   extra?: React.ReactNode
+  collapsable?: boolean
   removeBodyPadding?: true
 }
 
-export const PageElement: React.FC<PageElementProps> = ({ title, subTitle, extra, removeBodyPadding, children }) => (
+export const PageContentElement: React.FC<PageContentElementProps> = ({
+  title,
+  subTitle,
+  extra,
+  collapsable,
+  removeBodyPadding,
+  children
+}) => (
   <Card
     className="page-content-element"
     title={

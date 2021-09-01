@@ -2,7 +2,7 @@
 @import '~antd/es/style/mixins/index';
 @import '../../../_variables';
 
-@header-height: 55px;
+@header-height: 50px;
 @layout-sider-border-color: lighten(desaturate(@layout-sider-background, 50%), 15%);
 
 .ant-drawer-content-wrapper {
@@ -65,6 +65,11 @@
 .ant-layout-content {
   margin-top: @header-height;
   transition: margin-left @animation-duration-base;
+  padding: 16px 20px;
+
+  &.ant-layout-content-mobile {
+    padding: 10px;
+  }
 }
 
 .default-layout-sider {
@@ -137,4 +142,8 @@
   .sidebar-bottom {
     border-top-color: @border-color-split;
   }
+}
+
+.auth-logo-container {
+  margin-bottom: 16px;
 }

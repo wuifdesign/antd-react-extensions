@@ -2,6 +2,7 @@
   "reject": [
     "babel-loader",
     "less-loader",
+    "typescript",
     "webpack"
   ]
 }

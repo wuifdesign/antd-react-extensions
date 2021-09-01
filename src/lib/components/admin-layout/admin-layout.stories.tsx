@@ -20,8 +20,6 @@ import { DefaultLayout } from './default-layout/default-layout'
 import { BlankLayout } from './blank-layout/blank-layout'
 import { NotificationsPopover } from '../notifications-popover'
 import { Link } from 'react-router-dom'
-import { PageHeader } from '../page-header'
-import { PageElement } from '../page-element'
 
 export default {
   component: AdminLayout,
@@ -38,20 +36,29 @@ const routes: RouteElement[] = [
     layout: 'default',
     breadcrumb: 'Dashboard',
     component: () => (
-      <PageContent>
-        <PageHeader title="Dashboard" icon={<IconDashboard />} extra={<Button type="primary">Add Something</Button>} />
-        <PageElement>Dashboard</PageElement>
-        <PageElement title="My Title" subTitle="My SubTitle" extra={<Button type="primary">Add Something</Button>}>
+      <PageContent hideBreadcrumbs>
+        <PageContent.Header
+          title="Dashboard"
+          icon={<IconDashboard />}
+          extra={<Button type="primary">Add Something</Button>}
+        />
+        <PageContent.Element>Dashboard</PageContent.Element>
+        <PageContent.Element
+          collapsable
+          title="My Title"
+          subTitle="My SubTitle"
+          extra={<Button type="primary">Add Something</Button>}
+        >
           Dashboard
-        </PageElement>
-        <PageElement
+        </PageContent.Element>
+        <PageContent.Element
           title="My Title"
           subTitle="My SubTitle"
           extra={<Button type="primary">Add Something</Button>}
           removeBodyPadding
         >
           Dashboard
-        </PageElement>
+        </PageContent.Element>
       </PageContent>
     ),
     exact: true
@@ -97,13 +104,21 @@ const routes: RouteElement[] = [
 
       return (
         <PageContent>
-          <PageHeader title="SubPage" icon={<IconDashboard />} extra={<Button type="primary">Add Something</Button>} />
-          <PageElement removeBodyPadding>
+          <PageContent.Header
+            title="SubPage"
+            icon={<IconDashboard />}
+            extra={<Button type="primary">Add Something</Button>}
+          />
+          <PageContent.Element removeBodyPadding>
             <Table size="small" columns={columns} dataSource={data} />
-          </PageElement>
-          <PageElement title="My Title" subTitle="My SubTitle" extra={<Button type="primary">Add Something</Button>}>
+          </PageContent.Element>
+          <PageContent.Element
+            title="My Title"
+            subTitle="My SubTitle"
+            extra={<Button type="primary">Add Something</Button>}
+          >
             Dashboard
-          </PageElement>
+          </PageContent.Element>
         </PageContent>
       )
     },
@@ -115,7 +130,7 @@ const routes: RouteElement[] = [
     breadcrumb: 'Restricted',
     component: () => (
       <PageContent>
-        <PageHeader title="Restricted" />
+        <PageContent.Header title="Restricted" />
         {console.log('restricted')}
       </PageContent>
     ),
@@ -128,7 +143,7 @@ const routes: RouteElement[] = [
     breadcrumb: 'Restricted Loading',
     component: () => (
       <PageContent>
-        <PageHeader title="Restricted Loading" />
+        <PageContent.Header title="Restricted Loading" />
         {console.log('restricted')}
       </PageContent>
     ),
@@ -141,7 +156,7 @@ const routes: RouteElement[] = [
     breadcrumb: 'Restricted with Route Fallback',
     component: () => (
       <PageContent>
-        <PageHeader title="Restricted with Route Fallback" />
+        <PageContent.Header title="Restricted with Route Fallback" />
         {console.log('restricted with route fallback')}
       </PageContent>
     ),

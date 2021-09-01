@@ -7,7 +7,7 @@ import { MenuElement } from '../menu-element.type'
 import { RouteElement } from '../route-element.type'
 import { DefaultLayoutContext } from './default-layout-context'
 import { useBodyClass } from '../../../utils/hooks/use-body-class'
-import { PAGE_PADDING } from '../admin-layout-config'
+import clsx from 'clsx'
 
 export type DefaultLayoutProps = {
   menu: MenuElement[]
@@ -85,11 +85,10 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
       )}
 
       <Layout
-        className="ant-layout-content"
+        className={clsx('ant-layout-content', isMobile && 'ant-layout-content-mobile')}
         style={{
           marginTop: hideFrame ? 0 : undefined,
-          marginLeft: isMobile ? 0 : currentSidebarWidth,
-          padding: isMobile ? PAGE_PADDING / 2 : PAGE_PADDING
+          marginLeft: isMobile ? 0 : currentSidebarWidth
         }}
       >
         {children}
