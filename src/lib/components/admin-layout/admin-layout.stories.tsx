@@ -1,5 +1,5 @@
 import React from 'react'
-import { Meta } from '@storybook/react'
+import { Meta, Story } from '@storybook/react'
 import { AdminLayout } from './admin-layout'
 import {
   DashboardOutlined as IconDashboard,
@@ -20,6 +20,7 @@ import { DefaultLayout } from './default-layout/default-layout'
 import { BlankLayout } from './blank-layout/blank-layout'
 import { NotificationsPopover } from '../notifications-popover'
 import { Link } from 'react-router-dom'
+import { SiderTheme } from 'antd/es/layout/Sider'
 
 export default {
   component: AdminLayout,
@@ -224,6 +225,7 @@ const menu: MenuElement[] = [
     elements: [
       {
         title: 'Submenu Item',
+        icon: <LockOutlined />,
         url: '/sub-item'
       }
     ]
@@ -240,7 +242,7 @@ const menu: MenuElement[] = [
   }
 ]
 
-export const Base = () => {
+const Template: Story<{ siderTheme?: SiderTheme }> = ({ siderTheme }) => {
   return (
     <div style={{ transform: 'translateZ(0)' }}>
       <AdminLayout
@@ -248,7 +250,7 @@ export const Base = () => {
         defaultLayoutProps={{
           menu,
           logo: (type) => (type !== 'collapsed' ? 'AdminLogo' : 'AL'),
-          sidebarTheme: 'light',
+          sidebarTheme: siderTheme,
           sidebarMenuPrepend: (collapsed) => (
             <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
               {!collapsed ? 'BeforeMenu' : 'BM'}
@@ -256,7 +258,7 @@ export const Base = () => {
           ),
           sidebarMenuAppend: (collapsed) => (
             <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
-              {!collapsed ? 'AfterMenu' : 'AM'}
+              <a href="#">{!collapsed ? 'AfterMenu' : 'AM'}</a>
             </div>
           ),
           headerRight: (
@@ -340,7 +342,7 @@ export const Base = () => {
                   </Menu>
                 }
               >
-                <Button type="text">
+                <Button type="text" style={{ textAlign: collapsed ? 'center' : undefined }}>
                   <Avatar size="small" className="user-avatar" style={{ marginRight: collapsed ? 0 : 8 }}>
                     UN
                   </Avatar>
@@ -353,6 +355,14 @@ export const Base = () => {
       />
     </div>
   )
+}
+
+export const Base = Template.bind({})
+Base.args = {}
+
+export const DarkMenu = Template.bind({})
+DarkMenu.args = {
+  siderTheme: 'dark'
 }
 
 export const Auth = () => {

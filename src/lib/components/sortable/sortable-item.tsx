@@ -10,17 +10,22 @@ export type SortableItemProps = {
   id: string
   item: React.ReactNode
   disabled?: boolean
+  bordered?: boolean
   itemStyle?: React.CSSProperties
   onDelete?: (id: string) => void
 }
 
-const SortableItem: React.FC<SortableItemProps> = ({ id, item, itemStyle, disabled = false, onDelete }) => {
+const SortableItem: React.FC<SortableItemProps> = ({ id, item, itemStyle, disabled = false, bordered, onDelete }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id, disabled })
   const translations = useTranslations()
   const classNames = ['sortable-item']
 
   if (isDragging) {
     classNames.push('dragging')
+  }
+
+  if (bordered) {
+    classNames.push('bordered')
   }
 
   if (disabled) {

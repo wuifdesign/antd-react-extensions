@@ -1,0 +1,50 @@
+@text-color: var(--text-color);
+
+@link-color: var(--link-color);
+@link-hover-color: var(--link-hover-color);
+@link-active-color: var(--link-active-color);
+
+@layout-body-background: var(--body-bg);
+@layout-header-background: var(--header-bg);
+
+@layout-sider-background: var(--menu-dark-bg);
+@menu-dark-bg: var(--menu-dark-bg);
+@menu-dark-inline-submenu-bg: var(--menu-dark-submenu-bg);
+@menu-dark-item-active-bg: var(--menu-dark-active-bg);
+
+@layout-sider-background-light: var(--menu-bg);
+@menu-bg: var(--menu-bg);
+@menu-inline-submenu-bg: var(--menu-submenu-bg);
+@menu-item-active-bg: var(--menu-active-bg);
+@menu-highlight-color: var(--menu-active-color);
+
+@menu-logo-container-bg: var(--menu-logo-container-bg);
+
+@page-element-bg-color: var(--page-element-bg);
+@page-element-border-radius: var(--page-element-border-radius);
+
+html {
+  @import (multiple, reference) '~antd/lib/style/themes/default';
+  @import (multiple, reference) './index';
+
+  --text-color: @text-color;
+  --link-color: @link-color;
+  --link-hover-color: @link-hover-color;
+  --link-active-color: @link-active-color;
+  --body-bg: @layout-body-background;
+  --header-bg: #fff;
+
+  --menu-dark-bg: @layout-sider-background;
+  --menu-dark-submenu-bg: @menu-dark-inline-submenu-bg;
+  --menu-dark-active-bg: @menu-dark-item-active-bg;
+
+  --menu-bg: @layout-sider-background-light;
+  --menu-submenu-bg: @menu-inline-submenu-bg;
+  --menu-active-bg: @menu-item-active-bg;
+  --menu-active-color: @menu-highlight-color;
+
+  --menu-logo-container-bg: @menu-logo-container-bg;
+
+  --page-element-bg: @page-element-bg-color;
+  --page-element-border-radius: @page-element-border-radius;
+}

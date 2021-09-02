@@ -23,6 +23,22 @@ export const Base = () => {
   )
 }
 
+export const Bordered = () => {
+  const [items, setItems] = useState([{ name: 'Name 1' }, { name: 'Name 2' }, { name: 'Name 3' }])
+
+  return (
+    <Sortable
+      items={items}
+      bordered
+      getItemKey={(item) => item.name}
+      renderItem={(item) => <div>{item.name}</div>}
+      onSortEnd={(data) => {
+        setItems(data.newItems)
+      }}
+    />
+  )
+}
+
 export const WithConfirmation = () => {
   const [items, setItems] = useState([{ name: 'Name 1' }, { name: 'Name 2' }, { name: 'Name 3' }])
 

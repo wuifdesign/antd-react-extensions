@@ -1,20 +1,12 @@
-@import '~antd/es/style/themes/index';
-@import '~antd/es/style/mixins/index';
-@import '../../../_variables';
-
 @header-height: 50px;
-@layout-sider-border-color: lighten(desaturate(@layout-sider-background, 50%), 15%);
+@menu-logo-container-bg: transparent;
 
-.ant-drawer-content-wrapper {
+.@{ant-prefix}-drawer-content-wrapper {
   max-width: 95%;
 }
 
-.ant-badge-status-text:empty {
+.@{ant-prefix}-badge-status-text:empty {
   display: none;
-}
-
-.text-muted {
-  color: @disabled-color
 }
 
 .loading-overlay,
@@ -35,12 +27,11 @@
   background: rgba(255, 255, 255, .5);
 }
 
-.ant-layout-header {
+.@{ant-prefix}-layout-header {
   position: fixed;
   z-index: 190;
   height: @header-height;
   line-height: @header-height;
-  background: #fff;
   padding-left: @padding-lg;
   padding-right: @padding-lg;
   left: 0;
@@ -49,7 +40,7 @@
   transition: left @animation-duration-base;
 }
 
-.ant-layout-header-right {
+.@{ant-prefix}-layout-header-right {
   overflow: hidden;
   display: flex;
   height: 100%;
@@ -62,12 +53,12 @@
   }
 }
 
-.ant-layout-content {
+.@{ant-prefix}-layout-content {
   margin-top: @header-height;
   transition: margin-left @animation-duration-base;
   padding: 16px 20px;
 
-  &.ant-layout-content-mobile {
+  &.@{ant-prefix}-layout-content-mobile {
     padding: 10px;
   }
 }
@@ -83,12 +74,11 @@
 }
 
 .logo-container {
-  height: @header-height;
-  flex-shrink: 0;
+  min-height: @header-height;
+  background: @menu-logo-container-bg;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
 }
 
 .menu-container {
@@ -97,16 +87,16 @@
 }
 
 .sidebar-bottom {
-  border-top: 1px solid @layout-sider-border-color;
+  border-top: 1px solid rgba(255, 255, 255, 0.65);
 
-  .ant-btn {
+  .@{ant-prefix}-btn {
     padding-top: 8px;
     padding-bottom: 8px;
     text-align: left;
     height: auto;
     width: 100%;
 
-    &.ant-btn-text {
+    &.@{ant-prefix}-btn-text {
       color: inherit;
     }
   }
@@ -117,12 +107,12 @@
   background: #fff;
   box-shadow: @box-shadow-base;
 
-  .ant-menu {
+  .@{ant-prefix}-menu {
     border-right: 0;
 
-    .ant-menu-submenu-title,
-    .ant-menu-submenu,
-    .ant-menu-item {
+    .@{ant-prefix}-menu-submenu-title,
+    .@{ant-prefix}-menu-submenu,
+    .@{ant-prefix}-menu-item {
       height: 30px;
       line-height: 30px;
       margin-bottom: @menu-item-vertical-margin;
@@ -130,17 +120,13 @@
   }
 }
 
-.ant-layout-sider-dark {
+.@{ant-prefix}-layout-sider-dark {
   color: @menu-dark-color;
 }
 
-.ant-layout-sider-light {
-  .logo-container {
-    background: @layout-sider-background-light;
-  }
-
+.@{ant-prefix}-layout-sider-light {
   .sidebar-bottom {
-    border-top-color: @border-color-split;
+    border-top-color: rgba(0, 0, 0, 0.15);
   }
 }
 

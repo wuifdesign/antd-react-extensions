@@ -1,13 +1,10 @@
-@import '~antd/es/style/themes/index';
-@import '~antd/es/style/mixins/index';
-
 .sortable-item {
   position: relative;
   background: @white;
-  border: @border-width-base solid @border-color-base;
   margin-bottom: -1px;
   display: flex;
   align-items: center;
+  border: @border-width-base solid transparent;
 
   &:last-child {
     margin-bottom: 0;
@@ -16,6 +13,11 @@
   &.dragging {
     z-index: 1;
     box-shadow: @box-shadow-base;
+    border-radius: @border-radius-base;
+  }
+
+  &.bordered {
+    border-color: @border-color-base;
   }
 }
 

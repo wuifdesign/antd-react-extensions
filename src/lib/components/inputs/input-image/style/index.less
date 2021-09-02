@@ -1,6 +1,3 @@
-@import '~antd/es/style/themes/index';
-@import '~antd/es/style/mixins/index';
-
 @drop-zone-bg: @descriptions-bg;
 
 .input-image .drop-zone {
@@ -16,7 +13,7 @@
   transition: border-color 0.3s;
   outline: none;
 
-  .ant-form-item-has-error & {
+  .@{ant-prefix}-form-item-has-error & {
     border-color: @error-color;
     color: @error-color;
   }

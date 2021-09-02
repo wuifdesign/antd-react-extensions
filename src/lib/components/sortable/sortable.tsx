@@ -15,6 +15,7 @@ export type SortableProps<T extends any> = {
   getItemKey: (item: T) => string
   renderItem: (item: T) => React.ReactNode
   needsConfirmation?: boolean
+  bordered?: boolean
   confirmationTitle?: React.ReactNode
   confirmationContent?: React.ReactNode
   onSortEnd?: SortEndCallback<T>
@@ -28,12 +29,13 @@ export const Sortable = <T,>({
   onSortEnd,
   getItemKey,
   renderItem,
-  needsConfirmation = false,
+  needsConfirmation,
+  bordered,
   confirmationTitle = 'Move Item?',
   confirmationContent = 'Do you really want to move this item?',
   onDelete,
   itemStyle,
-  disabled = false
+  disabled
 }: SortableProps<T>) => {
   const sensors = useSensors(useSensor(PointerSensor), useSensor(MouseSensor))
 
@@ -111,6 +113,7 @@ export const Sortable = <T,>({
                 key={key}
                 id={key}
                 item={renderItem(item)}
+                bordered={bordered}
                 disabled={disabled}
                 onDelete={onTriggerDelete}
                 itemStyle={itemStyle}

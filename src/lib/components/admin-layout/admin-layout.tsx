@@ -16,14 +16,14 @@ const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => {
   let withLayout = true
   const canActivate = route.canActivate ? route.canActivate(route) : true
   if (!canActivate) {
-    if (typeof route.baseCanActivateFallback !== 'undefined') {
-      withLayout = route.baseCanActivateFallback.renderLayout === true
+    if (typeof route.canActivateFallbackBase !== 'undefined') {
+      withLayout = route.canActivateFallbackBase.renderLayout === true
     }
     if (typeof route.canActivateFallback !== 'undefined') {
       withLayout = route.canActivateFallback.renderLayout === true
     }
   }
-  const routeFallback = route.canActivateFallback?.component || route.baseCanActivateFallback?.component || (
+  const routeFallback = route.canActivateFallback?.component || route.canActivateFallbackBase?.component || (
     <ErrorPage type={403} />
   )
   const routeElement = (props: RouteComponentProps<any>) => {
@@ -116,7 +116,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                   ...layoutRoute.layoutProps
                 }
               }
-              layoutRoute.baseCanActivateFallback = canActivateFallback
+              layoutRoute.canActivateFallbackBase = canActivateFallback
               if (typeof layoutRoute.layout === 'string') {
                 throw new Error(`'Layout with name ${layoutRoute.layout} not supported!`)
               }

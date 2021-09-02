@@ -1,5 +1,4 @@
-import 'antd/dist/antd.less';
-import '../src/lib/index.less';
+import '../src/storybook.less';
 
 export const parameters = {
   // actions: { argTypesRegex: '^on[A-Z].*' },

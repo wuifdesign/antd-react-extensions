@@ -41,7 +41,7 @@ export type AuthRouteElement = RouteElementBase & {
 export type CustomLayoutRouteElement = RouteElementBase & {
   layout: React.ElementType
   layoutProps: Record<string, any>
-  baseCanActivateFallback?: CanActivateFallbackType
+  canActivateFallbackBase?: CanActivateFallbackType
 }
 
 export type RouteElement = BlankRouteElement | DefaultRouteElement | AuthRouteElement | CustomLayoutRouteElement
