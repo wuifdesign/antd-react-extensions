@@ -23,7 +23,7 @@ const PageContent: React.FC<PageContentProps> & ChildComponents = ({
 }) => (
   <div className="page-content" style={style}>
     {!hideBreadcrumbs && <Breadcrumbs />}
-    {loading ? <LoadingSpinner paddingTopOffset={!hideBreadcrumbs ? -18 : 0} /> : children}
+    {loading ? <LoadingSpinner marginTopOffset={!hideBreadcrumbs ? -18 : 0} /> : children}
   </div>
 )
 

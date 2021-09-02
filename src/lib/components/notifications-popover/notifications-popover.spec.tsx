@@ -7,20 +7,17 @@ const data = [
   {
     icon: <MailOutlined />,
     title: 'Title 1',
-    description: 'This is description number 1',
-    onClick: () => console.log('item 1')
+    description: 'This is description number 1'
   },
   {
     icon: <MailOutlined />,
     title: 'Title 2',
-    description: 'This is description number 2',
-    onClick: () => console.log('item 2')
+    description: 'This is description number 2'
   },
   {
     icon: <MailOutlined />,
     title: 'Title 3',
-    description: 'This is description number 3',
-    onClick: () => console.log('item 3')
+    description: 'This is description number 3'
   }
 ]
 

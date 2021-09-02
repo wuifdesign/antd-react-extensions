@@ -2,9 +2,14 @@ import React from 'react'
 import { Spin } from 'antd'
 
 export type LoadingSpinnerProps = {
-  paddingTopOffset?: number
+  marginVertical?: number
+  marginTopOffset?: number
 }
 
-export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ paddingTopOffset = 0 }) => (
-  <Spin size="large" style={{ margin: `${60 + paddingTopOffset}px auto 10px`, display: 'block' }} />
+export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ marginVertical = 60, marginTopOffset = 0 }) => (
+  <Spin
+    className="loading-spinner"
+    size="large"
+    style={{ margin: `${marginVertical + marginTopOffset}px auto ${marginVertical}px`, display: 'block' }}
+  />
 )

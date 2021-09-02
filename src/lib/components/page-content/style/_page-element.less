@@ -2,38 +2,66 @@
 @import '~antd/es/style/mixins/index';
 @import '../../../_variables';
 
+@page-element-bg-color: #fff;
 @page-element-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.07);
 @page-element-padding: 16px;
-@page-element-border-radius: 5px;
+@page-element-border-radius: 8px;
+@page-element-type-border-width: 3px;
 
 .page-content-element {
   position: relative;
   box-shadow: @page-element-shadow;
   border-radius: @page-element-border-radius;
   margin-bottom: @margin-md;
+  background: @page-element-bg-color;
   overflow: hidden;
 
-  & > .ant-card-head {
-    padding: 0 @page-element-padding;
-    border-bottom: 0;
-
-    .ant-card-head-wrapper {
-      min-height: 58px;
-    }
-
-    .ant-card-extra,
-    .ant-card-head-title {
-      padding: (@page-element-padding / 2) 0;
-    }
+  &.has-head > .page-content-element-body,
+  &.has-head > .collapse-container > div > .page-content-element-body {
+    padding-top: (@page-element-padding / 2);
   }
 
-  & > .ant-card-body {
-    padding: @page-element-padding;
+  &.collapsable > .page-content-element-head {
+    cursor: pointer;
   }
 }
 
-.page-content-sub-title {
+.page-content-element-body {
+  padding: @page-element-padding;
+}
+
+.page-content-type-primary {
+  border-top: @page-element-type-border-width solid @primary-color;
+}
+
+.page-content-type-error {
+  border-top: @page-element-type-border-width solid @error-color;
+}
+
+.page-content-type-success {
+  border-top: @page-element-type-border-width solid @success-color;
+}
+
+.page-content-type-warning {
+  border-top: @page-element-type-border-width solid @warning-color;
+}
+
+.page-content-element-head {
+  display: flex;
+  align-items: center;
+  min-height: 45px;
+  padding: (@page-element-padding / 2) @page-element-padding;
+}
+
+.page-content-element-title {
+  font-size: @card-head-font-size;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.page-content-element-title-sub {
   font-size: .8rem;
-  margin-top: -3px;
+  margin-top: -4px;
   color: @text-color-secondary;
 }

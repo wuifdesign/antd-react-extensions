@@ -18,7 +18,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth =
   return (
     <>
       <Layout
-        className={clsx('ant-layout-content', 'auth-container', isMobile && 'ant-layout-content-mobile')}
+        className={clsx('ant-layout-content', 'auth-container', { 'ant-layout-content-mobile': isMobile })}
         style={{
           display: 'flex',
           justifyContent: 'center',
