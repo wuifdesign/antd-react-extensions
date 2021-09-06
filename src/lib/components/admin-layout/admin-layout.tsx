@@ -11,6 +11,7 @@ import { RouterHistory, RouterHistoryTypesType } from '../../utils/router-histor
 import { LayoutContext } from './layout-context'
 import { ErrorPage } from '../error-page'
 import { LoadingSpinner } from '../loading-spinner'
+import { useTranslations } from '../config-provider'
 
 const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => {
   let withLayout = true
@@ -66,6 +67,15 @@ export type AdminLayoutProps = {
   defaultLayoutProps?: DefaultLayoutProps
 }
 
+export const LayoutFullPageLoading: React.FC = () => {
+  const translations = useTranslations()
+  return (
+    <div className="page-loading">
+      <Spin size="large" tip={translations.LayoutFullPageLoading.tip} />
+    </div>
+  )
+}
+
 /**
  * Default Layout for the Admin Interface. Can be configured for specific needs.
  *
@@ -84,11 +94,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   RouterHistory.setHistoryByType(history)
 
   if (loading) {
-    return (
-      <div className="page-loading">
-        <Spin size="large" tip="Loading..." />
-      </div>
-    )
+    return <LayoutFullPageLoading />
   }
 
   return (

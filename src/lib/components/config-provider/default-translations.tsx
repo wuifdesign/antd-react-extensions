@@ -1,8 +1,13 @@
+import { LayoutFullPageLoading } from '../admin-layout'
+
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
 
 export const defaultTranslations = {
+  LayoutFullPageLoading: {
+    tip: 'Loading...'
+  },
   ErrorPage: {
     403: {
       title: '403',
