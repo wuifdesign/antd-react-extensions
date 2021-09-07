@@ -1,5 +1,3 @@
-import { LayoutFullPageLoading } from '../admin-layout'
-
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }

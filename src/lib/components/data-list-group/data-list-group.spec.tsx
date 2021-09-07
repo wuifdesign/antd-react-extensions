@@ -1,14 +1,14 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { DataDisplayGroup } from './data-display-group'
+import { DataListGroup } from './data-list-group'
 
-describe('DataDisplayRowGroup', () => {
+describe('DataListGroup', () => {
   it('should render', () => {
-    render(<DataDisplayGroup />)
+    render(<DataListGroup />)
   })
 
   it('should display title', () => {
-    render(<DataDisplayGroup title="Title" />)
+    render(<DataListGroup title="Title" />)
     const title = screen.getByText(/Title/i)
     expect(title).toBeInTheDocument()
   })

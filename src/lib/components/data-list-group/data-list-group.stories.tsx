@@ -1,13 +1,13 @@
 import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
-import { DataDisplayGroup } from './data-display-group'
-import { DataDisplayRow } from './data-display-row'
+import { DataListGroup } from './data-list-group'
+import { DataListItem } from './data-list-item'
 import { EditableDate, EditableDateRange, EditableInput, EditableSelect, EditableTextarea } from '../editable'
 
 export default {
-  component: DataDisplayGroup,
-  subcomponents: { DataDisplayRow },
-  title: 'Components/Data Display',
+  component: DataListGroup,
+  subcomponents: { DataDisplayRow: DataListItem },
+  title: 'Components/Data List',
   parameters: { controls: { include: ['title'] } }
 } as Meta
 
@@ -17,27 +17,27 @@ type TemplateProps = {
 
 const Template: Story<PropsWithChildren<TemplateProps>> = (args) => (
   <>
-    <DataDisplayGroup title={args.title}>
-      <DataDisplayGroup.Row label="Label">Content</DataDisplayGroup.Row>
-      <DataDisplayGroup.Row label="Label">Content</DataDisplayGroup.Row>
-      <DataDisplayGroup.Row label="Label">Content</DataDisplayGroup.Row>
-    </DataDisplayGroup>
+    <DataListGroup title={args.title}>
+      <DataListGroup.Item label="Label">Content</DataListGroup.Item>
+      <DataListGroup.Item label="Label">Content</DataListGroup.Item>
+      <DataListGroup.Item label="Label">Content</DataListGroup.Item>
+    </DataListGroup>
   </>
 )
 
 const TemplateWithEditable: Story<PropsWithChildren<TemplateProps>> = (args) => (
   <>
-    <DataDisplayGroup title={args.title}>
-      <DataDisplayGroup.Row label="Date">
+    <DataListGroup title={args.title}>
+      <DataListGroup.Item label="Date">
         <EditableDate value="2020-10-10" onSubmit={() => Promise.resolve()} />
-      </DataDisplayGroup.Row>
-      <DataDisplayGroup.Row label="Date Range">
+      </DataListGroup.Item>
+      <DataListGroup.Item label="Date Range">
         <EditableDateRange value={['2020-10-10', '2020-10-15']} onSubmit={() => Promise.resolve()} />
-      </DataDisplayGroup.Row>
-      <DataDisplayGroup.Row label="Input">
+      </DataListGroup.Item>
+      <DataListGroup.Item label="Input">
         <EditableInput value="My Default Value" onSubmit={() => Promise.resolve()} />
-      </DataDisplayGroup.Row>
-      <DataDisplayGroup.Row label="Select">
+      </DataListGroup.Item>
+      <DataListGroup.Item label="Select">
         <EditableSelect
           selectProps={{
             options: [
@@ -49,11 +49,11 @@ const TemplateWithEditable: Story<PropsWithChildren<TemplateProps>> = (args) => 
           value="1"
           onSubmit={() => Promise.resolve()}
         />
-      </DataDisplayGroup.Row>
-      <DataDisplayGroup.Row label="Textarea">
+      </DataListGroup.Item>
+      <DataListGroup.Item label="Textarea">
         <EditableTextarea value="My Default Value" onSubmit={() => Promise.resolve()} />
-      </DataDisplayGroup.Row>
-    </DataDisplayGroup>
+      </DataListGroup.Item>
+    </DataListGroup>
   </>
 )
 
