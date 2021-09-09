@@ -6,6 +6,7 @@ import { LoadingSpinner } from '../../loading-spinner'
 
 export type PageContentElementProps = {
   title?: React.ReactNode
+  style?: React.CSSProperties
   subTitle?: React.ReactNode
   extra?: React.ReactNode
   type?: 'primary' | 'success' | 'error' | 'warning'
@@ -19,6 +20,7 @@ export const PageContentElement: React.FC<PageContentElementProps> = ({
   title,
   subTitle,
   extra,
+  style,
   collapsable,
   type,
   loading = false,
@@ -45,6 +47,7 @@ export const PageContentElement: React.FC<PageContentElementProps> = ({
 
   return (
     <div
+      style={style}
       className={clsx('page-content-element', type && `page-content-type-${type}`, {
         collapsable,
         collapsed,
