@@ -1,0 +1,36 @@
+import React from 'react'
+import { Col, Row, Typography } from 'antd'
+
+export type DataListElementType = {
+  title: string
+  content: React.ReactNode
+}
+
+export type DataListGroupProps = {
+  title?: string
+  elements: DataListElementType[] | undefined | null
+}
+
+export const DataList: React.FC<DataListGroupProps> = ({ elements, title }) => (
+  <div className="data-list-group">
+    {!!title && (
+      <div style={{ display: 'flex' }}>
+        <div style={{ flex: 1 }} className="data-list-group-title">
+          {title}
+        </div>
+      </div>
+    )}
+    {elements?.map(({ title, content }, index) => (
+      <Row key={index} className="data-list-item">
+        <Col xs={24} sm={8} className="data-list-label">
+          <Typography.Text ellipsis title={title}>
+            {title}
+          </Typography.Text>
+        </Col>
+        <Col xs={24} sm={16} className="data-list-body">
+          {content}
+        </Col>
+      </Row>
+    ))}
+  </div>
+)

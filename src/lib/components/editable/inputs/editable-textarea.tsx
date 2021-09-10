@@ -4,13 +4,13 @@ import { useTextareaScrollbarWidth } from '../../../utils/hooks'
 import { Editable, EditableProps } from '../editable'
 
 export type EditableTextareaProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
-  value?: string
+  value: string | undefined | null
   placeholder?: string
   onSubmit?: (value: string | undefined) => Promise<void>
 }
 
 export const EditableTextarea: React.FC<EditableTextareaProps> = ({ ...props }) => {
-  const [value, setValue] = useState<string | undefined>(props.value)
+  const [value, setValue] = useState<string | undefined | null>(props.value)
   const [, setRenderTrigger] = useState(0)
   const textArea = useRef(null)
   const textAreaScrollbarWidth = useTextareaScrollbarWidth(textArea.current)
@@ -31,7 +31,7 @@ export const EditableTextarea: React.FC<EditableTextareaProps> = ({ ...props }) 
             style={{ paddingRight: textAreaScrollbarWidth + 45 + 11 }}
             rows={7}
             autoFocus
-            value={value}
+            value={value || undefined}
             onChange={(e) => {
               setValue(e.target.value)
             }}

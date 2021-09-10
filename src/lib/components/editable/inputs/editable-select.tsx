@@ -5,7 +5,7 @@ import { Editable, EditableProps } from '../editable'
 type SelectValueType = string | number | string[] | number[]
 
 export type EditableSelectProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
-  value?: SelectValueType
+  value: SelectValueType | undefined | null
   placeholder?: string
   onSubmit?: (value?: SelectValueType) => Promise<void>
   selectProps?: SelectProps<string | number | string[] | number[]>
@@ -13,7 +13,7 @@ export type EditableSelectProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
 }
 
 export const EditableSelect: React.FC<EditableSelectProps> = ({ selectProps, renderDisplay, ...props }) => {
-  const [value, setValue] = useState<SelectValueType | undefined>(props.value)
+  const [value, setValue] = useState<SelectValueType | undefined | null>(props.value)
   const isSingleSelect = selectProps?.mode !== 'multiple' && selectProps?.mode !== 'tags'
 
   return (
@@ -40,7 +40,7 @@ export const EditableSelect: React.FC<EditableSelectProps> = ({ selectProps, ren
           <Select
             style={{ width: '100%' }}
             autoFocus
-            defaultValue={props.value}
+            defaultValue={props.value || undefined}
             defaultOpen
             onChange={(e) => {
               setValue(e)

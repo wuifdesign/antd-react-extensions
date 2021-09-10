@@ -14,8 +14,8 @@ export type SortableProps<T extends any> = {
   items: T[]
   getItemKey: (item: T) => string
   renderItem: (item: T) => React.ReactNode
-  needsConfirmation?: boolean
   bordered?: boolean
+  needsConfirmation?: boolean
   confirmationTitle?: React.ReactNode
   confirmationContent?: React.ReactNode
   onSortEnd?: SortEndCallback<T>
@@ -29,8 +29,8 @@ export const Sortable = <T,>({
   onSortEnd,
   getItemKey,
   renderItem,
-  needsConfirmation,
   bordered,
+  needsConfirmation,
   confirmationTitle = 'Move Item?',
   confirmationContent = 'Do you really want to move this item?',
   onDelete,

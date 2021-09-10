@@ -5,7 +5,7 @@ import { useTranslations } from '../config-provider/use-translations'
 
 export type EditableProps = {
   onSubmit?: (value: any) => Promise<void>
-  value?: any
+  value: any
   valuePlaceholder?: string
   editAble?: boolean
   style?: React.CSSProperties

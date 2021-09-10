@@ -55,7 +55,7 @@ const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => {
 
 export type CanActivateFallbackType = {
   renderLayout?: boolean
-  component?: React.ReactNode
+  component: React.ReactNode
 }
 
 export type AdminLayoutProps = {

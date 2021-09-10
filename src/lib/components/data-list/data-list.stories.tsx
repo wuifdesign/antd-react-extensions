@@ -1,12 +1,12 @@
 import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
-import { DataDisplay } from './data-display'
+import { DataList } from './data-list'
 import { EditableDate, EditableDateRange, EditableInput, EditableSelect, EditableTextarea } from '../editable'
 import { Tag } from 'antd'
 
 export default {
-  component: DataDisplay,
-  title: 'Components/Data Display',
+  component: DataList,
+  title: 'Components/Data List',
   parameters: { controls: { include: ['title'] } }
 } as Meta
 
@@ -14,8 +14,9 @@ type TemplateProps = {
   title?: string
 }
 
-const Template: Story<PropsWithChildren<TemplateProps>> = () => (
-  <DataDisplay
+const Template: Story<PropsWithChildren<TemplateProps>> = (args) => (
+  <DataList
+    title={args.title}
     elements={[
       { title: 'Name', content: 'John Doe' },
       { title: 'Role', content: 'Admin' },
@@ -28,14 +29,14 @@ const Template: Story<PropsWithChildren<TemplateProps>> = () => (
   />
 )
 
-const TemplateWithEditable: Story<PropsWithChildren<TemplateProps>> = () => (
-  <DataDisplay
+const TemplateWithEditable: Story<PropsWithChildren<TemplateProps>> = (args) => (
+  <DataList
+    title={args.title}
     elements={[
       { title: 'Date', content: <EditableDate value="2020-10-10" onSubmit={() => Promise.resolve()} /> },
       {
         title: 'Date Range',
-        content: <EditableDateRange value={['2020-10-10', '2020-10-15']} onSubmit={() => Promise.resolve()} />,
-        col: { span: 12 }
+        content: <EditableDateRange value={['2020-10-10', '2020-10-15']} onSubmit={() => Promise.resolve()} />
       },
       { title: 'Input', content: <EditableInput value="My Default Value" onSubmit={() => Promise.resolve()} /> },
       {
@@ -59,6 +60,11 @@ const TemplateWithEditable: Story<PropsWithChildren<TemplateProps>> = () => (
   />
 )
 
-export const Base = Template.bind({})
+export const WithTitle = Template.bind({})
+WithTitle.args = {
+  title: 'My Title'
+}
+
+export const WithoutTitle = Template.bind({})
 
 export const WithEditable = TemplateWithEditable.bind({})

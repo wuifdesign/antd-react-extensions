@@ -1,30 +1,28 @@
 import React from 'react'
-import { DataDisplayItem, DataDisplayItemProps } from './data-display-item'
-import { Row, RowProps } from 'antd'
-import { ColProps } from 'antd/lib/grid/col'
+import { Col, Row, RowProps, ColProps } from 'antd'
+
+export type DataDisplayElementType = {
+  title: string
+  content: React.ReactNode
+  col?: ColProps
+}
 
 export type DataDisplayProps = RowProps & {
-  column?: ColProps
+  col?: ColProps
+  elements: DataDisplayElementType[] | undefined | null
 }
 
-type ChildComponents = {
-  Item: React.FC<DataDisplayItemProps>
-}
-
-const DataDisplay: React.FC<DataDisplayProps> & ChildComponents = ({
-  column = { xs: 24, sm: 12, md: 6 },
-  children,
+export const DataDisplay: React.FC<DataDisplayProps> = ({
+  col: defaultColProps = { xs: 24, sm: 12, md: 6 },
+  elements,
   ...props
 }) => (
   <Row gutter={[16, 16]} {...props}>
-    {React.Children.toArray(children).map((element) =>
-      typeof element !== 'string' && typeof element !== 'number'
-        ? React.cloneElement(element as any, { defaultProps: column })
-        : element
-    )}
+    {elements?.map(({ title, content, col }, index) => (
+      <Col key={index} {...(col || defaultColProps)}>
+        <div className="data-display-label">{title}</div>
+        <div className="data-display-body">{content}</div>
+      </Col>
+    ))}
   </Row>
 )
-
-DataDisplay.Item = DataDisplayItem
-
-export { DataDisplay }
