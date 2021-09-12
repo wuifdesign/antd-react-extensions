@@ -2,7 +2,7 @@ import React from 'react'
 import { Col, Row, Typography } from 'antd'
 
 export type DataListElementType = {
-  title: string
+  title: React.ReactNode
   content: React.ReactNode
 }
 
@@ -23,7 +23,7 @@ export const DataList: React.FC<DataListGroupProps> = ({ elements, title }) => (
     {elements?.map(({ title, content }, index) => (
       <Row key={index} className="data-list-item">
         <Col xs={24} sm={8} className="data-list-label">
-          <Typography.Text ellipsis title={title}>
+          <Typography.Text ellipsis title={typeof title === 'string' ? title : undefined}>
             {title}
           </Typography.Text>
         </Col>

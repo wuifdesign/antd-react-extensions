@@ -40,7 +40,7 @@ export const PageContentElement: React.FC<PageContentElementProps> = ({
   const bodyElement = loading ? (
     <LoadingSpinner marginVertical={30} />
   ) : (
-    <div className="page-content-element-body " style={{ padding: removeBodyPadding ? 0 : undefined }}>
+    <div className="page-content-element-body" style={{ padding: removeBodyPadding ? 0 : undefined }}>
       {children}
     </div>
   )

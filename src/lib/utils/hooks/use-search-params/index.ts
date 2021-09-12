@@ -1,1 +1,1 @@
-export { useReactRouter } from './use-search-params'
+export { useSearchParams } from './use-search-params'

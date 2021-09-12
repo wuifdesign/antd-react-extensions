@@ -2,7 +2,7 @@ import React from 'react'
 import { Col, Row, RowProps, ColProps } from 'antd'
 
 export type DataDisplayElementType = {
-  title: string
+  title: React.ReactNode
   content: React.ReactNode
   col?: ColProps
 }

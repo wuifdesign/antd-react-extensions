@@ -36,6 +36,9 @@ const Template: Story<TemplateProps> = (args) => (
         diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
         takimata sanctus est Lorem ipsum dolor sit amet.
       </PageContent.Element>
+      <PageContent.Element style={{ height: 300 }} title="My Title">
+        Content
+      </PageContent.Element>
     </PageContent>
   </MemoryRouter>
 )

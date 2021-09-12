@@ -1,4 +1,5 @@
 export * from './admin-layout'
+export * from './advanced-table'
 export * from './button'
 export * from './config-provider'
 export * from './data-display'

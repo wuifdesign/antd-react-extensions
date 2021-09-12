@@ -48,6 +48,20 @@ export const defaultTranslations = {
     okText: 'Delete',
     content: 'This action cannot be undone.'
   },
+  AdvancedTable: {
+    showFilters: 'Show Filters',
+    hideFilters: 'Hide Filters',
+    btnApplyFilters: 'Apply Filters',
+    btnResetFilters: 'Reset Filter',
+    reloadTable: 'Reload Table',
+    exportCsv: 'Export CSV',
+    columnHeight: 'Column Height',
+    settings: 'Settings',
+    resetSettings: 'Reset',
+    large: 'Large',
+    medium: 'Medium',
+    small: 'Small'
+  },
   confirmAction: {
     okText: 'Continue',
     content: 'Do you want to continue?'

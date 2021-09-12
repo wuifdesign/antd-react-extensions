@@ -76,3 +76,15 @@
 
 .button-variant(warning, @btn-warning-color, @btn-warning-bg);
 .button-variant(success, @btn-success-color, @btn-success-bg);
+
+.ant-btn.as-text {
+  padding: 0;
+  line-height: 1em;
+  height: auto;
+  width: auto;
+  background: transparent;
+
+  &:hover {
+    color: @link-active-color;
+  }
+}
