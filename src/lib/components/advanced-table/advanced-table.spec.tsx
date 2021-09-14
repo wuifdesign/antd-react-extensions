@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { AdvancedTable } from './advanced-table'
 import { AdvancedTableColumnType } from './advanced-table-column.type'
 import { Space, Tag } from 'antd'

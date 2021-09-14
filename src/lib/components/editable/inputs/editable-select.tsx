@@ -5,7 +5,7 @@ import { Editable, EditableProps } from '../editable'
 type SelectValueType = string | number | string[] | number[]
 
 export type EditableSelectProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
-  value: SelectValueType | undefined | null
+  value?: SelectValueType | undefined | null
   placeholder?: string
   onSubmit?: (value?: SelectValueType) => Promise<void>
   selectProps?: SelectProps<string | number | string[] | number[]>

@@ -16,10 +16,18 @@ export type ChildComponents = {
 /**
  * Add new color options (waring/success) to the default ant design buttons (https://ant.design/components/button/).
  */
-const Button: React.FC<ButtonProps> & ChildComponents = ({ warning, success, asText, type, children, ...props }) => (
+const Button: React.FC<ButtonProps> & ChildComponents = ({
+  warning,
+  className,
+  success,
+  asText,
+  type,
+  children,
+  ...props
+}) => (
   <AntdButton
     {...props}
-    className={clsx({ 'ant-btn-success': success, 'ant-btn-warning': warning, 'as-text': asText })}
+    className={clsx(className, { 'ant-btn-success': success, 'ant-btn-warning': warning, 'as-text': asText })}
     type={asText ? 'text' : type}
   >
     {children}

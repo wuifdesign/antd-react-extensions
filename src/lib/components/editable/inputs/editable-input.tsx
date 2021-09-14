@@ -3,7 +3,7 @@ import { Input } from 'antd'
 import { Editable, EditableProps } from '../editable'
 
 export type EditableInputProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
-  value: string | undefined | null
+  value?: string | undefined | null
   placeholder?: string
   onSubmit?: (value: string | undefined) => Promise<void>
 }
