@@ -19,6 +19,7 @@ import { FormInstance } from 'antd/es/form'
 import { IconUndo } from '../icons'
 import { CollapseContainer } from '../collapse-container'
 import { useIsMobile } from '../../utils'
+import AdvancedTableStore, { AdvancedTableStoreKeyType, AdvancedTableStoreType } from './utils/advanced-table-store'
 
 export type AdvancedTableProps<T = any> = Omit<TableProps<T>, 'columns' | 'title'> & {
   title?: string
@@ -42,34 +43,29 @@ export type AdvancedTableProps<T = any> = Omit<TableProps<T>, 'columns' | 'title
   extra?: React.ReactNode
 }
 
-export type AdvancedTableStoredSettings = {
-  size?: SizeType
-  visible?: React.Key[]
-}
-
-const storeSettings = (key: string | undefined, data: AdvancedTableStoredSettings) => {
-  if (key) {
-    window.localStorage.setItem(key, JSON.stringify(data))
+const getKey = (column: AdvancedTableColumnType<any>): string => {
+  if (column.key) {
+    return String(column.key)
   }
-}
-
-const removeSettings = (key: string | undefined) => {
-  if (key) {
-    window.localStorage.removeItem(key)
+  if (column.dataIndex) {
+    return String(column.dataIndex)
   }
+  throw new Error('No key or dataIndex defined for column')
 }
 
 const enhanceColumns = (
   columns: AdvancedTableColumnType<any>[],
-  settings: AdvancedTableStoredSettings | null,
+  settings: AdvancedTableStoreType | null,
   isMobile: boolean
 ) => {
   if (settings) {
-    columns = columns.map((column) => ({
-      ...column,
-      visible: settings.visible ? settings.visible.includes(column.key as string) : column.visible,
-      visibleMobile: settings.visible ? settings.visible.includes(column.key as string) : column.visible
-    }))
+    columns = columns.map((column) => {
+      return {
+        ...column,
+        visible: settings.visible ? settings.visible.includes(getKey(column)) : column.visible,
+        visibleMobile: settings.visible ? settings.visible.includes(getKey(column)) : column.visible
+      }
+    })
   }
   return columns.map((column) => {
     let visible = column.visible !== false
@@ -86,6 +82,7 @@ const enhanceColumns = (
 export const AdvancedTable: React.FC<AdvancedTableProps> = ({
   title,
   localStorageKey,
+  className,
   expandable,
   extra,
   columns,
@@ -106,37 +103,29 @@ export const AdvancedTable: React.FC<AdvancedTableProps> = ({
   hideSizeChanger,
   hideSettings,
   onRefresh,
+  pagination,
   ...props
 }) => {
   const isMobile = useIsMobile()
   const formRef = useRef<FormInstance>(null)
   const [filtersVisible, setFiltersVisible] = useState(filterDefaultVisible || false)
   const translations = useTranslations()
-  const [settings, setSettings] = useState<AdvancedTableStoredSettings | null>(() => {
-    if (localStorageKey) {
-      const item = window.localStorage.getItem(localStorageKey)
-      if (item) {
-        return JSON.parse(item)
-      }
-    }
-    return null
-  })
+  const [settings, setSettings] = useState<AdvancedTableStoreType | null>(() => AdvancedTableStore.get(localStorageKey))
   columns = enhanceColumns(columns, settings, isMobile)
 
-  const changeSettings = (data: AdvancedTableStoredSettings) => {
-    setSettings(data)
-    storeSettings(localStorageKey, data)
+  const changeSettings = (data: AdvancedTableStoreType) => {
+    AdvancedTableStore.update(localStorageKey, data)
+    if (Object.keys(data).length === 0) {
+      setSettings(null)
+    } else {
+      setSettings(data)
+    }
   }
 
-  const resetSettings = (type: 'size' | 'visible') => {
+  const resetSettings = (type: AdvancedTableStoreKeyType) => {
     const newSettings = { ...settings }
     delete newSettings[type]
-    if (Object.keys(newSettings).length > 0) {
-      changeSettings(newSettings)
-    } else {
-      setSettings(null)
-      removeSettings(localStorageKey)
-    }
+    changeSettings(newSettings)
   }
 
   const onSizeChange = (size: SizeType) => {
@@ -146,19 +135,19 @@ export const AdvancedTable: React.FC<AdvancedTableProps> = ({
     })
   }
 
-  const onVisibleChange = (key: React.Key | undefined, visible: boolean) => {
-    if (key) {
-      let visibleKeys = columns.filter(({ visible }) => visible !== false).map(({ key }) => key) as React.Key[]
+  const onVisibleChange = (column: AdvancedTableColumnType<any> | undefined, visible: boolean) => {
+    if (column) {
+      const key = getKey(column)
+      let visibleKeys = columns.filter(({ visible }) => visible !== false).map(getKey) as React.Key[]
       if (visible) {
         visibleKeys.push(key)
       } else {
         visibleKeys = visibleKeys.filter((vKey) => vKey !== key)
       }
-      const newSettings = {
+      changeSettings({
         ...settings,
         visible: visibleKeys
-      }
-      changeSettings(newSettings)
+      })
     }
   }
 
@@ -268,13 +257,13 @@ export const AdvancedTable: React.FC<AdvancedTableProps> = ({
                   <ul className="advanced-table-row-list">
                     {columns
                       ?.filter(({ editable }) => editable !== false)
-                      .map(({ title, key, visible }, index) => (
-                        <li key={key || index}>
+                      .map((column, index) => (
+                        <li key={getKey(column) || index}>
                           <Checkbox
-                            checked={visible !== false}
-                            onChange={(event) => onVisibleChange(key, event.target.checked)}
+                            checked={column.visible !== false}
+                            onChange={(event) => onVisibleChange(column, event.target.checked)}
                           >
-                            {title}
+                            {column.title}
                           </Checkbox>
                         </li>
                       ))}
@@ -317,11 +306,26 @@ export const AdvancedTable: React.FC<AdvancedTableProps> = ({
         </div>
       </CollapseContainer>
       <Table
-        className={clsx({ 'advanced-table-table-outlined': outlined })}
+        className={clsx(className, 'advanced-table', { 'advanced-table-outlined': outlined })}
         expandable={expandableConfig}
         size={currentSize}
         loading={loading}
         columns={columns.filter(({ visible }) => visible)}
+        pagination={{
+          defaultPageSize: settings?.pageSize || 10,
+          pageSizeOptions: ['10', '25'],
+          showTotal: (total) => `${total} items`,
+          size: 'small',
+          showSizeChanger: true,
+          showQuickJumper: false,
+          onShowSizeChange: (_, pageSize) => {
+            changeSettings({
+              ...settings,
+              pageSize
+            })
+          },
+          ...pagination
+        }}
         {...props}
       />
     </>

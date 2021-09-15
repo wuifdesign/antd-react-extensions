@@ -1,5 +1,22 @@
 @advanced-table-margin: 12px;
 
+
+.advanced-table {
+  .ant-table-pagination > * {
+    order: 3;
+  }
+
+  .ant-pagination-total-text {
+    order: 1;
+    margin-right: auto;
+  }
+
+  .ant-pagination .ant-pagination-options {
+    margin-left: 12px;
+  }
+}
+
+
 .advanced-table-header {
   display: flex;
   align-items: center;
@@ -47,7 +64,7 @@
   border: @table-border;
 }
 
-.advanced-table-table-outlined .ant-table {
+.advanced-table-outlined .ant-table {
   border: @table-border;
   border-bottom: 0;
 }

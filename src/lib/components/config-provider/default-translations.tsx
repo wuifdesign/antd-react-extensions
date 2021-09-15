@@ -49,6 +49,7 @@ export const defaultTranslations = {
     content: 'This action cannot be undone.'
   },
   AdvancedTable: {
+    perPage: '/ page',
     showFilters: 'Show Filters',
     hideFilters: 'Hide Filters',
     btnApplyFilters: 'Apply Filters',

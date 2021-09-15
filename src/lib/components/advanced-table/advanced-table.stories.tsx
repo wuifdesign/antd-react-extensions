@@ -14,24 +14,20 @@ const Template: Story<PropsWithChildren<AdvancedTableProps>> = (args) => {
     {
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
       render: (text) => <a>{text}</a>,
       visible: false
     },
     {
       title: 'Age',
-      dataIndex: 'age',
-      key: 'age'
+      dataIndex: 'age'
     },
     {
       title: 'Address',
       dataIndex: 'address',
-      key: 'address',
       visibleMobile: false
     },
     {
       title: 'Tags',
-      key: 'tags',
       dataIndex: 'tags',
       renderExport: (tags: string[]) => tags.join(', '),
       render: (tags: string[]) => (

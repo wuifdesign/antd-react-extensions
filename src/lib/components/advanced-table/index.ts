@@ -1,3 +1,5 @@
 export { AdvancedTable } from './advanced-table'
+export { AdvancedTableStore } from './utils/advanced-table-store'
 export type { AdvancedTableProps } from './advanced-table'
 export type { AdvancedTableColumnType } from './advanced-table-column.type'
+export type { AdvancedTableStoreType, AdvancedTableStoreKeyType } from './utils/advanced-table-store'
