@@ -19,7 +19,7 @@ import { FormInstance } from 'antd/es/form'
 import { IconUndo } from '../icons'
 import { CollapseContainer } from '../collapse-container'
 import { useIsMobile } from '../../utils'
-import AdvancedTableStore, { AdvancedTableStoreKeyType, AdvancedTableStoreType } from './utils/advanced-table-store'
+import { AdvancedTableStore, AdvancedTableStoreKeyType, AdvancedTableStoreType } from './utils/advanced-table-store'
 
 export type AdvancedTableProps<T = any> = Omit<TableProps<T>, 'columns' | 'title'> & {
   title?: string
