@@ -1,15 +1,21 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, useState } from 'react'
 import { Meta, Story } from '@storybook/react'
 import { AdvancedTable, AdvancedTableProps } from './advanced-table'
 import { Form, Input, Space, Tag } from 'antd'
 import { AdvancedTableColumnType } from './advanced-table-column.type'
+import { useAdvancedTable } from './utils/use-advanced-table'
+import { Button } from '../button'
 
 export default {
   component: AdvancedTable,
   title: 'Components/Advanced Table'
 } as Meta
 
-const Template: Story<PropsWithChildren<AdvancedTableProps>> = (args) => {
+const Template: Story<PropsWithChildren<AdvancedTableProps & { cacheKey?: string }>> = ({
+  initialFilterValues,
+  cacheKey,
+  ...args
+}) => {
   const columns: AdvancedTableColumnType<any>[] = [
     {
       title: 'Name',
@@ -83,8 +89,24 @@ const Template: Story<PropsWithChildren<AdvancedTableProps>> = (args) => {
       tags: ['cool', 'teacher']
     }
   ]
+  const { tableProps } = useAdvancedTable(args.localStorageKey, {
+    initialFilterValues,
+    cacheKey
+  })
 
-  return <AdvancedTable {...args} dataSource={data} columns={columns} />
+  return <AdvancedTable {...tableProps({ dataSource: data, pagination: { total: 100 }, ...args, columns })} />
+}
+
+const WrappedTemplate: Story<PropsWithChildren<AdvancedTableProps>> = ({ ...args }) => {
+  const [visible, setVisible] = useState(true)
+  return (
+    <>
+      <Button style={{ marginBottom: 16 }} onClick={() => setVisible(!visible)}>
+        Toggle Visibility
+      </Button>
+      {visible && <Template cacheKey="testCache" {...args} />}
+    </>
+  )
 }
 
 export const Base = Template.bind({})
@@ -95,12 +117,11 @@ Base.args = {
   size: 'middle',
   outlined: true,
   loading: false,
-  onFilterSubmit: console.log,
-  filterInitialValues: { name: 'test' },
+  onChange: console.log,
   hideCsvExport: false,
-  hideSizeChanger: false,
+  hideRowSizeChanger: false,
   hideSettings: false,
-  onRefresh: console.log
+  onRefresh: () => console.log('refresh')
 }
 
 export const LocalStorage = Template.bind({})
@@ -112,6 +133,7 @@ LocalStorage.args = {
 export const WithFilters = Template.bind({})
 WithFilters.args = {
   ...Base.args,
+  initialFilterValues: { name: 'test' },
   filters: (
     <>
       <Form.Item name="name" label="Name">
@@ -125,6 +147,11 @@ export const WithFiltersVisible = Template.bind({})
 WithFiltersVisible.args = {
   ...WithFilters.args,
   filterDefaultVisible: true
+}
+
+export const WithFiltersCache = WrappedTemplate.bind({})
+WithFiltersCache.args = {
+  ...WithFiltersVisible.args
 }
 
 export const NoRenderHidden = Template.bind({})

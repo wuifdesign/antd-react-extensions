@@ -3,43 +3,49 @@ import { SizeType } from 'antd/lib/config-provider/SizeContext'
 
 export type AdvancedTableStoreType = {
   pageSize?: number
-  size?: SizeType
+  rowSize?: SizeType
   visible?: React.Key[]
 }
 
 export type AdvancedTableStoreKeyType = keyof AdvancedTableStoreType
 
-const get = (key: string | undefined): AdvancedTableStoreType | null => {
-  const item = key ? window.localStorage.getItem(key) : null
+const get = (localStorageKey: string | undefined): AdvancedTableStoreType | null => {
+  const item = localStorageKey ? window.localStorage.getItem(localStorageKey) : null
   return item ? JSON.parse(item) : null
 }
 
-const store = (key: string | undefined, data: AdvancedTableStoreType) => {
-  if (key) {
-    window.localStorage.setItem(key, JSON.stringify(data))
+const store = (localStorageKey: string | undefined, data: AdvancedTableStoreType) => {
+  if (localStorageKey) {
+    window.localStorage.setItem(localStorageKey, JSON.stringify(data))
   }
 }
 
-const remove = (key: string | undefined) => {
-  if (key) {
-    window.localStorage.removeItem(key)
+const removeFromLocalStorage = (localStorageKey: string | undefined) => {
+  if (localStorageKey) {
+    window.localStorage.removeItem(localStorageKey)
   }
 }
 
-const update = (key: string | undefined, data: AdvancedTableStoreType) => {
-  if (key) {
-    if (data && Object.keys(data).length > 0) {
-      store(key, data)
-    } else {
-      remove(key)
+const update = (
+  localStorageKey: string | undefined,
+  data: Partial<AdvancedTableStoreType> | null,
+  removeKey?: AdvancedTableStoreKeyType
+) => {
+  if (localStorageKey) {
+    const temp = { ...get(localStorageKey), ...data }
+    if (removeKey) {
+      delete temp[removeKey]
     }
-    return get(key)
+    if (temp && Object.keys(temp).length > 0) {
+      store(localStorageKey, temp)
+    } else {
+      removeFromLocalStorage(localStorageKey)
+    }
   }
+  return get(localStorageKey)
 }
 
 export const AdvancedTableStore = {
   get,
-  store,
-  remove,
   update
 }

@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import { AdvancedTable } from './advanced-table'
 import { AdvancedTableColumnType } from './advanced-table-column.type'
 import { Space, Tag } from 'antd'
+import { useAdvancedTable } from './utils/use-advanced-table'
 
 const columns: AdvancedTableColumnType<any>[] = [
   {
@@ -81,6 +82,11 @@ const data = [
   }
 ]
 
+const AdvancedTableWithHook: React.FC = () => {
+  const { tableProps } = useAdvancedTable()
+  return <AdvancedTable {...tableProps({ columns, dataSource: data })} />
+}
+
 describe('AdvancedTable', () => {
   it('should render', () => {
     render(<AdvancedTable dataSource={data} columns={columns} />)
@@ -99,5 +105,12 @@ describe('AdvancedTable', () => {
     expect(baseElement.querySelector('.anticon.anticon-file-excel')).toBeInTheDocument()
     expect(baseElement.querySelector('.anticon.anticon-column-height')).toBeInTheDocument()
     expect(baseElement.querySelector('.anticon.anticon-setting')).toBeInTheDocument()
+  })
+
+  it('should render with hook', () => {
+    const { baseElement } = render(<AdvancedTableWithHook />)
+    expect(baseElement.querySelectorAll('[data-row-key="1"] .ant-table-cell')[2].innerHTML).toBe(
+      'New York No. 1 Lake Park'
+    )
   })
 })
