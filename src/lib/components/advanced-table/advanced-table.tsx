@@ -326,6 +326,7 @@ export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTabl
           expandable={expandableConfig}
           size={currentSize}
           loading={loading}
+          scroll={{ x: 'max-content' }}
           columns={columns.filter(({ visible }) => visible)}
           pagination={{
             pageSizeOptions: ['10', '25', '50'],

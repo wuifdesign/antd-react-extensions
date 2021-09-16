@@ -55,6 +55,7 @@ const Template: Story<PropsWithChildren<AdvancedTableProps & { cacheKey?: string
     {
       title: 'Action',
       key: 'action',
+      fixed: 'right',
       editable: false,
       exportable: false,
       render: (text, record) => (
