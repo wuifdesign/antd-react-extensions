@@ -151,6 +151,11 @@ WithFiltersVisible.args = {
 
 export const WithFiltersCache = WrappedTemplate.bind({})
 WithFiltersCache.args = {
+  ...WithFilters.args
+}
+
+export const WithFiltersVisibleAndCache = WrappedTemplate.bind({})
+WithFiltersVisibleAndCache.args = {
   ...WithFiltersVisible.args
 }
 

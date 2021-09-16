@@ -73,10 +73,17 @@ export const useAdvancedTable = (
     filterValues,
     currentPage,
     pageSize,
-    tableProps: ({ pagination, onChange, onFilterSubmit, ...props }: Omit<AdvancedTableProps, 'localStorageKey'>) => ({
+    tableProps: ({
+      pagination,
+      onChange,
+      onFilterSubmit,
+      filterDefaultVisible,
+      ...props
+    }: Omit<AdvancedTableProps, 'localStorageKey'>) => ({
       ref: tableRef,
       localStorageKey,
       initialFilterValues: initialFilterValues,
+      filterDefaultVisible: cacheKey && advancedTableCache[cacheKey]?.filterValues ? true : filterDefaultVisible,
       onFilterSubmit: (values) => {
         if (cacheKey && cacheFilterValues) {
           advancedTableCache[cacheKey] = { ...advancedTableCache[cacheKey], filterValues: values }
