@@ -1,5 +1,6 @@
 @advanced-table-margin: 12px;
 @table-border: @border-width-base @border-style-base @table-border-color;
+@table-prefix-cls: ~'@{ant-prefix}-table';
 
 .advanced-table {
   .@{ant-prefix}-table-pagination > * {
@@ -87,6 +88,34 @@
       }
     }
   }
+
+  // Size related
+  &.@{table-prefix-cls}-middle {
+    > .@{table-prefix-cls}-container {
+      > .@{table-prefix-cls}-content,
+      > .@{table-prefix-cls}-body {
+        > table > tbody > tr > td {
+          > .@{table-prefix-cls}-expanded-row-fixed {
+            margin: -@table-padding-vertical-md (-@table-padding-horizontal-md - @border-width-base);
+          }
+        }
+      }
+    }
+  }
+
+  &.@{table-prefix-cls}-small {
+    > .@{table-prefix-cls}-container {
+      > .@{table-prefix-cls}-content,
+      > .@{table-prefix-cls}-body {
+        > table > tbody > tr > td {
+          > .@{table-prefix-cls}-expanded-row-fixed {
+            margin: -@table-padding-vertical-sm (-@table-padding-horizontal-sm - @border-width-base);
+          }
+        }
+      }
+    }
+  }
+
 }
 
 
