@@ -4,16 +4,17 @@ import { FormInstance } from 'antd/es/form'
 import { IconUndo } from '../icons'
 import { Button, ButtonProps } from '../button/button'
 import { useTranslations } from '../config-provider/use-translations'
+import clsx from 'clsx'
 
 export type FormOverlayButtons = 'reset' | 'cancel' | 'submit' | React.ReactNode
 
-export type FormOverlayProps = {
+export type FormContainerProps = {
   visible: boolean
-  onClose: () => void
+  onCancel: () => void
   onSubmit: (value: any) => Promise<void>
   width?: number
   title?: string
-  type?: 'drawer' | 'modal'
+  type?: 'drawer' | 'modal' | 'inline'
   submitButtonProps?: ButtonProps
   submitButtonText?: string
   submitButtonIcon?: React.ReactNode
@@ -27,13 +28,13 @@ export type FormOverlayProps = {
   initialValues?: object
 }
 
-export const FormOverlay: React.FC<FormOverlayProps> = ({
+export const FormContainer: React.FC<FormContainerProps> = ({
   visible,
-  onClose,
+  onCancel,
   onSubmit,
   width = 600,
   title,
-  type = 'modal',
+  type = 'inline',
   submitButtonProps = { type: 'primary' },
   submitButtonText,
   submitButtonIcon,
@@ -87,7 +88,7 @@ export const FormOverlay: React.FC<FormOverlayProps> = ({
           break
         case 'cancel':
           parsedButtons.push(
-            <Button onClick={onClose} {...cancelButtonProps}>
+            <Button onClick={onCancel} {...cancelButtonProps}>
               {cancelButtonText || translations.FormOverlay.btnCancel}
             </Button>
           )
@@ -115,11 +116,11 @@ export const FormOverlay: React.FC<FormOverlayProps> = ({
       ref={formRef}
       onFinish={triggerSubmit}
       layout="vertical"
-      className="ant-drawer-custom"
+      className={clsx('form-container', { 'form-container-inline': type === 'inline' })}
       initialValues={initialValues}
     >
-      <div className="ant-drawer-custom-body">{children}</div>
-      <div className="ant-drawer-custom-footer">
+      <div className="form-container-body">{children}</div>
+      <div className="form-container-footer">
         <Space style={{ marginRight: 'auto' }}>{renderButtons(buttons.left)}</Space>
         <Space>{renderButtons(buttons.right)}</Space>
       </div>
@@ -128,15 +129,24 @@ export const FormOverlay: React.FC<FormOverlayProps> = ({
 
   if (type === 'drawer') {
     return (
-      <Drawer title={title} width={width} visible={visible} onClose={onClose}>
+      <Drawer title={title} width={width} visible={visible} onClose={onCancel}>
         {content}
       </Drawer>
     )
   }
 
+  if (type === 'modal') {
+    return (
+      <Modal width={width} title={title} visible={visible} onCancel={onCancel} footer={null}>
+        {content}
+      </Modal>
+    )
+  }
+
   return (
-    <Modal width={width} title={title} visible={visible} onCancel={onClose} footer={null}>
+    <>
+      {title && <div className="form-container-inline-title">{title}</div>}
       {content}
-    </Modal>
+    </>
   )
 }

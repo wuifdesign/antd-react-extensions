@@ -1,25 +1,27 @@
 import React, { PropsWithChildren, useState } from 'react'
 import { Meta, Story } from '@storybook/react'
-import { FormOverlay, FormOverlayProps } from './form-overlay'
+import { FormContainer, FormContainerProps } from './form-container'
 import { Button } from '../button/button'
 import { IconSave } from '../icons'
 import { Form, Input } from 'antd'
 
 export default {
-  component: FormOverlay,
-  title: 'Components/Form Overlay'
+  component: FormContainer,
+  title: 'Components/Form Container'
 } as Meta
 
-const Template: Story<PropsWithChildren<FormOverlayProps>> = (args) => {
+const Template: Story<PropsWithChildren<FormContainerProps>> = (args) => {
   const [drawerVisible, setDrawerVisible] = useState(false)
   const [buttonDisabled, setButtonDisabled] = useState(false)
 
   return (
     <>
-      <Button style={{ margin: 25 }} onClick={() => setDrawerVisible(true)}>
-        Open Modal
-      </Button>
-      <FormOverlay
+      {args.type !== 'inline' && (
+        <Button style={{ margin: 25 }} onClick={() => setDrawerVisible(true)}>
+          Open {args.type}
+        </Button>
+      )}
+      <FormContainer
         {...args}
         title={'Modal Form'}
         visible={drawerVisible}
@@ -44,13 +46,20 @@ const Template: Story<PropsWithChildren<FormOverlayProps>> = (args) => {
         <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter a name' }]}>
           <Input placeholder="Please enter a name" />
         </Form.Item>
-      </FormOverlay>
+      </FormContainer>
     </>
   )
 }
 
+export const Inline = Template.bind({})
+Inline.args = {
+  type: 'inline'
+}
+
 export const Modal = Template.bind({})
-Modal.args = {}
+Modal.args = {
+  type: 'modal'
+}
 
 export const Drawer = Template.bind({})
 Drawer.args = {

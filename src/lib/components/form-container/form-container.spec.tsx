@@ -1,46 +1,52 @@
 import React from 'react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { FormOverlay, FormOverlayProps } from './form-overlay'
+import { FormContainer, FormContainerProps } from './form-container'
 import { Form, Input } from 'antd'
 
-const defaultProps: FormOverlayProps = {
+const defaultProps: FormContainerProps = {
   visible: true,
-  onClose: () => null,
+  onCancel: () => null,
   onSubmit: () => Promise.resolve()
 }
 
 describe('FormOverlay', () => {
   it('should render', () => {
-    render(<FormOverlay {...defaultProps} />)
+    render(<FormContainer {...defaultProps} />)
   })
 
   it('should display title', () => {
-    render(<FormOverlay {...defaultProps} title="My Title" />)
+    render(<FormContainer {...defaultProps} title="My Title" />)
     const title = screen.queryByText(/My Title/i)
     expect(title).toBeInTheDocument()
   })
 
   it('should display content', () => {
-    render(<FormOverlay {...defaultProps}>My Content</FormOverlay>)
+    render(<FormContainer {...defaultProps}>My Content</FormContainer>)
     const title = screen.queryByText(/My Content/i)
     expect(title).toBeInTheDocument()
   })
 
+  it('should display inline', () => {
+    const { baseElement } = render(<FormContainer type="inline" {...defaultProps} />)
+    const modal = baseElement.querySelector('.form-container-inline')
+    expect(modal).toBeInTheDocument()
+  })
+
   it('should display modal', () => {
-    const { baseElement } = render(<FormOverlay {...defaultProps} />)
+    const { baseElement } = render(<FormContainer type="modal" {...defaultProps} />)
     const modal = baseElement.querySelector('.ant-modal')
     expect(modal).toBeInTheDocument()
   })
 
   it('should display drawer', () => {
-    const { baseElement } = render(<FormOverlay {...defaultProps} type="drawer" />)
+    const { baseElement } = render(<FormContainer {...defaultProps} type="drawer" />)
     const drawer = baseElement.querySelector('.ant-drawer')
     expect(drawer).toBeInTheDocument()
   })
 
   it('should change buttons', () => {
     const { baseElement } = render(
-      <FormOverlay
+      <FormContainer
         {...defaultProps}
         submitButtonProps={{ type: 'text' }}
         submitButtonText="Custom Submit Text"
@@ -60,7 +66,7 @@ describe('FormOverlay', () => {
 
   it('should remove buttons', () => {
     const { baseElement } = render(
-      <FormOverlay
+      <FormContainer
         {...defaultProps}
         submitButtonText="Custom Submit Text"
         cancelButtonText="Custom Cancel Text"
@@ -86,11 +92,11 @@ describe('FormOverlay', () => {
       return Promise.resolve()
     })
     render(
-      <FormOverlay initialValues={{ name: 'My Name' }} {...defaultProps} onSubmit={handleSubmit}>
+      <FormContainer initialValues={{ name: 'My Name' }} {...defaultProps} onSubmit={handleSubmit}>
         <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter a name' }]}>
           <Input />
         </Form.Item>
-      </FormOverlay>
+      </FormContainer>
     )
     const button = screen.getByText(/Save/i)
     expect(button).toBeInTheDocument()

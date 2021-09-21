@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, FormOverlay, Sortable, EditableDate, EditableInput } from './lib'
+import { Button, FormContainer, Sortable, EditableDate, EditableInput } from './lib'
 
 function App() {
   const [items, setItems] = useState([{ name: 'Name 1' }, { name: 'Name 2' }, { name: 'Name 3' }])
@@ -18,7 +18,7 @@ function App() {
       <EditableInput />
       <EditableDate />
       <EditableDate />
-      <FormOverlay visible={true} onClose={() => null} onSubmit={() => Promise.resolve()} />
+      <FormContainer visible={true} onClose={() => null} onSubmit={() => Promise.resolve()} />
     </div>
   )
 }
