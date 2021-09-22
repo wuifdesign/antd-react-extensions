@@ -25,7 +25,7 @@ const Template: Story<PropsWithChildren<FormContainerProps>> = (args) => {
         {...args}
         title={'Modal Form'}
         visible={drawerVisible}
-        onClose={() => setDrawerVisible(false)}
+        onCancel={() => setDrawerVisible(false)}
         onSubmit={(value) => {
           console.log(value)
           setDrawerVisible(false)

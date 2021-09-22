@@ -18,7 +18,7 @@ function App() {
       <EditableInput />
       <EditableDate />
       <EditableDate />
-      <FormContainer visible={true} onClose={() => null} onSubmit={() => Promise.resolve()} />
+      <FormContainer visible={true} onCancel={() => null} onSubmit={() => Promise.resolve()} />
     </div>
   )
 }

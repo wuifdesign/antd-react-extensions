@@ -40,6 +40,7 @@
     "fix-node-export": "replace-in-file 'export {};' '' dist/utils/color-palette/color-palette-node.js",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public -o docs",
+    "build-storybook-log-to-file": "build-storybook -s public -o docs 2>> storybook-log.txt",
     "test": "npm run test:lint && npm run test:unit",
     "test:unit": "react-scripts test --ci --watchAll=false",
     "test:lint": "eslint \"./src/**/*.{js,ts,tsx}\"",
