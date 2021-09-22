@@ -9,43 +9,57 @@ export type AdvancedTableStoreType = {
 
 export type AdvancedTableStoreKeyType = keyof AdvancedTableStoreType
 
-const get = (localStorageKey: string | undefined): AdvancedTableStoreType | null => {
-  const item = localStorageKey ? window.localStorage.getItem(localStorageKey) : null
-  return item ? JSON.parse(item) : null
+const storedSettings: Record<string, AdvancedTableStoreType> = {}
+
+const removeStoredSetting = (cacheKey: string) => {
+  delete storedSettings[cacheKey]
 }
 
-const store = (localStorageKey: string | undefined, data: AdvancedTableStoreType) => {
-  if (localStorageKey) {
-    window.localStorage.setItem(localStorageKey, JSON.stringify(data))
+const get = (cacheKey: string, useLocalStorage?: boolean): AdvancedTableStoreType | null => {
+  let data = storedSettings[cacheKey]
+  if (useLocalStorage) {
+    const item = window.localStorage.getItem(cacheKey)
+    if (item) {
+      data = JSON.parse(item)
+    }
+  }
+  return data || null
+}
+
+const store = (cacheKey: string, useLocalStorage: boolean, data: AdvancedTableStoreType) => {
+  storedSettings[cacheKey] = data
+  if (useLocalStorage) {
+    window.localStorage.setItem(cacheKey, JSON.stringify(data))
   }
 }
 
-const removeFromLocalStorage = (localStorageKey: string | undefined) => {
-  if (localStorageKey) {
-    window.localStorage.removeItem(localStorageKey)
+const removeFromLocalStorage = (cacheKey: string, useLocalStorage: boolean) => {
+  delete storedSettings[cacheKey]
+  if (useLocalStorage) {
+    window.localStorage.removeItem(cacheKey)
   }
 }
 
 const update = (
-  localStorageKey: string | undefined,
+  cacheKey: string,
+  useLocalStorage: boolean = false,
   data: Partial<AdvancedTableStoreType> | null,
   removeKey?: AdvancedTableStoreKeyType
 ) => {
-  if (localStorageKey) {
-    const temp = { ...get(localStorageKey), ...data }
-    if (removeKey) {
-      delete temp[removeKey]
-    }
-    if (temp && Object.keys(temp).length > 0) {
-      store(localStorageKey, temp)
-    } else {
-      removeFromLocalStorage(localStorageKey)
-    }
+  const temp = { ...get(cacheKey, useLocalStorage), ...data }
+  if (removeKey) {
+    delete temp[removeKey]
   }
-  return get(localStorageKey)
+  if (temp && Object.keys(temp).length > 0) {
+    store(cacheKey, useLocalStorage, temp)
+  } else {
+    removeFromLocalStorage(cacheKey, useLocalStorage)
+  }
+  return temp
 }
 
 export const AdvancedTableStore = {
+  removeStoredSetting,
   get,
   update
 }

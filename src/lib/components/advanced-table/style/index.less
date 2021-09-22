@@ -76,7 +76,7 @@
     > .@{table-prefix-cls}-summary {
       > table > tbody > tr > td {
         > .@{table-prefix-cls}-expanded-row-fixed {
-          margin: -@table-padding-vertical (-@table-padding-horizontal - @border-width-base);
+          margin: -@table-padding-vertical (-@table-padding-horizontal - (@border-width-base * 2));
         }
       }
     }
@@ -96,7 +96,7 @@
       > .@{table-prefix-cls}-body {
         > table > tbody > tr > td {
           > .@{table-prefix-cls}-expanded-row-fixed {
-            margin: -@table-padding-vertical-md (-@table-padding-horizontal-md - @border-width-base);
+            margin: -@table-padding-vertical-md (-@table-padding-horizontal-md - (@border-width-base * 2));
           }
         }
       }
@@ -109,7 +109,7 @@
       > .@{table-prefix-cls}-body {
         > table > tbody > tr > td {
           > .@{table-prefix-cls}-expanded-row-fixed {
-            margin: -@table-padding-vertical-sm (-@table-padding-horizontal-sm - @border-width-base);
+            margin: -@table-padding-vertical-sm (-@table-padding-horizontal-sm - (@border-width-base * 2));
           }
         }
       }

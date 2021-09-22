@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useRef, useState } from 'react'
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { Checkbox, Col, Form, Popover, Row, Space, Table, TableProps } from 'antd'
 import {
   ColumnHeightOutlined,
@@ -20,6 +20,7 @@ import { IconUndo } from '../icons'
 import { CollapseContainer } from '../collapse-container'
 import { useIsMobile } from '../../utils'
 import { AdvancedTableStore, AdvancedTableStoreKeyType, AdvancedTableStoreType } from './utils/advanced-table-store'
+import { v4 as generateUniqueID } from 'uuid'
 
 export type AdvancedTableProps<T = any> = Omit<TableProps<T>, 'columns' | 'title'> & {
   title?: string
@@ -28,7 +29,8 @@ export type AdvancedTableProps<T = any> = Omit<TableProps<T>, 'columns' | 'title
   hideCsvExport?: boolean
   hideRowSizeChanger?: boolean
   hideSettings?: boolean
-  localStorageKey?: string
+  cacheKey?: string
+  useLocalStorage?: boolean
   outlined?: boolean
   filterIcon?: React.ReactNode | null
   reloadIcon?: React.ReactNode | null
@@ -87,7 +89,8 @@ export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTabl
   (
     {
       title,
-      localStorageKey,
+      cacheKey = generateUniqueID(),
+      useLocalStorage,
       className,
       expandable,
       extra,
@@ -119,7 +122,7 @@ export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTabl
     const [filtersVisible, setFiltersVisible] = useState(filterDefaultVisible || false)
     const translations = useTranslations()
     const [settings, setSettings] = useState<AdvancedTableStoreType | null>(() =>
-      AdvancedTableStore.get(localStorageKey)
+      AdvancedTableStore.get(cacheKey, useLocalStorage)
     )
     const currentSize = settings?.rowSize || size || 'large'
 
@@ -131,8 +134,14 @@ export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTabl
       }
     }))
 
+    useEffect(() => {
+      return () => {
+        AdvancedTableStore.removeStoredSetting(cacheKey)
+      }
+    }, [cacheKey])
+
     const changeSettings = (data: AdvancedTableStoreType | null, removeKey?: AdvancedTableStoreKeyType) => {
-      const temp = AdvancedTableStore.update(localStorageKey, data, removeKey)
+      const temp = AdvancedTableStore.update(cacheKey, useLocalStorage, data, removeKey)
       setSettings(temp)
     }
 

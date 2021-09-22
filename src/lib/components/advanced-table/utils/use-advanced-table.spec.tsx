@@ -12,7 +12,8 @@ describe('useAdvancedTable', () => {
       columns: [],
       initialFilterValues: undefined,
       onFilterSubmit: expect.any(Function),
-      localStorageKey: undefined,
+      cacheKey: expect.any(String),
+      filterDefaultVisible: undefined,
       onChange: expect.any(Function),
       pagination: {
         current: 1,
@@ -31,7 +32,8 @@ describe('useAdvancedTable', () => {
       columns: [],
       initialFilterValues: undefined,
       onFilterSubmit: expect.any(Function),
-      localStorageKey: undefined,
+      cacheKey: expect.any(String),
+      filterDefaultVisible: undefined,
       onChange: expect.any(Function),
       pagination: {
         current: 5,
@@ -50,7 +52,8 @@ describe('useAdvancedTable', () => {
       columns: [],
       initialFilterValues: undefined,
       onFilterSubmit: expect.any(Function),
-      localStorageKey: undefined,
+      cacheKey: expect.any(String),
+      filterDefaultVisible: undefined,
       onChange: expect.any(Function),
       size: 'middle',
       pagination: {
@@ -71,7 +74,8 @@ describe('useAdvancedTable', () => {
       columns: [],
       initialFilterValues: defaultFilters,
       onFilterSubmit: expect.any(Function),
-      localStorageKey: undefined,
+      cacheKey: expect.any(String),
+      filterDefaultVisible: undefined,
       onChange: expect.any(Function),
       pagination: {
         current: 1,

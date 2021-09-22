@@ -11,9 +11,10 @@ export default {
   title: 'Components/Advanced Table'
 } as Meta
 
-const Template: Story<PropsWithChildren<AdvancedTableProps & { cacheKey?: string }>> = ({
+const Template: Story<PropsWithChildren<AdvancedTableProps & { stateCacheKey?: string }>> = ({
   initialFilterValues,
   cacheKey,
+  useLocalStorage,
   ...args
 }) => {
   const columns: AdvancedTableColumnType<any>[] = [
@@ -90,9 +91,10 @@ const Template: Story<PropsWithChildren<AdvancedTableProps & { cacheKey?: string
       tags: ['cool', 'teacher']
     }
   ]
-  const { tableProps } = useAdvancedTable(args.localStorageKey, {
+  const { tableProps } = useAdvancedTable(args.stateCacheKey, {
     initialFilterValues,
-    cacheKey
+    cacheKey,
+    useLocalStorage
   })
 
   return <AdvancedTable {...tableProps({ dataSource: data, pagination: { total: 100 }, ...args, columns })} />
@@ -105,7 +107,7 @@ const WrappedTemplate: Story<PropsWithChildren<AdvancedTableProps>> = ({ ...args
       <Button style={{ marginBottom: 16 }} onClick={() => setVisible(!visible)}>
         Toggle Visibility
       </Button>
-      {visible && <Template cacheKey="testCache" {...args} />}
+      {visible && <Template stateCacheKey="testCache" {...args} />}
     </>
   )
 }
@@ -128,7 +130,8 @@ Base.args = {
 export const LocalStorage = Template.bind({})
 LocalStorage.args = {
   ...Base.args,
-  localStorageKey: 'test-table'
+  cacheKey: 'test-table',
+  useLocalStorage: true
 }
 
 export const WithFilters = Template.bind({})
