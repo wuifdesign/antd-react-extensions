@@ -9,8 +9,8 @@ import clsx from 'clsx'
 export type FormOverlayButtons = 'reset' | 'cancel' | 'submit' | React.ReactNode
 
 export type FormContainerProps = {
-  visible: boolean
-  onCancel: () => void
+  visible?: boolean
+  onCancel?: () => void
   onSubmit: (value: any) => Promise<void>
   width?: number
   title?: string
@@ -29,7 +29,7 @@ export type FormContainerProps = {
 }
 
 export const FormContainer: React.FC<FormContainerProps> = ({
-  visible,
+  visible = true,
   onCancel,
   onSubmit,
   width = 600,
