@@ -5,6 +5,7 @@ import { IconUndo } from '../icons'
 import { Button, ButtonProps } from '../button/button'
 import { useTranslations } from '../config-provider/use-translations'
 import clsx from 'clsx'
+import { LoadingSpinner } from '../loading-spinner'
 
 export type FormOverlayButtons = 'reset' | 'cancel' | 'submit' | React.ReactNode
 
@@ -16,6 +17,7 @@ export type FormContainerProps = {
   visible?: boolean
   onCancel?: () => void
   name?: string
+  formLoading?: boolean
   onSubmit: (value: any) => Promise<void>
   width?: number
   title?: string
@@ -40,6 +42,7 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
       visible = true,
       onCancel,
       name,
+      formLoading,
       onSubmit,
       width = 600,
       title,
@@ -127,7 +130,7 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
       return parsedButtons.map((btn, index) => <div key={index}>{btn}</div>)
     }
 
-    const content = (
+    let content = (
       <Form
         ref={formRef}
         name={name}
@@ -144,6 +147,10 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
         </div>
       </Form>
     )
+
+    if (formLoading) {
+      content = <LoadingSpinner />
+    }
 
     if (type === 'drawer') {
       return (

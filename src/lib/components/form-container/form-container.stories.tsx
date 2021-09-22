@@ -66,3 +66,15 @@ export const Drawer = Template.bind({})
 Drawer.args = {
   type: 'drawer'
 }
+
+export const FormLoadingModal = Template.bind({})
+FormLoadingModal.args = {
+  type: 'modal',
+  formLoading: true
+}
+
+export const FormLoadingDrawer = Template.bind({})
+FormLoadingDrawer.args = {
+  type: 'drawer',
+  formLoading: true
+}
