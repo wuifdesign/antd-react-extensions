@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Drawer, Form, Modal, Space } from 'antd'
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { Drawer, Form, FormProps, Modal, Space } from 'antd'
 import { FormInstance } from 'antd/es/form'
 import { IconUndo } from '../icons'
 import { Button, ButtonProps } from '../button/button'
@@ -8,9 +8,14 @@ import clsx from 'clsx'
 
 export type FormOverlayButtons = 'reset' | 'cancel' | 'submit' | React.ReactNode
 
+export type FormContainerHandles = {
+  getFormRef: () => FormInstance | null
+}
+
 export type FormContainerProps = {
   visible?: boolean
   onCancel?: () => void
+  name?: string
   onSubmit: (value: any) => Promise<void>
   width?: number
   title?: string
@@ -26,127 +31,141 @@ export type FormContainerProps = {
     right: FormOverlayButtons[]
   }
   initialValues?: object
+  formProps?: FormProps
 }
 
-export const FormContainer: React.FC<FormContainerProps> = ({
-  visible = true,
-  onCancel,
-  onSubmit,
-  width = 600,
-  title,
-  type = 'inline',
-  submitButtonProps = { type: 'primary' },
-  submitButtonText,
-  submitButtonIcon,
-  submitButtonDisabled = false,
-  cancelButtonProps = {},
-  cancelButtonText,
-  buttons = {
-    left: ['reset'],
-    right: ['cancel', 'submit']
-  },
-  initialValues = {},
-  children
-}) => {
-  const formRef = useRef<FormInstance>(null)
-  const [loading, setLoading] = useState(false)
-  const translations = useTranslations()
+export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<FormContainerHandles, FormContainerProps>(
+  (
+    {
+      visible = true,
+      onCancel,
+      name,
+      onSubmit,
+      width = 600,
+      title,
+      type = 'inline',
+      submitButtonProps = { type: 'primary' },
+      submitButtonText,
+      submitButtonIcon,
+      submitButtonDisabled = false,
+      cancelButtonProps = {},
+      cancelButtonText,
+      buttons = {
+        left: ['reset'],
+        right: ['cancel', 'submit']
+      },
+      initialValues = {},
+      formProps,
+      children
+    },
+    ref
+  ) => {
+    const formRef = useRef<FormInstance>(null)
+    const [loading, setLoading] = useState(false)
+    const translations = useTranslations()
 
-  useEffect(() => {
-    if (visible && formRef.current) {
-      formRef.current.resetFields()
-    }
-  }, [visible, formRef])
+    useImperativeHandle(ref, () => ({
+      getFormRef: () => formRef.current
+    }))
 
-  const triggerSubmit = (value: any) => {
-    setLoading(true)
-    onSubmit(value)
-      .then(() => {
-        setLoading(false)
-      })
-      .catch(() => {
-        setLoading(false)
-      })
-  }
-
-  const renderButtons = (buttons: FormOverlayButtons[]) => {
-    const parsedButtons: React.ReactNode[] = []
-    for (const button of buttons) {
-      switch (button) {
-        case 'submit':
-          parsedButtons.push(
-            <Button
-              disabled={submitButtonDisabled}
-              htmlType="submit"
-              loading={loading}
-              icon={submitButtonIcon}
-              {...submitButtonProps}
-            >
-              {submitButtonText || translations.FormOverlay.btnSave}
-            </Button>
-          )
-          break
-        case 'cancel':
-          parsedButtons.push(
-            <Button onClick={onCancel} {...cancelButtonProps}>
-              {cancelButtonText || translations.FormOverlay.btnCancel}
-            </Button>
-          )
-          break
-        case 'reset':
-          parsedButtons.push(
-            <Button
-              type="link"
-              onClick={() => (formRef.current ? formRef.current.resetFields() : null)}
-              icon={<IconUndo />}
-            >
-              {translations.FormOverlay.btnReset}
-            </Button>
-          )
-          break
-        default:
-          parsedButtons.push(button)
+    useEffect(() => {
+      if (visible && formRef.current) {
+        formRef.current.resetFields()
       }
+    }, [visible, formRef])
+
+    const triggerSubmit = (value: any) => {
+      setLoading(true)
+      onSubmit(value)
+        .then(() => {
+          setLoading(false)
+        })
+        .catch(() => {
+          setLoading(false)
+        })
     }
-    return parsedButtons.map((btn, index) => <div key={index}>{btn}</div>)
-  }
 
-  const content = (
-    <Form
-      ref={formRef}
-      onFinish={triggerSubmit}
-      layout="vertical"
-      className={clsx('form-container', { 'form-container-inline': type === 'inline' })}
-      initialValues={initialValues}
-    >
-      <div className="form-container-body">{children}</div>
-      <div className="form-container-footer">
-        <Space style={{ marginRight: 'auto' }}>{renderButtons(buttons.left)}</Space>
-        <Space>{renderButtons(buttons.right)}</Space>
-      </div>
-    </Form>
-  )
+    const renderButtons = (buttons: FormOverlayButtons[]) => {
+      const parsedButtons: React.ReactNode[] = []
+      for (const button of buttons) {
+        switch (button) {
+          case 'submit':
+            parsedButtons.push(
+              <Button
+                disabled={submitButtonDisabled}
+                htmlType="submit"
+                loading={loading}
+                icon={submitButtonIcon}
+                {...submitButtonProps}
+              >
+                {submitButtonText || translations.FormOverlay.btnSave}
+              </Button>
+            )
+            break
+          case 'cancel':
+            parsedButtons.push(
+              <Button onClick={onCancel} {...cancelButtonProps}>
+                {cancelButtonText || translations.FormOverlay.btnCancel}
+              </Button>
+            )
+            break
+          case 'reset':
+            parsedButtons.push(
+              <Button
+                type="link"
+                onClick={() => (formRef.current ? formRef.current.resetFields() : null)}
+                icon={<IconUndo />}
+              >
+                {translations.FormOverlay.btnReset}
+              </Button>
+            )
+            break
+          default:
+            parsedButtons.push(button)
+        }
+      }
+      return parsedButtons.map((btn, index) => <div key={index}>{btn}</div>)
+    }
 
-  if (type === 'drawer') {
+    const content = (
+      <Form
+        ref={formRef}
+        name={name}
+        onFinish={triggerSubmit}
+        layout="vertical"
+        className={clsx('form-container', { 'form-container-inline': type === 'inline' })}
+        initialValues={initialValues}
+        {...formProps}
+      >
+        <div className="form-container-body">{children}</div>
+        <div className="form-container-footer">
+          <Space style={{ marginRight: 'auto' }}>{renderButtons(buttons.left)}</Space>
+          <Space>{renderButtons(buttons.right)}</Space>
+        </div>
+      </Form>
+    )
+
+    if (type === 'drawer') {
+      return (
+        <Drawer title={title} width={width} visible={visible} onClose={onCancel}>
+          {content}
+        </Drawer>
+      )
+    }
+
+    if (type === 'modal') {
+      return (
+        <Modal width={width} title={title} visible={visible} onCancel={onCancel} footer={null}>
+          {content}
+        </Modal>
+      )
+    }
+
     return (
-      <Drawer title={title} width={width} visible={visible} onClose={onCancel}>
+      <>
+        {title && <div className="form-container-inline-title">{title}</div>}
         {content}
-      </Drawer>
+      </>
     )
   }
-
-  if (type === 'modal') {
-    return (
-      <Modal width={width} title={title} visible={visible} onCancel={onCancel} footer={null}>
-        {content}
-      </Modal>
-    )
-  }
-
-  return (
-    <>
-      {title && <div className="form-container-inline-title">{title}</div>}
-      {content}
-    </>
-  )
-}
+)

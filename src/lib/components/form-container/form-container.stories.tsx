@@ -23,6 +23,7 @@ const Template: Story<PropsWithChildren<FormContainerProps>> = (args) => {
       )}
       <FormContainer
         {...args}
+        name="default"
         title={'Modal Form'}
         visible={drawerVisible}
         onCancel={() => setDrawerVisible(false)}
