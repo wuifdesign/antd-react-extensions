@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
+import React, { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { Checkbox, Col, Form, Popover, Row, Space, Table, TableProps } from 'antd'
 import {
   ColumnHeightOutlined,
@@ -19,10 +19,10 @@ import { FormInstance } from 'antd/es/form'
 import { IconUndo } from '../icons'
 import { CollapseContainer } from '../collapse-container'
 import { useIsMobile } from '../../utils'
-import { AdvancedTableStore, AdvancedTableStoreKeyType, AdvancedTableStoreType } from './utils/advanced-table-store'
+import { AdvancedTableStore, AdvancedTableStoreType } from './utils/advanced-table-store'
 import { v4 as generateUniqueID } from 'uuid'
 
-export type AdvancedTableProps<T = any> = Omit<TableProps<T>, 'columns' | 'title'> & {
+export type InnerAdvancedTableProps<T = any> = Omit<TableProps<T>, 'columns' | 'title'> & {
   title?: string
   columns: AdvancedTableColumnType<T>[]
   renderHiddenColumnsAsExpandable?: boolean
@@ -30,7 +30,9 @@ export type AdvancedTableProps<T = any> = Omit<TableProps<T>, 'columns' | 'title
   hideRowSizeChanger?: boolean
   hideSettings?: boolean
   cacheKey?: string
-  useLocalStorage?: boolean
+  isGeneratedCacheKey?: boolean
+  cacheState?: boolean
+  preserveToLocalStorage?: boolean
   outlined?: boolean
   filterIcon?: React.ReactNode | null
   reloadIcon?: React.ReactNode | null
@@ -44,6 +46,8 @@ export type AdvancedTableProps<T = any> = Omit<TableProps<T>, 'columns' | 'title
   onRefresh?: () => void
   extra?: React.ReactNode
 }
+
+export type AdvancedTableProps = Omit<InnerAdvancedTableProps, 'isGeneratedCacheKey'>
 
 export interface AdvancedTableHandles {
   setFilters: (values: any) => void
@@ -68,8 +72,8 @@ const enhanceColumns = (
     columns = columns.map((column) => {
       return {
         ...column,
-        visible: settings.visible ? settings.visible.includes(getKey(column)) : column.visible,
-        visibleMobile: settings.visible ? settings.visible.includes(getKey(column)) : column.visibleMobile
+        visible: settings.visibleColumns ? settings.visibleColumns.includes(getKey(column)) : column.visible,
+        visibleMobile: settings.visibleColumns ? settings.visibleColumns.includes(getKey(column)) : column.visibleMobile
       }
     })
   }
@@ -85,12 +89,17 @@ const enhanceColumns = (
   })
 }
 
-export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTableProps>(
+export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> = React.forwardRef<
+  AdvancedTableHandles,
+  InnerAdvancedTableProps
+>(
   (
     {
       title,
-      cacheKey = generateUniqueID(),
-      useLocalStorage,
+      cacheKey,
+      isGeneratedCacheKey,
+      cacheState,
+      preserveToLocalStorage,
       className,
       expandable,
       extra,
@@ -117,12 +126,22 @@ export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTabl
     },
     ref
   ) => {
+    if (!isGeneratedCacheKey && !cacheKey && (cacheState || preserveToLocalStorage)) {
+      throw new Error('If you want to use "cacheState" or "preserveToLocalStorage" you need to define a "cacheKey".')
+    }
+
+    const randomCacheKey = useMemo(() => generateUniqueID(), [])
+    if (!cacheKey) {
+      isGeneratedCacheKey = true
+      cacheKey = randomCacheKey
+    }
+
     const isMobile = useIsMobile()
     const formRef = useRef<FormInstance>(null)
     const [filtersVisible, setFiltersVisible] = useState(filterDefaultVisible || false)
     const translations = useTranslations()
     const [settings, setSettings] = useState<AdvancedTableStoreType | null>(() =>
-      AdvancedTableStore.get(cacheKey, useLocalStorage)
+      AdvancedTableStore.get(cacheKey!, { preserveToLocalStorage })
     )
     const currentSize = settings?.rowSize || size || 'large'
 
@@ -136,20 +155,18 @@ export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTabl
 
     useEffect(() => {
       return () => {
-        AdvancedTableStore.removeStoredSetting(cacheKey)
+        if (isGeneratedCacheKey || !cacheState) {
+          AdvancedTableStore.remove(cacheKey!)
+        }
       }
-    }, [cacheKey])
+    }, [cacheKey, cacheState, isGeneratedCacheKey])
 
-    const changeSettings = (data: AdvancedTableStoreType | null, removeKey?: AdvancedTableStoreKeyType) => {
-      const temp = AdvancedTableStore.update(cacheKey, useLocalStorage, data, removeKey)
-      setSettings(temp)
+    const changeSettings = (data: AdvancedTableStoreType) => {
+      setSettings(AdvancedTableStore.store(cacheKey!, data, { preserveToLocalStorage }))
     }
 
     const onSizeChange = (size: SizeType) => {
-      changeSettings({
-        ...settings,
-        rowSize: size
-      })
+      changeSettings({ rowSize: size })
     }
 
     const onVisibleChange = (column: AdvancedTableColumnType<any> | undefined, visible: boolean) => {
@@ -161,10 +178,7 @@ export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTabl
         } else {
           visibleKeys = visibleKeys.filter((vKey) => vKey !== key)
         }
-        changeSettings({
-          ...settings,
-          visible: visibleKeys
-        })
+        changeSettings({ visibleColumns: visibleKeys })
       }
     }
 
@@ -229,7 +243,7 @@ export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTabl
                   arrowPointAtCenter
                   title={
                     <div style={{ textAlign: 'center' }}>
-                      <Button type="link" onClick={() => changeSettings(null, 'rowSize')} size="small" block>
+                      <Button type="link" onClick={() => changeSettings({ rowSize: undefined })} size="small" block>
                         {translations.AdvancedTable.resetSettings}
                       </Button>
                     </div>
@@ -273,7 +287,12 @@ export const AdvancedTable = React.forwardRef<AdvancedTableHandles, AdvancedTabl
                   arrowPointAtCenter
                   title={
                     <div style={{ textAlign: 'center' }}>
-                      <Button type="link" onClick={() => changeSettings(null, 'visible')} size="small" block>
+                      <Button
+                        type="link"
+                        onClick={() => changeSettings({ visibleColumns: undefined })}
+                        size="small"
+                        block
+                      >
                         {translations.AdvancedTable.resetSettings}
                       </Button>
                     </div>

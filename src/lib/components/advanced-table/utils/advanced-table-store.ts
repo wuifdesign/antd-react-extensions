@@ -1,65 +1,90 @@
 import React from 'react'
 import { SizeType } from 'antd/lib/config-provider/SizeContext'
 
+export type AdvancedTableStoreSettingsType = {
+  preserveToLocalStorage?: boolean
+}
+
 export type AdvancedTableStoreType = {
+  filterValues?: any
+  currentPage?: number
   pageSize?: number
   rowSize?: SizeType
-  visible?: React.Key[]
+  visibleColumns?: React.Key[]
 }
-
 export type AdvancedTableStoreKeyType = keyof AdvancedTableStoreType
 
-const storedSettings: Record<string, AdvancedTableStoreType> = {}
+const cachedSettings: Record<string, AdvancedTableStoreType> = {}
 
-const removeStoredSetting = (cacheKey: string) => {
-  delete storedSettings[cacheKey]
-}
-
-const get = (cacheKey: string, useLocalStorage?: boolean): AdvancedTableStoreType | null => {
-  let data = storedSettings[cacheKey]
-  if (useLocalStorage) {
-    const item = window.localStorage.getItem(cacheKey)
-    if (item) {
-      data = JSON.parse(item)
+const filterUndefined = (values: AdvancedTableStoreType) => {
+  const data: AdvancedTableStoreType = {}
+  for (const [key, value] of Object.entries(values)) {
+    if (typeof values !== 'undefined') {
+      data[key as AdvancedTableStoreKeyType] = value
     }
   }
-  return data || null
+  return data
 }
 
-const store = (cacheKey: string, useLocalStorage: boolean, data: AdvancedTableStoreType) => {
-  storedSettings[cacheKey] = data
-  if (useLocalStorage) {
-    window.localStorage.setItem(cacheKey, JSON.stringify(data))
+const filterValues = (values: AdvancedTableStoreType, keys: AdvancedTableStoreKeyType[]) => {
+  const data: AdvancedTableStoreType = {}
+  for (const [key, value] of Object.entries(values)) {
+    if (keys.includes(key as any)) {
+      data[key as AdvancedTableStoreKeyType] = value
+    }
   }
+  return data
 }
 
-const removeFromLocalStorage = (cacheKey: string, useLocalStorage: boolean) => {
-  delete storedSettings[cacheKey]
-  if (useLocalStorage) {
+const writeToLocalStorage = (cacheKey: string, data: AdvancedTableStoreType) => {
+  const filteredData = filterValues(data, ['pageSize', 'visibleColumns', 'rowSize'])
+  if (Object.keys(filteredData).length) {
+    window.localStorage.setItem(cacheKey, JSON.stringify(filteredData))
+  } else {
     window.localStorage.removeItem(cacheKey)
   }
 }
 
-const update = (
-  cacheKey: string,
-  useLocalStorage: boolean = false,
-  data: Partial<AdvancedTableStoreType> | null,
-  removeKey?: AdvancedTableStoreKeyType
-) => {
-  const temp = { ...get(cacheKey, useLocalStorage), ...data }
-  if (removeKey) {
-    delete temp[removeKey]
-  }
-  if (temp && Object.keys(temp).length > 0) {
-    store(cacheKey, useLocalStorage, temp)
+const writeToTempCache = (cacheKey: string, data: AdvancedTableStoreType) => {
+  if (Object.keys(data).length) {
+    cachedSettings[cacheKey] = data
   } else {
-    removeFromLocalStorage(cacheKey, useLocalStorage)
+    delete cachedSettings[cacheKey]
   }
-  return temp
+}
+
+const get = (cacheKey: string, { preserveToLocalStorage }: AdvancedTableStoreSettingsType): AdvancedTableStoreType => {
+  let data: AdvancedTableStoreType = {}
+  if (preserveToLocalStorage) {
+    data = {
+      ...data,
+      ...JSON.parse(window.localStorage.getItem(cacheKey) || '{}')
+    }
+  }
+  return {
+    ...data,
+    ...cachedSettings[cacheKey]
+  }
+}
+
+const store = (cacheKey: string, data: AdvancedTableStoreType, settings: AdvancedTableStoreSettingsType) => {
+  const filteredData = filterUndefined({ ...get(cacheKey, settings), ...data })
+  if (settings.preserveToLocalStorage) {
+    writeToLocalStorage(cacheKey, filteredData)
+  }
+  writeToTempCache(cacheKey, filteredData)
+  return filteredData
+}
+
+const remove = (cacheKey: string, removeFromLocalStorage?: boolean) => {
+  delete cachedSettings[cacheKey]
+  if (removeFromLocalStorage) {
+    window.localStorage.removeItem(cacheKey)
+  }
 }
 
 export const AdvancedTableStore = {
-  removeStoredSetting,
+  remove,
   get,
-  update
+  store
 }

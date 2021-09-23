@@ -1,40 +1,37 @@
 import { useAdvancedTable } from './use-advanced-table'
 import { renderHook } from '@testing-library/react-hooks'
 
+const baseCheckProps = {
+  ref: {
+    current: undefined
+  },
+  columns: [],
+  initialFilterValues: undefined,
+  onFilterSubmit: expect.any(Function),
+  cacheKey: expect.any(String),
+  cacheState: undefined,
+  preserveToLocalStorage: undefined,
+  isGeneratedCacheKey: true,
+  filterDefaultVisible: undefined,
+  onChange: expect.any(Function),
+  pagination: {
+    current: 1,
+    pageSize: 10
+  }
+}
+
 describe('useAdvancedTable', () => {
   it('should return default', () => {
     const { result } = renderHook(() => useAdvancedTable())
     const { tableProps } = result.current
-    expect(tableProps({ columns: [] })).toEqual({
-      ref: {
-        current: undefined
-      },
-      columns: [],
-      initialFilterValues: undefined,
-      onFilterSubmit: expect.any(Function),
-      cacheKey: expect.any(String),
-      filterDefaultVisible: undefined,
-      onChange: expect.any(Function),
-      pagination: {
-        current: 1,
-        pageSize: 10
-      }
-    })
+    expect(tableProps({ columns: [] })).toEqual(baseCheckProps)
   })
 
   it('should override default', () => {
-    const { result } = renderHook(() => useAdvancedTable(undefined, { defaultCurrent: 5, defaultPageSize: 25 }))
+    const { result } = renderHook(() => useAdvancedTable({ defaultState: { currentPage: 5, pageSize: 25 } }))
     const { tableProps } = result.current
     expect(tableProps({ columns: [] })).toEqual({
-      ref: {
-        current: undefined
-      },
-      columns: [],
-      initialFilterValues: undefined,
-      onFilterSubmit: expect.any(Function),
-      cacheKey: expect.any(String),
-      filterDefaultVisible: undefined,
-      onChange: expect.any(Function),
+      ...baseCheckProps,
       pagination: {
         current: 5,
         pageSize: 25
@@ -43,18 +40,10 @@ describe('useAdvancedTable', () => {
   })
 
   it('should add props', () => {
-    const { result } = renderHook(() => useAdvancedTable(undefined, { defaultCurrent: 5, defaultPageSize: 25 }))
+    const { result } = renderHook(() => useAdvancedTable({ defaultState: { currentPage: 5, pageSize: 25 } }))
     const { tableProps } = result.current
     expect(tableProps({ columns: [], size: 'middle' })).toEqual({
-      ref: {
-        current: undefined
-      },
-      columns: [],
-      initialFilterValues: undefined,
-      onFilterSubmit: expect.any(Function),
-      cacheKey: expect.any(String),
-      filterDefaultVisible: undefined,
-      onChange: expect.any(Function),
+      ...baseCheckProps,
       size: 'middle',
       pagination: {
         current: 5,
@@ -63,24 +52,23 @@ describe('useAdvancedTable', () => {
     })
   })
 
+  it('should return cacheKey', () => {
+    const { result } = renderHook(() => useAdvancedTable({ cacheKey: 'test' }))
+    const { tableProps } = result.current
+    expect(tableProps({ columns: [] })).toEqual({
+      ...baseCheckProps,
+      cacheKey: 'test',
+      isGeneratedCacheKey: false
+    })
+  })
+
   it('should return initialFilters props', () => {
     const defaultFilters = { name: 'test' }
-    const { result } = renderHook(() => useAdvancedTable(undefined, { initialFilterValues: defaultFilters }))
+    const { result } = renderHook(() => useAdvancedTable({ defaultState: { filterValues: defaultFilters } }))
     const { tableProps, filterValues } = result.current
     expect(tableProps({ columns: [] })).toEqual({
-      ref: {
-        current: undefined
-      },
-      columns: [],
-      initialFilterValues: defaultFilters,
-      onFilterSubmit: expect.any(Function),
-      cacheKey: expect.any(String),
-      filterDefaultVisible: undefined,
-      onChange: expect.any(Function),
-      pagination: {
-        current: 1,
-        pageSize: 10
-      }
+      ...baseCheckProps,
+      initialFilterValues: defaultFilters
     })
     expect(filterValues).toEqual(defaultFilters)
   })

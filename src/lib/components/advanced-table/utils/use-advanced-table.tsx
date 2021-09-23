@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { AdvancedTableHandles, AdvancedTableProps } from '../advanced-table'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { AdvancedTableHandles, AdvancedTableProps, InnerAdvancedTableProps } from '../advanced-table'
 import { AdvancedTableStore, AdvancedTableStoreType } from './advanced-table-store'
 import { v4 as generateUniqueID } from 'uuid'
 
@@ -7,7 +7,7 @@ type UseAdvancedTableReturnType = {
   filterValues: any
   currentPage: number
   pageSize: number
-  tableProps: (props: AdvancedTableProps) => AdvancedTableProps
+  tableProps: (props: AdvancedTableProps) => InnerAdvancedTableProps
 }
 
 let advancedTableCache: Record<string, { filterValues?: any; currentPage?: number; currentPageSize?: number }> = {}
@@ -24,52 +24,42 @@ export const clearAdvancedTableCache = (key?: string) => {
 }
 
 export const useAdvancedTable = (
-  stateCacheKey?: string,
   options: {
     cacheKey?: string
-    useLocalStorage?: boolean
-    defaultPageSize?: number
-    defaultCurrent?: number
-    initialFilterValues?: any
-    cacheFilterValues?: boolean
-    cacheCurrentPage?: boolean
+    /** Cache current page/page size/filters to cache (cleared after refresh) */
+    cacheState?: boolean
+    /** Cache page size/settings to local storage */
+    preserveToLocalStorage?: boolean
+    defaultState?: {
+      pageSize?: number
+      currentPage?: number
+      filterValues?: any
+    }
   } = {}
 ) => {
-  const {
-    cacheKey = generateUniqueID(),
-    useLocalStorage,
-    defaultPageSize,
-    defaultCurrent,
-    initialFilterValues,
-    cacheFilterValues = true,
-    cacheCurrentPage = true
-  } = options
+  const randomCacheKey = useMemo(() => generateUniqueID(), [])
+  const { cacheKey: defaultCacheKey } = options
+  const { cacheKey = randomCacheKey, cacheState, preserveToLocalStorage, defaultState } = options
+  const cacheSettings = { cacheState, preserveToLocalStorage }
+
+  if (!defaultCacheKey && (cacheState || preserveToLocalStorage)) {
+    throw new Error('If you want to use "preserveState" or "preserveToLocalStorage" you need to define a "cacheKey".')
+  }
+
   const tableRef = useRef<AdvancedTableHandles>()
-  const [settings] = useState<AdvancedTableStoreType | null>(() => AdvancedTableStore.get(cacheKey, useLocalStorage))
-  const [currentPage, setCurrentPage] = useState(() => {
-    if (stateCacheKey && advancedTableCache[stateCacheKey]?.currentPage) {
-      return advancedTableCache[stateCacheKey].currentPage
-    }
-    return defaultCurrent || 1
-  })
-  const [pageSize, setPageSize] = useState(() => {
-    if (stateCacheKey && advancedTableCache[stateCacheKey]?.currentPageSize) {
-      return advancedTableCache[stateCacheKey].currentPageSize
-    }
-    return settings?.pageSize || defaultPageSize || 10
-  })
-  const [filterValues, setFilterValues] = useState(() => {
-    if (stateCacheKey && advancedTableCache[stateCacheKey]?.filterValues) {
-      return advancedTableCache[stateCacheKey].filterValues
-    }
-    return initialFilterValues
-  })
+  const [settings, setSettings] = useState<AdvancedTableStoreType>(() =>
+    AdvancedTableStore.get(cacheKey!, { preserveToLocalStorage })
+  )
 
   useEffect(() => {
-    if (stateCacheKey && advancedTableCache[stateCacheKey] && cacheFilterValues) {
-      tableRef.current?.setFilters(advancedTableCache[stateCacheKey].filterValues)
+    if (settings.filterValues) {
+      tableRef.current?.setFilters(settings.filterValues)
     }
-  }, [stateCacheKey, cacheFilterValues])
+  }, [settings.filterValues])
+
+  const filterValues = settings.filterValues || defaultState?.filterValues
+  const currentPage = settings.currentPage || defaultState?.currentPage || 1
+  const pageSize = settings.pageSize || defaultState?.pageSize || 10
 
   return {
     tableRef,
@@ -82,43 +72,30 @@ export const useAdvancedTable = (
       onFilterSubmit,
       filterDefaultVisible,
       ...props
-    }: Omit<AdvancedTableProps, 'cacheKey'>) => ({
+    }: Omit<AdvancedTableProps, 'cacheKey' | 'preserveState' | 'preserveToLocalStorage'>) => ({
       ref: tableRef,
       cacheKey,
-      useLocalStorage,
-      initialFilterValues: initialFilterValues,
-      filterDefaultVisible:
-        stateCacheKey && advancedTableCache[stateCacheKey]?.filterValues ? true : filterDefaultVisible,
+      isGeneratedCacheKey: !defaultCacheKey,
+      cacheState,
+      preserveToLocalStorage,
+      initialFilterValues: defaultState?.filterValues,
+      filterDefaultVisible: settings.filterValues ? true : filterDefaultVisible,
       onFilterSubmit: (values) => {
-        if (stateCacheKey && cacheFilterValues) {
-          advancedTableCache[stateCacheKey] = { ...advancedTableCache[stateCacheKey], filterValues: values }
-        }
-        setFilterValues(values)
+        setSettings(AdvancedTableStore.store(cacheKey!, { filterValues: values }, cacheSettings))
         onFilterSubmit?.(values)
       },
       onChange: (pagination, filters, sorter, extra) => {
-        if (pagination.current) {
-          if (stateCacheKey && cacheCurrentPage) {
-            advancedTableCache[stateCacheKey] = {
-              ...advancedTableCache[stateCacheKey],
-              currentPage: pagination.current
-            }
-          }
-          setCurrentPage(pagination.current)
-        }
-        if (pagination.pageSize) {
-          if (stateCacheKey && cacheCurrentPage) {
-            advancedTableCache[stateCacheKey] = {
-              ...advancedTableCache[stateCacheKey],
-              currentPageSize: pagination.pageSize
-            }
-          }
-          setPageSize(pagination.pageSize)
-          AdvancedTableStore.update(cacheKey, useLocalStorage, { pageSize: pagination.pageSize })
-        }
+        setSettings(
+          AdvancedTableStore.store(
+            cacheKey!,
+            { currentPage: pagination.current, pageSize: pagination.pageSize },
+            cacheSettings
+          )
+        )
         onChange?.(pagination, filters, sorter, extra)
       },
       pagination: {
+        ...pagination,
         ...pagination,
         current: currentPage,
         pageSize

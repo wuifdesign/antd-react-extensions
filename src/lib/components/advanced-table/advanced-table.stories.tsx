@@ -11,91 +11,107 @@ export default {
   title: 'Components/Advanced Table'
 } as Meta
 
-const Template: Story<PropsWithChildren<AdvancedTableProps & { stateCacheKey?: string }>> = ({
+const columns: AdvancedTableColumnType<any>[] = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    render: (text) => <a>{text}</a>,
+    visible: false
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age'
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    visibleMobile: false
+  },
+  {
+    title: 'Tags',
+    dataIndex: 'tags',
+    renderExport: (tags: string[]) => tags.join(', '),
+    render: (tags: string[]) => (
+      <>
+        {tags.map((tag) => {
+          let color = tag.length > 5 ? 'geekblue' : 'green'
+          if (tag === 'loser') {
+            color = 'volcano'
+          }
+          return (
+            <Tag color={color} key={tag}>
+              {tag.toUpperCase()}
+            </Tag>
+          )
+        })}
+      </>
+    )
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    fixed: 'right',
+    editable: false,
+    exportable: false,
+    render: (text, record) => (
+      <Space size="middle">
+        <a>Invite {record.name}</a>
+        <a>Delete</a>
+      </Space>
+    )
+  }
+]
+
+const data = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+    tags: ['nice', 'developer']
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+    tags: ['loser']
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher']
+  }
+]
+
+const Template: Story<PropsWithChildren<AdvancedTableProps>> = ({ ...args }) => {
+  return <AdvancedTable dataSource={data} pagination={{ total: 100 }} {...args} columns={columns} />
+}
+
+const TemplateWithHook: Story<PropsWithChildren<AdvancedTableProps>> = ({
   initialFilterValues,
   cacheKey,
-  useLocalStorage,
+  cacheState,
+  preserveToLocalStorage,
   ...args
 }) => {
-  const columns: AdvancedTableColumnType<any>[] = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      render: (text) => <a>{text}</a>,
-      visible: false
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age'
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      visibleMobile: false
-    },
-    {
-      title: 'Tags',
-      dataIndex: 'tags',
-      renderExport: (tags: string[]) => tags.join(', '),
-      render: (tags: string[]) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green'
-            if (tag === 'loser') {
-              color = 'volcano'
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            )
-          })}
-        </>
-      )
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      fixed: 'right',
-      editable: false,
-      exportable: false,
-      render: (text, record) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
-      )
-    }
-  ]
-
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer']
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser']
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher']
-    }
-  ]
-  const { tableProps } = useAdvancedTable(args.stateCacheKey, {
-    initialFilterValues,
+  const { tableProps, currentPage, pageSize, filterValues } = useAdvancedTable({
     cacheKey,
-    useLocalStorage
+    cacheState,
+    preserveToLocalStorage,
+    defaultState: {
+      filterValues: initialFilterValues
+    }
   })
+
+  console.group('HookData')
+  console.log('cacheKey', cacheKey)
+  console.log('currentPage', currentPage)
+  console.log('pageSize', pageSize)
+  console.log('filterValues', filterValues)
+  console.groupEnd()
 
   return <AdvancedTable {...tableProps({ dataSource: data, pagination: { total: 100 }, ...args, columns })} />
 }
@@ -107,7 +123,7 @@ const WrappedTemplate: Story<PropsWithChildren<AdvancedTableProps>> = ({ ...args
       <Button style={{ marginBottom: 16 }} onClick={() => setVisible(!visible)}>
         Toggle Visibility
       </Button>
-      {visible && <Template stateCacheKey="testCache" {...args} />}
+      {visible && <TemplateWithHook {...args} cacheState={true} />}
     </>
   )
 }
@@ -127,14 +143,29 @@ Base.args = {
   onRefresh: () => console.log('refresh')
 }
 
-export const LocalStorage = Template.bind({})
+export const WithHook = TemplateWithHook.bind({})
+WithHook.args = {
+  title: 'Test Table',
+  extra: 'Extra Content',
+  renderHiddenColumnsAsExpandable: true,
+  size: 'middle',
+  outlined: true,
+  loading: false,
+  onChange: console.log,
+  hideCsvExport: false,
+  hideRowSizeChanger: false,
+  hideSettings: false,
+  onRefresh: () => console.log('refresh')
+}
+
+export const LocalStorage = TemplateWithHook.bind({})
 LocalStorage.args = {
   ...Base.args,
   cacheKey: 'test-table',
-  useLocalStorage: true
+  preserveToLocalStorage: true
 }
 
-export const WithFilters = Template.bind({})
+export const WithFilters = TemplateWithHook.bind({})
 WithFilters.args = {
   ...Base.args,
   initialFilterValues: { name: 'test' },
@@ -147,7 +178,7 @@ WithFilters.args = {
   )
 }
 
-export const WithFiltersVisible = Template.bind({})
+export const WithFiltersVisible = TemplateWithHook.bind({})
 WithFiltersVisible.args = {
   ...WithFilters.args,
   filterDefaultVisible: true
@@ -155,21 +186,24 @@ WithFiltersVisible.args = {
 
 export const WithFiltersCache = WrappedTemplate.bind({})
 WithFiltersCache.args = {
-  ...WithFilters.args
+  ...WithFilters.args,
+  cacheKey: 'test-table',
+  cacheState: true
 }
 
 export const WithFiltersVisibleAndCache = WrappedTemplate.bind({})
 WithFiltersVisibleAndCache.args = {
-  ...WithFiltersVisible.args
+  ...WithFiltersCache.args,
+  filterDefaultVisible: true
 }
 
-export const NoRenderHidden = Template.bind({})
+export const NoRenderHidden = TemplateWithHook.bind({})
 NoRenderHidden.args = {
   ...Base.args,
   renderHiddenColumnsAsExpandable: false
 }
 
-export const CustomExpand = Template.bind({})
+export const CustomExpand = TemplateWithHook.bind({})
 CustomExpand.args = {
   ...Base.args,
   renderHiddenColumnsAsExpandable: false,
@@ -178,7 +212,7 @@ CustomExpand.args = {
   }
 }
 
-export const CustomExpandWithDefault = Template.bind({})
+export const CustomExpandWithDefault = TemplateWithHook.bind({})
 CustomExpandWithDefault.args = {
   ...Base.args,
   expandable: {
