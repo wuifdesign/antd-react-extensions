@@ -25,6 +25,16 @@ const Template: Story<PropsWithChildren<ButtonProps>> = (args) => (
       <Button {...args} type="link">
         Link
       </Button>
+      <Button {...args} type="text-inline">
+        Link
+      </Button>
+      <Button {...args} type="link-inline">
+        Link
+      </Button>
+    </Space>
+    <br />
+    <br />
+    <Space wrap>
       <Button {...args} type="primary" disabled>
         Primary
       </Button>
@@ -40,9 +50,23 @@ const Template: Story<PropsWithChildren<ButtonProps>> = (args) => (
       <Button {...args} type="link" disabled>
         Link
       </Button>
+      <Button {...args} type="text-inline" disabled>
+        Link
+      </Button>
+      <Button {...args} type="link-inline" disabled>
+        Link
+      </Button>
     </Space>
   </>
 )
+
+export const Base = Template.bind({})
+Base.args = {}
+
+export const Danger = Template.bind({})
+Danger.args = {
+  danger: true
+}
 
 export const Success = Template.bind({})
 Success.args = {

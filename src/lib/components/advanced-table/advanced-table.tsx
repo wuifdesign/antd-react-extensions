@@ -223,7 +223,7 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
             <Space style={{ marginLeft: 12 }} size={12}>
               {!!onRefresh && (
                 <Button
-                  asText
+                  type="text-inline"
                   onClick={() => onRefresh()}
                   title={translations.AdvancedTable.reloadTable}
                   icon={reloadIcon}
@@ -231,7 +231,7 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
               )}
               {!hideCsvExport && (
                 <AdvancedTableCsvExport
-                  btnProps={{ asText: true, title: translations.AdvancedTable.exportCsv, icon: exportFileIcon }}
+                  btnProps={{ type: 'text-inline', title: translations.AdvancedTable.exportCsv, icon: exportFileIcon }}
                   dataSource={props.dataSource}
                   columns={columns}
                 />
@@ -277,7 +277,7 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
                     </>
                   }
                 >
-                  <Button asText icon={columnHeightIcon} title={translations.AdvancedTable.columnHeight} />
+                  <Button type="text-inline" icon={columnHeightIcon} title={translations.AdvancedTable.columnHeight} />
                 </Popover>
               )}
               {!hideSettings && (
@@ -314,7 +314,7 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
                     </ul>
                   }
                 >
-                  <Button asText icon={settingsIcon} title={translations.AdvancedTable.settings} />
+                  <Button type="text-inline" icon={settingsIcon} title={translations.AdvancedTable.settings} />
                 </Popover>
               )}
             </Space>

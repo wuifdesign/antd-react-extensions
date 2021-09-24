@@ -77,14 +77,52 @@
 .button-variant(warning, @btn-warning-color, @btn-warning-bg);
 .button-variant(success, @btn-success-color, @btn-success-bg);
 
-.@{ant-prefix}-btn.as-text {
-  padding: 0;
-  line-height: 1em;
-  height: auto;
-  width: auto;
-  background: transparent;
+.@{ant-prefix}-btn {
+  &.btn-text-inline,
+  &.btn-link-inline {
+    display: inline;
+    padding: 0;
+    line-height: 1em;
+    height: auto;
+    width: auto;
+    background: transparent;
+  }
 
-  &:hover {
-    color: @link-active-color;
+  &.btn-text-inline {
+    color: inherit;
+
+    &:hover {
+      color: @link-hover-color;
+    }
+
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:active {
+      color: @disabled-color;
+    }
+  }
+
+  &.@{btn-prefix-cls}-dangerous.btn-text-inline:hover {
+    color: @btn-danger-bg;
+  }
+
+  &.@{btn-prefix-cls}-warning.btn-text-inline:hover {
+    color: @btn-warning-bg;
+  }
+
+  &.@{btn-prefix-cls}-success.btn-text-inline:hover {
+    color: @btn-success-bg;
+  }
+
+  &.@{btn-prefix-cls}-danger,
+  &.@{btn-prefix-cls}-warning,
+  &.@{btn-prefix-cls}-success {
+    &.btn-text-inline {
+      &[disabled],
+      &[disabled]:hover,
+      &[disabled]:active {
+        color: @disabled-color;
+      }
+    }
   }
 }
