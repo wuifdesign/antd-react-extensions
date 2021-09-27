@@ -85,9 +85,11 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
       )}
 
       <Layout
-        className={clsx('ant-layout-content', { 'ant-layout-content-mobile': isMobile })}
+        className={clsx('default-layout-content', 'default-layout-container', {
+          'default-layout-content-mobile': isMobile,
+          'default-layout-content-no-frame': hideFrame
+        })}
         style={{
-          marginTop: hideFrame ? 0 : undefined,
           marginLeft: isMobile ? 0 : currentSidebarWidth
         }}
       >

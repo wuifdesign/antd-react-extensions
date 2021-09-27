@@ -136,7 +136,7 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
       theme={sidebarTheme}
     >
       <div style={{ display: 'flex', height: '100%', flexDirection: 'column' }}>
-        <div className="menu-container">
+        <div className="default-layout-menu-container">
           <div className="logo-container">{sidebarCollapsed ? logoCollapsed : logo}</div>
           {menuPrepend}
           <Menu
@@ -151,7 +151,7 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
           </Menu>
           {menuAppend}
         </div>
-        {sidebarBottom && <div className="sidebar-bottom">{sidebarBottom}</div>}
+        {sidebarBottom && <div className="default-sidebar-bottom">{sidebarBottom}</div>}
       </div>
     </Sider>
   )

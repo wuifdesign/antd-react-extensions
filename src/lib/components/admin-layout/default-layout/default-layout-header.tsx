@@ -23,7 +23,10 @@ const DefaultLayoutHeader: React.FC<AdminLayoutHeaderProps> = ({
   const { mobileNavOpen, setMobileNavOpen, sidebarCollapsed, setSidebarCollapsed } = useDefaultLayoutContext()
 
   return (
-    <Header style={{ left: isMobile ? 0 : sidebarCollapsed ? sidebarCollapsedWidth : sidebarWidth }}>
+    <Header
+      className="default-layout-header"
+      style={{ left: isMobile ? 0 : sidebarCollapsed ? sidebarCollapsedWidth : sidebarWidth }}
+    >
       <Row align="stretch" style={{ flexWrap: 'nowrap', justifyContent: 'space-between', marginTop: isMobile ? 1 : 0 }}>
         {isMobile && (
           <>
@@ -55,7 +58,7 @@ const DefaultLayoutHeader: React.FC<AdminLayoutHeaderProps> = ({
         )}
         {headerRight && (
           <Col flex="1 1">
-            <div className="ant-layout-header-right">{headerRight}</div>
+            <div className="default-layout-header-right">{headerRight}</div>
           </Col>
         )}
       </Row>

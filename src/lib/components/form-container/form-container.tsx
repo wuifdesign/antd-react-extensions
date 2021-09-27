@@ -6,6 +6,7 @@ import { Button, ButtonProps } from '../button/button'
 import { useTranslations } from '../config-provider/use-translations'
 import clsx from 'clsx'
 import { LoadingSpinner } from '../loading-spinner'
+import { FormLayout } from 'antd/es/form/Form'
 
 export type FormOverlayButtons = 'reset' | 'cancel' | 'submit' | React.ReactNode
 
@@ -22,6 +23,7 @@ export type FormContainerProps = {
   width?: number
   title?: string
   type?: 'drawer' | 'modal' | 'inline'
+  formLayout?: FormLayout
   submitButtonProps?: ButtonProps
   submitButtonText?: string
   submitButtonIcon?: React.ReactNode
@@ -47,6 +49,7 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
       width = 600,
       title,
       type = 'inline',
+      formLayout = 'vertical',
       submitButtonProps = { type: 'primary' },
       submitButtonText,
       submitButtonIcon,
@@ -135,7 +138,7 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
         ref={formRef}
         name={name}
         onFinish={triggerSubmit}
-        layout="vertical"
+        layout={formLayout}
         className={clsx('form-container', { 'form-container-inline': type === 'inline' })}
         initialValues={initialValues}
         {...formProps}
