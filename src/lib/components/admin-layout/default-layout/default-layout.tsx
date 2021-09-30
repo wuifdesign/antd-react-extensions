@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import { Layout } from 'antd'
 import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
 import DefaultLayoutSidebar, { SIDEBAR_COLLAPSED_WIDTH, SIDEBAR_WIDTH } from './default-layout-sidebar'
 import DefaultLayoutHeader from './default-layout-header'
 import { MenuElement } from '../menu-element.type'
 import { RouteElement } from '../route-element.type'
-import { DefaultLayoutContext } from './default-layout-context'
+import { useDefaultLayoutContext } from './default-layout-context'
 import { useBodyClass } from '../../../utils/hooks/use-body-class'
 import clsx from 'clsx'
 
@@ -15,6 +15,7 @@ export type DefaultLayoutProps = {
   sidebarTheme?: 'light' | 'dark'
   hideFrame?: boolean
   hideBreadcrumbs?: boolean
+  initialSidebarCollapsed?: boolean
   sidebarWidth?: number
   sidebarCollapsedWidth?: number
   sidebarMenuPrepend?: (collapsed: boolean) => React.ReactNode | string
@@ -43,10 +44,7 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
   useBodyClass('default-layout')
 
   const isMobile = useIsMobile()
-  const [mobileNavOpen, setMobileNavOpen] = useState(false)
-  const setMobileNavOpenFunction = useCallback((open) => setMobileNavOpen(open), [])
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-  const setSidebarCollapsedFunction = useCallback((open) => setSidebarCollapsed(open), [])
+  const { sidebarCollapsed } = useDefaultLayoutContext()
 
   let currentSidebarWidth = sidebarCollapsed ? sidebarCollapsedWidth : sidebarWidth
   if (hideFrame) {
@@ -54,14 +52,7 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
   }
 
   return (
-    <DefaultLayoutContext.Provider
-      value={{
-        mobileNavOpen,
-        setMobileNavOpen: setMobileNavOpenFunction,
-        sidebarCollapsed: sidebarCollapsed,
-        setSidebarCollapsed: setSidebarCollapsedFunction
-      }}
-    >
+    <>
       {!hideFrame && (
         <>
           <DefaultLayoutSidebar
@@ -95,6 +86,6 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
       >
         {children}
       </Layout>
-    </DefaultLayoutContext.Provider>
+    </>
   )
 }

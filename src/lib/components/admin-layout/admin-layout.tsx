@@ -12,6 +12,7 @@ import { LayoutContext } from './layout-context'
 import { ErrorPage } from '../error-page'
 import { LoadingSpinner } from '../loading-spinner'
 import { useTranslations } from '../config-provider'
+import { DefaultLayoutProvider } from './default-layout/default-layout-context'
 
 const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => {
   let withLayout = true
@@ -99,43 +100,45 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
 
   return (
     <LayoutContext.Provider value={{ routes, fullPageLoading, setFullPageLoading }}>
-      <Layout style={{ minHeight: '100vh' }}>
-        <Router history={RouterHistory.getHistory()}>
-          <Switch>
-            {routes.map((route, i) => {
-              const layoutRoute: CustomLayoutRouteElement = { ...(route as any) }
-              if (route.layout === 'blank') {
-                layoutRoute.layout = BlankLayout
-              }
-              if (route.layout === 'auth') {
-                layoutRoute.layout = AuthLayout
-                layoutRoute.layoutProps = {
-                  ...authLayoutProps,
-                  ...layoutRoute.layoutProps
+      <DefaultLayoutProvider initialSidebarCollapsed={defaultLayoutProps?.initialSidebarCollapsed}>
+        <Layout style={{ minHeight: '100vh' }}>
+          <Router history={RouterHistory.getHistory()}>
+            <Switch>
+              {routes.map((route, i) => {
+                const layoutRoute: CustomLayoutRouteElement = { ...(route as any) }
+                if (route.layout === 'blank') {
+                  layoutRoute.layout = BlankLayout
                 }
-              }
-              if (route.layout === 'default' || !route.layout) {
-                layoutRoute.layout = DefaultLayout
-                layoutRoute.layoutProps = {
-                  routes: routes,
-                  ...defaultLayoutProps,
-                  ...layoutRoute.layoutProps
+                if (route.layout === 'auth') {
+                  layoutRoute.layout = AuthLayout
+                  layoutRoute.layoutProps = {
+                    ...authLayoutProps,
+                    ...layoutRoute.layoutProps
+                  }
                 }
-              }
-              layoutRoute.canActivateFallbackBase = canActivateFallback
-              if (typeof layoutRoute.layout === 'string') {
-                throw new Error(`'Layout with name ${layoutRoute.layout} not supported!`)
-              }
-              return <RouteWithSubRoutes key={i} {...(layoutRoute as any)} />
-            })}
-          </Switch>
-        </Router>
-      </Layout>
-      {fullPageLoading && (
-        <div className="loading-overlay">
-          <Spin size="large" />
-        </div>
-      )}
+                if (route.layout === 'default' || !route.layout) {
+                  layoutRoute.layout = DefaultLayout
+                  layoutRoute.layoutProps = {
+                    routes: routes,
+                    ...defaultLayoutProps,
+                    ...layoutRoute.layoutProps
+                  }
+                }
+                layoutRoute.canActivateFallbackBase = canActivateFallback
+                if (typeof layoutRoute.layout === 'string') {
+                  throw new Error(`'Layout with name ${layoutRoute.layout} not supported!`)
+                }
+                return <RouteWithSubRoutes key={i} {...(layoutRoute as any)} />
+              })}
+            </Switch>
+          </Router>
+        </Layout>
+        {fullPageLoading && (
+          <div className="loading-overlay">
+            <Spin size="large" />
+          </div>
+        )}
+      </DefaultLayoutProvider>
     </LayoutContext.Provider>
   )
 }
