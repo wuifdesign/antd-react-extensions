@@ -1,8 +1,8 @@
 import React from 'react'
 import { Col, Layout, Row } from 'antd'
-import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
 import { useDefaultLayoutContext } from './default-layout-context'
-import { IconMenu, IconMenuClose, IconMenuOpen } from '../../icons'
+import { IconMenu, IconMenuClose, IconMenuOpen } from '../../../icons'
+import { useIsMobile } from '../../../config-provider'
 
 const { Header } = Layout
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { AdvancedTable } from './advanced-table'
-import { AdvancedTableColumnType } from './advanced-table-column.type'
+import { AdvancedTableColumnType } from './types/advanced-table-column.type'
 import { Space, Tag } from 'antd'
 import { useAdvancedTable } from './utils/use-advanced-table'
 

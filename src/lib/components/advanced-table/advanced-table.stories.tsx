@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useState } from 'react'
 import { Meta, Story } from '@storybook/react'
 import { AdvancedTable, AdvancedTableProps } from './advanced-table'
 import { Form, Input, Space, Tag } from 'antd'
-import { AdvancedTableColumnType } from './advanced-table-column.type'
+import { AdvancedTableColumnType } from './types/advanced-table-column.type'
 import { useAdvancedTable } from './utils/use-advanced-table'
 import { Button } from '../button'
 

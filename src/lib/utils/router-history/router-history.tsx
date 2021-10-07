@@ -2,23 +2,22 @@ import { createBrowserHistory, createHashHistory, createMemoryHistory, History }
 
 export type RouterHistoryTypesType = 'browser' | 'hash' | 'memory'
 
-export class RouterHistory {
-  private static history: History
+let history: History
 
-  static setHistoryByType(type?: RouterHistoryTypesType) {
-    if (RouterHistory.history) {
+export const RouterHistory = {
+  setHistoryByType(type?: RouterHistoryTypesType) {
+    if (history) {
       return
     }
     if (type === 'browser') {
-      RouterHistory.history = createBrowserHistory()
+      history = createBrowserHistory()
     } else if (type === 'memory') {
-      RouterHistory.history = createMemoryHistory()
+      history = createMemoryHistory()
     } else {
-      RouterHistory.history = createHashHistory()
+      history = createHashHistory()
     }
-  }
-
-  static getHistory() {
-    return RouterHistory.history
+  },
+  getHistory() {
+    return history
   }
 }

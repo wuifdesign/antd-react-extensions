@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Drawer, Layout, Menu } from 'antd'
 import { Link, matchPath, useLocation } from 'react-router-dom'
-import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
-import { EnhancedMenuElement, MenuElement } from '../menu-element.type'
+import { EnhancedMenuElement, MenuElement } from '../../menu-element.type'
 import { useDefaultLayoutContext } from './default-layout-context'
+import { useIsMobile } from '../../../config-provider'
 
 const { Sider } = Layout
 const { SubMenu } = Menu

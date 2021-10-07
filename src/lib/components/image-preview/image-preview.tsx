@@ -33,7 +33,7 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
   thumbUrl = url,
   style,
   onDelete,
-  onEdit,
+  onEdit: triggerEdit,
   size = 100,
   fullscreenButton = true,
   hideBackground = false,
@@ -43,23 +43,15 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
   const translations = useTranslations()
 
   const triggerDelete = () => {
-    if (onDelete) {
-      if (askForDeleteConfirmation) {
-        confirmDelete({
-          title: translations.ImagePreview.confirmDeleteText,
-          onOk: () => {
-            return onDelete()
-          }
-        })
-      } else {
-        onDelete()
-      }
-    }
-  }
-
-  const triggerEdit = () => {
-    if (onEdit) {
-      onEdit()
+    if (askForDeleteConfirmation) {
+      confirmDelete({
+        title: translations.ImagePreview.confirmDeleteText,
+        onOk: () => {
+          return onDelete?.()
+        }
+      })
+    } else {
+      onDelete?.()
     }
   }
 
@@ -113,7 +105,7 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
             <IconFullscreen />
           </Button>
         )}
-        {onEdit && (
+        {triggerEdit && (
           <Button
             onClick={triggerEdit}
             type="primary"

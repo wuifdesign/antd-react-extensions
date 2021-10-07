@@ -14,9 +14,5 @@ export const addUrlParameters = (url: string, params?: ParamsType) => {
   if (mappedParams.length === 0) {
     return url
   }
-  if (url.includes('?')) {
-    return url + '&' + mappedParams.join('&')
-  } else {
-    return url + '?' + mappedParams.join('&')
-  }
+  return url + (url.includes('?') ? '&' : '?') + mappedParams.join('&')
 }

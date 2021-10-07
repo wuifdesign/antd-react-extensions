@@ -1,9 +1,9 @@
 import React from 'react'
 import { Layout } from 'antd'
-import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
-import { useBodyClass } from '../../../utils/hooks/use-body-class'
-import { PageContent } from '../../page-content'
+import { useBodyClass } from '../../../../utils/hooks/use-body-class'
+import { PageContent } from '../../../page-content'
 import clsx from 'clsx'
+import { useIsMobile } from '../../../config-provider'
 
 export type AuthLayoutProps = {
   logo: React.ReactNode | string

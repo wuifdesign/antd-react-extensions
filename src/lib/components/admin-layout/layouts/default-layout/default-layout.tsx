@@ -1,13 +1,13 @@
 import React from 'react'
 import { Layout } from 'antd'
-import { useIsMobile } from '../../../utils/hooks/use-is-mobile'
 import DefaultLayoutSidebar, { SIDEBAR_COLLAPSED_WIDTH, SIDEBAR_WIDTH } from './default-layout-sidebar'
 import DefaultLayoutHeader from './default-layout-header'
-import { MenuElement } from '../menu-element.type'
-import { RouteElement } from '../route-element.type'
+import { MenuElement } from '../../menu-element.type'
+import { RouteElement } from '../../route-element.type'
 import { useDefaultLayoutContext } from './default-layout-context'
-import { useBodyClass } from '../../../utils/hooks/use-body-class'
+import { useBodyClass } from '../../../../utils/hooks/use-body-class'
 import clsx from 'clsx'
+import { useIsMobile } from '../../../config-provider'
 
 export type DefaultLayoutProps = {
   menu: MenuElement[]

@@ -98,6 +98,7 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
           case 'submit':
             parsedButtons.push(
               <Button
+                key="submit"
                 disabled={submitButtonDisabled}
                 htmlType="submit"
                 loading={loading}
@@ -110,7 +111,7 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
             break
           case 'cancel':
             parsedButtons.push(
-              <Button onClick={onCancel} {...cancelButtonProps}>
+              <Button key="cancel" onClick={onCancel} {...cancelButtonProps}>
                 {cancelButtonText || translations.FormOverlay.btnCancel}
               </Button>
             )
@@ -118,6 +119,7 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
           case 'reset':
             parsedButtons.push(
               <Button
+                key="reset"
                 type="link"
                 onClick={() => (formRef.current ? formRef.current.resetFields() : null)}
                 icon={<IconUndo />}
@@ -130,7 +132,7 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
             parsedButtons.push(button)
         }
       }
-      return parsedButtons.map((btn, index) => <div key={index}>{btn}</div>)
+      return parsedButtons
     }
 
     let content = (
