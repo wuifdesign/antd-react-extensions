@@ -16,7 +16,7 @@ export const RouteWithSubRoutes = (route: CustomLayoutRouteElement) => {
       withLayout = route.canActivateFallback.renderLayout === true
     }
   }
-  const routeFallback = route.canActivateFallback?.component ?? route.canActivateFallbackBase?.component ?? (
+  const routeFallback = route.canActivateFallback?.component || route.canActivateFallbackBase?.component || (
     <ErrorPage type={403} />
   )
   const routeElement = (props: RouteComponentProps<any>) => {
