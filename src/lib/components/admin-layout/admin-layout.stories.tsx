@@ -21,6 +21,7 @@ import { BlankLayout } from './layouts/blank-layout/blank-layout'
 import { NotificationsPopover } from '../notifications-popover'
 import { Link } from 'react-router-dom'
 import { SiderTheme } from 'antd/es/layout/Sider'
+import { ConfigProvider } from '../config-provider'
 
 export default {
   component: AdminLayout,
@@ -245,114 +246,116 @@ const menu: MenuElement[] = [
 const Template: Story<{ siderTheme?: SiderTheme }> = ({ siderTheme }) => {
   return (
     <div style={{ transform: 'translateZ(0)' }}>
-      <AdminLayout
-        routes={routes}
-        defaultLayoutProps={{
-          menu,
-          logo: (type) => (type !== 'collapsed' ? 'AdminLogo' : 'AL'),
-          sidebarTheme: siderTheme,
-          sidebarMenuPrepend: (collapsed) => (
-            <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
-              {!collapsed ? 'BeforeMenu' : 'BM'}
-            </div>
-          ),
-          sidebarMenuAppend: (collapsed) => (
-            <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
-              <a href="#">{!collapsed ? 'AfterMenu' : 'AM'}</a>
-            </div>
-          ),
-          headerRight: (
-            <>
-              <NotificationsPopover
-                dot
-                notificationListProps={{
-                  maxHeight: 250,
-                  dataSource: [
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 1',
-                      description: 'This is description number 1',
-                      onClick: () => console.log('item 1')
-                    },
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 2',
-                      description: 'This is description number 2',
-                      onClick: () => console.log('item 2')
-                    },
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 3',
-                      description: 'This is description number 3',
-                      onClick: () => console.log('item 3')
-                    },
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 4',
-                      description: 'This is description number 4',
-                      onClick: () => console.log('item 4')
-                    },
-                    {
-                      icon: <MailOutlined />,
-                      title: 'Title 5',
-                      description: 'This is description number 5',
-                      onClick: () => console.log('item 5')
-                    }
-                  ]
-                }}
-              />
-              <Dropdown
-                key="languages"
-                overlay={
-                  <Menu>
-                    {['de', 'en'].map((lang) => (
-                      <Menu.Item key={`language-${lang}`}>{lang}</Menu.Item>
-                    ))}
-                  </Menu>
-                }
-              >
-                <Button type="text">de</Button>
-              </Dropdown>
-            </>
-          ),
-          sidebarBottom: (collapsed) => (
-            <div>
-              <Dropdown
-                trigger={['click']}
-                overlayStyle={{ minWidth: 0, paddingLeft: 15 }}
-                overlay={
-                  <Menu>
-                    <Menu.SubMenu title="Language" icon={<GlobalOutlined />} key="language">
-                      {['en', 'de'].map((lang) => (
-                        <Menu.Item
-                          className={lang === 'de' ? 'active-language' : undefined}
-                          key={`language-${lang}`}
-                          onClick={() => console.log(lang)}
-                        >
-                          {lang}
-                        </Menu.Item>
+      <ConfigProvider>
+        <AdminLayout
+          routes={routes}
+          defaultLayoutProps={{
+            menu,
+            logo: (type) => (type !== 'collapsed' ? 'AdminLogo' : 'AL'),
+            sidebarTheme: siderTheme,
+            sidebarMenuPrepend: (collapsed) => (
+              <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
+                {!collapsed ? 'BeforeMenu' : 'BM'}
+              </div>
+            ),
+            sidebarMenuAppend: (collapsed) => (
+              <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
+                <a href="#">{!collapsed ? 'AfterMenu' : 'AM'}</a>
+              </div>
+            ),
+            headerRight: (
+              <>
+                <NotificationsPopover
+                  dot
+                  notificationListProps={{
+                    maxHeight: 250,
+                    dataSource: [
+                      {
+                        icon: <MailOutlined />,
+                        title: 'Title 1',
+                        description: 'This is description number 1',
+                        onClick: () => console.log('item 1')
+                      },
+                      {
+                        icon: <MailOutlined />,
+                        title: 'Title 2',
+                        description: 'This is description number 2',
+                        onClick: () => console.log('item 2')
+                      },
+                      {
+                        icon: <MailOutlined />,
+                        title: 'Title 3',
+                        description: 'This is description number 3',
+                        onClick: () => console.log('item 3')
+                      },
+                      {
+                        icon: <MailOutlined />,
+                        title: 'Title 4',
+                        description: 'This is description number 4',
+                        onClick: () => console.log('item 4')
+                      },
+                      {
+                        icon: <MailOutlined />,
+                        title: 'Title 5',
+                        description: 'This is description number 5',
+                        onClick: () => console.log('item 5')
+                      }
+                    ]
+                  }}
+                />
+                <Dropdown
+                  key="languages"
+                  overlay={
+                    <Menu>
+                      {['de', 'en'].map((lang) => (
+                        <Menu.Item key={`language-${lang}`}>{lang}</Menu.Item>
                       ))}
-                    </Menu.SubMenu>
-                    <Menu.Item icon={<UserOutlined />} key="account">
-                      <Link to="/account">Account</Link>
-                    </Menu.Item>
-                    <Menu.Item icon={<LogoutOutlined />} key="logout">
-                      <Link to="/logout">Logout</Link>
-                    </Menu.Item>
-                  </Menu>
-                }
-              >
-                <Button type="text" style={{ textAlign: collapsed ? 'center' : undefined }}>
-                  <Avatar size="small" className="user-avatar" style={{ marginRight: collapsed ? 0 : 8 }}>
-                    UN
-                  </Avatar>
-                  {!collapsed && <span style={{ verticalAlign: 'middle' }}>UserName</span>}
-                </Button>
-              </Dropdown>
-            </div>
-          )
-        }}
-      />
+                    </Menu>
+                  }
+                >
+                  <Button type="text">de</Button>
+                </Dropdown>
+              </>
+            ),
+            sidebarBottom: (collapsed) => (
+              <div>
+                <Dropdown
+                  trigger={['click']}
+                  overlayStyle={{ minWidth: 0, paddingLeft: 15 }}
+                  overlay={
+                    <Menu>
+                      <Menu.SubMenu title="Language" icon={<GlobalOutlined />} key="language">
+                        {['en', 'de'].map((lang) => (
+                          <Menu.Item
+                            className={lang === 'de' ? 'active-language' : undefined}
+                            key={`language-${lang}`}
+                            onClick={() => console.log(lang)}
+                          >
+                            {lang}
+                          </Menu.Item>
+                        ))}
+                      </Menu.SubMenu>
+                      <Menu.Item icon={<UserOutlined />} key="account">
+                        <Link to="/account">Account</Link>
+                      </Menu.Item>
+                      <Menu.Item icon={<LogoutOutlined />} key="logout">
+                        <Link to="/logout">Logout</Link>
+                      </Menu.Item>
+                    </Menu>
+                  }
+                >
+                  <Button type="text" style={{ textAlign: collapsed ? 'center' : undefined }}>
+                    <Avatar size="small" className="user-avatar" style={{ marginRight: collapsed ? 0 : 8 }}>
+                      UN
+                    </Avatar>
+                    {!collapsed && <span style={{ verticalAlign: 'middle' }}>UserName</span>}
+                  </Button>
+                </Dropdown>
+              </div>
+            )
+          }}
+        />
+      </ConfigProvider>
     </div>
   )
 }
