@@ -19,6 +19,7 @@ export type AdminLayoutProps = {
   history?: RouterHistoryTypesType
   authLayoutProps?: AuthLayoutProps
   defaultLayoutProps?: DefaultLayoutProps
+  copyright?: React.ReactNode
 }
 
 export type CanActivateFallbackType = {
@@ -37,6 +38,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   canActivateFallback,
   loading = false,
   history,
+  copyright,
   authLayoutProps,
   defaultLayoutProps
 }) => {
@@ -60,13 +62,15 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                 } else if (route.layout === 'auth') {
                   layoutRoute.layout = AuthLayout
                   layoutRoute.layoutProps = {
+                    copyright,
                     ...authLayoutProps,
                     ...layoutRoute.layoutProps
                   }
                 } else if (route.layout === 'default' || !route.layout) {
                   layoutRoute.layout = DefaultLayout
                   layoutRoute.layoutProps = {
-                    routes: routes,
+                    copyright,
+                    routes,
                     ...defaultLayoutProps,
                     ...layoutRoute.layoutProps
                   }

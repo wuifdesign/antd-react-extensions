@@ -22,6 +22,7 @@ export type DefaultLayoutProps = {
   sidebarMenuAppend?: (collapsed: boolean) => React.ReactNode | string
   sidebarBottom?: (collapsed: boolean) => React.ReactNode | string
   headerRight?: React.ReactElement
+  copyright?: React.ReactElement
 }
 
 export type DefaultLayoutPropsInternal = DefaultLayoutProps & {
@@ -35,6 +36,7 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
   sidebarMenuPrepend,
   sidebarMenuAppend,
   sidebarBottom,
+  copyright,
   sidebarTheme = 'light',
   headerRight,
   sidebarWidth = SIDEBAR_WIDTH,
@@ -85,6 +87,7 @@ export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
         }}
       >
         {children}
+        {!!copyright && <div className="default-layout-copyright">{copyright}</div>}
       </Layout>
     </>
   )

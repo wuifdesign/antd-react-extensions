@@ -6,11 +6,12 @@ import clsx from 'clsx'
 import { useIsMobile } from '../../../config-provider'
 
 export type AuthLayoutProps = {
-  logo: React.ReactNode | string
+  logo: React.ReactNode
+  copyright?: React.ReactNode
   authPageMaxWidth?: number
 }
 
-export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth = 400, children }) => {
+export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth = 400, copyright, children }) => {
   useBodyClass('auth-layout')
 
   const isMobile = useIsMobile()
@@ -44,6 +45,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ logo, authPageMaxWidth =
             </div>
             {children}
           </PageContent.Element>
+          {!!copyright && <div className="auth-layout-copyright">{copyright}</div>}
         </PageContent>
       </Layout>
     </>

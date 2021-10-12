@@ -249,6 +249,7 @@ const Template: Story<{ siderTheme?: SiderTheme }> = ({ siderTheme }) => {
       <ConfigProvider>
         <AdminLayout
           routes={routes}
+          copyright="Copyright © 2021 ..."
           defaultLayoutProps={{
             menu,
             logo: (type) => (type !== 'collapsed' ? 'AdminLogo' : 'AL'),
@@ -372,6 +373,7 @@ export const Auth = () => {
   return (
     <div style={{ transform: 'translateZ(0)' }}>
       <AdminLayout
+        copyright="Copyright © 2021 ..."
         routes={[
           {
             path: '/',
