@@ -1,5 +1,4 @@
 export * from './add-url-parameters'
-export * from './color-palette'
 export * from './confirm-dialogs'
 export * from './deep-diff'
 export * from './deep-equal'

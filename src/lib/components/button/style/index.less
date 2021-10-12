@@ -4,27 +4,29 @@
 
 @btn-warning-color: #fff;
 @btn-warning-bg: @warning-color;
+@btn-warning-border: @warning-color;
 
 @btn-success-color: #fff;
 @btn-success-bg: @success-color;
+@btn-success-border: @success-color;
 
-.button-variant(@name, @color, @bg-color) {
+.button-variant(@name, @color, @bg-color, @hover-color, @active-color) {
   .@{btn-prefix-cls} {
     &-@{name} {
       .button-color(@bg-color, @color, @bg-color);
 
       &:hover,
       &:focus {
-        .button-color(lighten(@bg-color, 8%); @color; lighten(@bg-color, 8%));
+        .button-color(@hover-color, @color, @hover-color);
       }
 
       &:active {
-        .button-color(darken(@bg-color, 8%); @color; darken(@bg-color, 8%));
+        .button-color(@active-color, @color, @active-color);
       }
     }
 
     &-primary&-@{name} {
-      .button-variant-primary(@color, @bg-color);
+      .button-variant-primary(@color, @bg-color, @hover-color, @active-color);
     }
 
     &-link&-@{name} {
@@ -33,11 +35,11 @@
 
       &:hover,
       &:focus {
-        .button-color(@bg-color; transparent; transparent);
+        .button-color(@hover-color; transparent; transparent);
       }
 
       &:active {
-        .button-color(@bg-color; transparent; transparent);
+        .button-color(@active-color; transparent; transparent);
       }
 
       .button-disabled(@disabled-color; transparent; transparent);
@@ -50,14 +52,14 @@
 
       &:hover,
       &:focus {
-        color: @bg-color;
+        color: @hover-color;
         background: @btn-text-hover-bg;
         border-color: transparent;
       }
 
       &:active {
-        color: @bg-color;
-        background: fadein(@btn-text-hover-bg, 1%);
+        color: @active-color;
+        background: @btn-text-hover-bg;
         border-color: transparent;
       }
 
@@ -65,17 +67,18 @@
     }
 
     &-background-ghost&-@{name} {
-      .button-variant-ghost(@bg-color);
+      .button-variant-ghost(@bg-color, @bg-color, @hover-color, @active-color);
+      background: transparent;
     }
 
     &-background-ghost&-@{name}&-link {
-      .button-variant-ghost(@bg-color, transparent);
+      .button-variant-ghost(@bg-color, transparent, @hover-color, @active-color);
     }
   }
 }
 
-.button-variant(warning, @btn-warning-color, @btn-warning-bg);
-.button-variant(success, @btn-success-color, @btn-success-bg);
+.button-variant(warning, @btn-warning-color, @btn-warning-bg, @warning-color-hover, @warning-color-active);
+.button-variant(success, @btn-success-color, @btn-success-bg, @success-color-hover, @success-color-active);
 
 .@{ant-prefix}-btn {
   &.btn-text-inline,
