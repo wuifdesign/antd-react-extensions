@@ -13,7 +13,10 @@ import { useState } from 'react'
  *   )
  * }
  */
-const useLocalStorage = <T = any>(key: string | undefined | null, initialValue: any = null): [T, (value: T) => any] => {
+export const useLocalStorage = <T = any>(
+  key: string | undefined | null,
+  initialValue: any = null
+): [T, (value: T) => any] => {
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState(() => {
     try {
@@ -39,5 +42,3 @@ const useLocalStorage = <T = any>(key: string | undefined | null, initialValue: 
 
   return [storedValue, setValue]
 }
-
-export default useLocalStorage

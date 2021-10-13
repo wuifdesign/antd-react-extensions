@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useContext, useState } from 'react'
-import useLocalStorage from '../../../../utils/hooks/use-local-storage/use-local-storage'
+import { useLocalStorage } from '../../../../utils/hooks/use-local-storage/use-local-storage'
 
 export type AdminLayoutContextType = {
   sidebarCollapsed: boolean
