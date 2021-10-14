@@ -21,10 +21,10 @@ export const RouteElement: React.FC<RouteElementProps> = ({ canActivateFallbackB
         setLayoutType('blank')
       } else if (route.layout === 'auth') {
         setLayoutType('auth')
-      } else if (route.layout === 'default' || !route.layout) {
+      } else if (route.layout === 'default' || !(route as any).layout) {
         setLayoutType('default')
       } else {
-        throw new Error(`'Layout with name ${route.layout} not supported!`)
+        throw new Error(`'Layout with name ${(route as any).layout} not supported!`)
       }
     } else {
       setLayoutType(null)

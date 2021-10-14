@@ -28,7 +28,7 @@ export type BlankRouteElement = RouteElementBase & {
 }
 
 export type DefaultRouteElement = RouteElementBase & {
-  layout: 'default' | undefined
+  layout?: 'default'
   breadcrumb: React.ReactNode | ((item: BreadcrumbItemType) => React.ReactNode)
   layoutProps?: DefaultLayoutProps
 }

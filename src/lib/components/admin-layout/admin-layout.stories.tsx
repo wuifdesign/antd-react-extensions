@@ -35,7 +35,6 @@ export default {
 const routes: RouteElementType[] = [
   {
     path: '/',
-    layout: 'default',
     breadcrumb: 'Dashboard',
     component: () => (
       <PageContent hideBreadcrumbs>
