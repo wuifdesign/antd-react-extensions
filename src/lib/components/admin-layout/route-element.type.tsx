@@ -16,10 +16,10 @@ export type BreadcrumbItemType = {
 type RouteElementBase = {
   path: string
   component: React.ElementType
-  routes?: RouteElement[]
+  routes?: RouteElementType[]
   exact?: boolean
   is404?: boolean
-  canActivate?: (route: RouteElement) => boolean | undefined
+  canActivate?: (route: RouteElementType) => boolean | undefined
   canActivateFallback?: CanActivateFallbackType
 }
 
@@ -28,7 +28,7 @@ export type BlankRouteElement = RouteElementBase & {
 }
 
 export type DefaultRouteElement = RouteElementBase & {
-  layout: 'default'
+  layout: 'default' | undefined
   breadcrumb: React.ReactNode | ((item: BreadcrumbItemType) => React.ReactNode)
   layoutProps?: DefaultLayoutProps
 }
@@ -38,10 +38,4 @@ export type AuthRouteElement = RouteElementBase & {
   layoutProps?: AuthLayoutProps
 }
 
-export type CustomLayoutRouteElement = RouteElementBase & {
-  layout: React.ElementType
-  layoutProps: Record<string, any>
-  canActivateFallbackBase?: CanActivateFallbackType
-}
-
-export type RouteElement = BlankRouteElement | DefaultRouteElement | AuthRouteElement | CustomLayoutRouteElement
+export type RouteElementType = BlankRouteElement | DefaultRouteElement | AuthRouteElement

@@ -44,7 +44,9 @@ describe('ImagePreview', () => {
     act(() => {
       fireEvent.click(deleteButton as HTMLElement)
     })
-    expect(onDelete).toHaveBeenCalledTimes(1)
+    await waitFor(() => {
+      expect(onDelete).toHaveBeenCalledTimes(1)
+    })
   })
 
   it('should not ask for confirmation on delete', async () => {

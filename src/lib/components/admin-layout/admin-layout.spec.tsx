@@ -1,10 +1,10 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { AdminLayout } from './admin-layout'
-import { RouteElement } from './route-element.type'
+import { RouteElementType } from './route-element.type'
 import { RouterHistory } from '../../utils'
 
-const routes: RouteElement[] = [
+const routes: RouteElementType[] = [
   {
     path: '/',
     layout: 'default',

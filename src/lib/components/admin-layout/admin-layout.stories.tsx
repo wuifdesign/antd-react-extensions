@@ -9,7 +9,7 @@ import {
   MailOutlined,
   UserOutlined
 } from '@ant-design/icons'
-import { RouteElement } from './route-element.type'
+import { RouteElementType } from './route-element.type'
 import { PageContent } from '../page-content'
 import { Button } from '../button'
 import { ErrorPage } from '../error-page'
@@ -32,7 +32,7 @@ export default {
   }
 } as Meta
 
-const routes: RouteElement[] = [
+const routes: RouteElementType[] = [
   {
     path: '/',
     layout: 'default',
@@ -140,6 +140,22 @@ const routes: RouteElement[] = [
     exact: true
   },
   {
+    path: '/restricted-without-layout',
+    layout: 'default',
+    breadcrumb: 'Restricted',
+    component: () => (
+      <PageContent>
+        <PageContent.Header title="Restricted" />
+        {console.log('restricted')}
+      </PageContent>
+    ),
+    canActivate: () => false,
+    canActivateFallback: {
+      renderLayout: false
+    },
+    exact: true
+  },
+  {
     path: '/restricted-loading',
     layout: 'default',
     breadcrumb: 'Restricted Loading',
@@ -150,6 +166,12 @@ const routes: RouteElement[] = [
       </PageContent>
     ),
     canActivate: () => undefined,
+    exact: true
+  },
+  {
+    path: '/auth',
+    layout: 'auth',
+    component: () => <>Auth Layout</>,
     exact: true
   },
   {
@@ -198,9 +220,21 @@ const menu: MenuElement[] = [
     exact: true
   },
   {
+    title: 'Auth',
+    icon: <IconDashboard />,
+    url: '/auth',
+    exact: true
+  },
+  {
     title: 'Restricted',
     icon: <LockOutlined />,
     url: '/restricted',
+    exact: true
+  },
+  {
+    title: 'Restricted without Layout',
+    icon: <LockOutlined />,
+    url: '/restricted-without-layout',
     exact: true
   },
   {

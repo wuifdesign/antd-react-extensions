@@ -3,7 +3,6 @@ import { Layout } from 'antd'
 import DefaultLayoutSidebar, { SIDEBAR_COLLAPSED_WIDTH, SIDEBAR_WIDTH } from './default-layout-sidebar'
 import DefaultLayoutHeader from './default-layout-header'
 import { MenuElement } from '../../menu-element.type'
-import { RouteElement } from '../../route-element.type'
 import { useDefaultLayoutContext } from './default-layout-context'
 import { useBodyClass } from '../../../../utils/hooks/use-body-class'
 import clsx from 'clsx'
@@ -21,15 +20,11 @@ export type DefaultLayoutProps = {
   sidebarMenuPrepend?: (collapsed: boolean) => React.ReactNode | string
   sidebarMenuAppend?: (collapsed: boolean) => React.ReactNode | string
   sidebarBottom?: (collapsed: boolean) => React.ReactNode | string
-  headerRight?: React.ReactElement
-  copyright?: React.ReactElement
+  headerRight?: React.ReactNode
+  copyright?: React.ReactNode
 }
 
-export type DefaultLayoutPropsInternal = DefaultLayoutProps & {
-  routes: RouteElement[]
-}
-
-export const DefaultLayout: React.FC<DefaultLayoutPropsInternal> = ({
+export const DefaultLayout: React.FC<DefaultLayoutProps> = ({
   logo,
   menu,
   hideFrame = false,

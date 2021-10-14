@@ -8,7 +8,7 @@ const { Header } = Layout
 
 export type AdminLayoutHeaderProps = {
   logoMobile: React.ReactNode | string
-  headerRight?: React.ReactElement
+  headerRight?: React.ReactNode
   sidebarWidth?: number
   sidebarCollapsedWidth?: number
 }

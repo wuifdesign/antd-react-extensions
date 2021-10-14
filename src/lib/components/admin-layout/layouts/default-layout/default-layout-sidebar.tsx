@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Drawer, Layout } from 'antd'
 import { MenuElement } from '../../menu-element.type'
 import { useDefaultLayoutContext } from './default-layout-context'
 import { useIsMobile } from '../../../config-provider'
 import { DynamicMenu } from '../../../dynamic-menu'
+import { useLocation } from 'react-router-dom'
 
 const { Sider } = Layout
 
@@ -33,8 +34,13 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
   sidebarCollapsedWidth,
   menuPrepend
 }) => {
+  const location = useLocation()
   const isMobile = useIsMobile()
   const { mobileNavOpen, setMobileNavOpen, sidebarCollapsed } = useDefaultLayoutContext()
+
+  useEffect(() => {
+    setMobileNavOpen(false)
+  }, [location, setMobileNavOpen])
 
   const SiderWithMenu = (
     <Sider
