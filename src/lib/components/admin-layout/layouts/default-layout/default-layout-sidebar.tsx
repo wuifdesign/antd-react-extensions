@@ -1,76 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Drawer, Layout, Menu } from 'antd'
-import { Link, matchPath, useLocation } from 'react-router-dom'
-import { EnhancedMenuElement, MenuElement } from '../../menu-element.type'
+import React from 'react'
+import { Drawer, Layout } from 'antd'
+import { MenuElement } from '../../menu-element.type'
 import { useDefaultLayoutContext } from './default-layout-context'
 import { useIsMobile } from '../../../config-provider'
+import { DynamicMenu } from '../../../dynamic-menu'
 
 const { Sider } = Layout
-const { SubMenu } = Menu
 
 export const SIDEBAR_WIDTH = 230
 export const SIDEBAR_COLLAPSED_WIDTH = 80
-
-const enhanceMenu = (menuPart: MenuElement[], prefix: string = ''): EnhancedMenuElement[] => {
-  Object.keys(menuPart).forEach((index) => {
-    const item = menuPart[parseInt(index, 10)] as EnhancedMenuElement
-    item.key = prefix + index
-    if ('type' in item && item.elements) {
-      enhanceMenu(item.elements, `${item.key}_`)
-    }
-  })
-  return menuPart as EnhancedMenuElement[]
-}
-
-const renderMenu = (item: EnhancedMenuElement) => {
-  if ('type' in item) {
-    if (!item.elements) {
-      return null
-    }
-    if (item.type === 'group') {
-      return (
-        <Menu.ItemGroup key={item.key} title={item.title}>
-          {item.elements.map(renderMenu)}
-        </Menu.ItemGroup>
-      )
-    }
-    return (
-      <SubMenu key={item.key} icon={item.icon} title={item.title}>
-        {item.elements.map(renderMenu)}
-      </SubMenu>
-    )
-  }
-  return (
-    <Menu.Item key={item.key} icon={item.icon}>
-      <Link to={item.url}>{item.title}</Link>
-    </Menu.Item>
-  )
-}
-
-const getActiveMenuKeys = (pathname: string, enhancedMenu: EnhancedMenuElement[]): string[] => {
-  let activeKeys: string[] = []
-  for (const item of enhancedMenu) {
-    let isActive = false
-    if ('type' in item && item.elements) {
-      const subActiveKeys = getActiveMenuKeys(pathname, item.elements)
-      if (subActiveKeys.length > 0) {
-        isActive = true
-      }
-      activeKeys = [...activeKeys, ...subActiveKeys]
-    } else if (!('type' in item) && item.url) {
-      if (matchPath(pathname, { path: item.url, exact: !!item.exact })) {
-        isActive = true
-      }
-    }
-    if ('isActive' in item && !!item.isActive) {
-      isActive = item.isActive(pathname)
-    }
-    if (isActive) {
-      activeKeys.push(item.key)
-    }
-  }
-  return activeKeys
-}
 
 export type AdminLayoutSidebarProps = {
   menu: MenuElement[]
@@ -95,36 +33,8 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
   sidebarCollapsedWidth,
   menuPrepend
 }) => {
-  const location = useLocation()
   const isMobile = useIsMobile()
   const { mobileNavOpen, setMobileNavOpen, sidebarCollapsed } = useDefaultLayoutContext()
-
-  const menuWithKeys = useMemo(() => enhanceMenu(menu), [menu])
-
-  const [selectedKeys, setSelectedKeys] = useState(getActiveMenuKeys(location.pathname, menuWithKeys))
-  const [openKeys, setOpenKeys] = useState(getActiveMenuKeys(location.pathname, menuWithKeys))
-  const latestMobileNavOpen = useRef<boolean>(mobileNavOpen)
-
-  const hideNav = useCallback(() => {
-    if (latestMobileNavOpen) {
-      setMobileNavOpen(false)
-    }
-  }, [latestMobileNavOpen, setMobileNavOpen])
-
-  useEffect(() => {
-    const activeKeys = getActiveMenuKeys(location.pathname, menuWithKeys)
-    setSelectedKeys(activeKeys)
-    setOpenKeys((keys) => [...Array.from(new Set([...keys].concat(activeKeys)))])
-    hideNav()
-  }, [location, hideNav, menuWithKeys])
-
-  useEffect(() => {
-    latestMobileNavOpen.current = mobileNavOpen
-  })
-
-  const onOpenChange = useCallback((keys: string[]) => {
-    setOpenKeys(keys)
-  }, [])
 
   const SiderWithMenu = (
     <Sider
@@ -139,16 +49,11 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
         <div className="default-layout-menu-container">
           <div className="logo-container">{sidebarCollapsed ? logoCollapsed : logo}</div>
           {menuPrepend}
-          <Menu
-            mode="inline"
-            selectedKeys={selectedKeys}
-            openKeys={openKeys}
-            onOpenChange={onOpenChange as any}
+          <DynamicMenu
             style={{ background: 'transparent', borderRightColor: 'transparent' }}
+            elements={menu}
             theme={sidebarTheme}
-          >
-            {menuWithKeys.map(renderMenu)}
-          </Menu>
+          />
           {menuAppend}
         </div>
         {sidebarBottom && <div className="default-sidebar-bottom">{sidebarBottom}</div>}
@@ -161,7 +66,7 @@ const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
       <Drawer
         maskClosable
         closable={false}
-        onClose={hideNav}
+        onClose={() => setMobileNavOpen(false)}
         visible={mobileNavOpen}
         placement="left"
         width={sidebarWidth}
