@@ -1,11 +1,10 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import { Route, RouteComponentProps } from 'react-router-dom'
 import { ErrorBoundary } from '../../error-boundary/error-boundary'
-import { RouteElementType } from '../route-element.type'
 import { ErrorPage } from '../../error-page'
 import { LoadingSpinner } from '../../loading-spinner'
-import { CanActivateFallbackType } from '../admin-layout'
-import { useLayoutContext } from '../layout-context'
+import { RouteElementType, useLayoutContext } from '../../admin-layout'
+import { CanActivateFallbackType } from '../can-activate-fallback.type'
 
 export type RouteElementProps = RouteElementType & {
   canActivateFallbackBase?: CanActivateFallbackType
@@ -17,14 +16,15 @@ export const RouteElement: React.FC<RouteElementProps> = ({ canActivateFallbackB
 
   useEffect(() => {
     if (withLayout) {
-      if (route.layout === 'blank') {
+      const layout = route.layout
+      if (layout === 'blank') {
         setLayoutType('blank')
-      } else if (route.layout === 'auth') {
+      } else if (layout === 'auth') {
         setLayoutType('auth')
-      } else if (route.layout === 'default' || !(route as any).layout) {
+      } else if (layout === 'default' || !layout) {
         setLayoutType('default')
       } else {
-        throw new Error(`'Layout with name ${(route as any).layout} not supported!`)
+        throw new Error(`'Layout with name ${layout} not supported!`)
       }
     } else {
       setLayoutType(null)

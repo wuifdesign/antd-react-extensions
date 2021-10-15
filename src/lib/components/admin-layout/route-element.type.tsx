@@ -1,9 +1,9 @@
 import React from 'react'
 import { AuthLayoutProps } from './layouts/auth-layout/auth-layout'
 import { DefaultLayoutProps } from './layouts/default-layout/default-layout'
-import { CanActivateFallbackType } from './admin-layout'
 import { match as MatchType } from 'react-router-dom'
 import { Location } from 'history'
+import { CanActivateFallbackType } from '../dynamic-routes'
 
 export type BreadcrumbItemType = {
   component: React.ReactNode

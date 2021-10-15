@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Layout, Spin } from 'antd'
-import { Switch } from 'react-router-dom'
 import { Router } from 'react-router'
 import { RouteElementType } from './route-element.type'
 import { DefaultLayoutProps } from './layouts/default-layout/default-layout'
@@ -9,8 +8,8 @@ import { RouterHistory, RouterHistoryTypesType } from '../../utils/router-histor
 import { LayoutContext } from './layout-context'
 import { DefaultLayoutProvider } from './layouts/default-layout/default-layout-context'
 import { LayoutFullPageLoading } from './components/layout-full-page-loading'
-import { RouteElement } from './components/route-element'
 import { RouteLayout, RouteLayoutType } from './components/route-layout'
+import { CanActivateFallbackType, DynamicRoutes } from '../dynamic-routes'
 
 export type AdminLayoutProps = {
   routes: RouteElementType[]
@@ -20,11 +19,6 @@ export type AdminLayoutProps = {
   authLayoutProps?: AuthLayoutProps
   defaultLayoutProps?: DefaultLayoutProps
   copyright?: React.ReactNode
-}
-
-export type CanActivateFallbackType = {
-  renderLayout?: boolean
-  component?: React.ReactNode
 }
 
 /**
@@ -60,11 +54,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               defaultLayoutProps={defaultLayoutProps}
               authLayoutProps={authLayoutProps}
             >
-              <Switch>
-                {routes.map((route, i) => (
-                  <RouteElement key={i} canActivateFallbackBase={canActivateFallback} {...route} />
-                ))}
-              </Switch>
+              <DynamicRoutes canActivateFallback={canActivateFallback} routes={routes} />
             </RouteLayout>
           </Router>
         </Layout>
