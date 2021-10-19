@@ -1,3 +1,5 @@
 export { DynamicRoutes } from './dynamic-routes'
 export type { DynamicRoutesProps } from './dynamic-routes'
 export type { CanActivateFallbackType } from './can-activate-fallback.type'
+export type { RouteElementType } from './route-element.type'
+export type { RouterPageType } from './router-page.type'

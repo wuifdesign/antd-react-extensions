@@ -6,4 +6,3 @@ export { useLayoutContext } from './layout-context'
 
 export type { LayoutContextType } from './layout-context'
 export type { MenuElement } from './menu-element.type'
-export type { RouteElementType } from '../dynamic-routes/route-element.type'
