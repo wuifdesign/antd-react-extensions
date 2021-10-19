@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Layout, Spin } from 'antd'
 import { Router } from 'react-router'
-import { RouteElementType } from './route-element.type'
+import { RouteElementType } from '../dynamic-routes/route-element.type'
 import { DefaultLayoutProps } from './layouts/default-layout/default-layout'
 import { AuthLayoutProps } from './layouts/auth-layout/auth-layout'
 import { RouterHistory, RouterHistoryTypesType } from '../../utils/router-history'

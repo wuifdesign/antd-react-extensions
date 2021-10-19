@@ -4,28 +4,16 @@ import { DynamicRoutes } from './dynamic-routes'
 import { ConfigProvider } from '../config-provider'
 import { RouteElementType } from '../admin-layout'
 import { HashRouter, Link, useRouteMatch } from 'react-router-dom'
+import { RouterPageType } from './router-page.type'
+import Breadcrumbs from '../breadcrumbs/breadcrumbs'
+import { LayoutContext } from '../admin-layout/layout-context'
 
 export default {
   component: DynamicRoutes,
   title: 'Components/Dynamic Routes'
 } as Meta
 
-const subRoutes: RouteElementType[] = [
-  {
-    path: '/topics',
-    breadcrumb: 'Detail',
-    component: () => <>Topics Overview</>,
-    exact: true
-  },
-  {
-    path: '/topics/detail',
-    breadcrumb: 'Detail',
-    component: () => <>Topics Detail</>,
-    exact: true
-  }
-]
-
-const Topics: React.FC = () => {
+const Topics: React.FC<RouterPageType> = (props) => {
   const { url } = useRouteMatch()
 
   return (
@@ -42,7 +30,7 @@ const Topics: React.FC = () => {
 
       <hr />
 
-      <DynamicRoutes routes={subRoutes} />
+      {props.routes && <DynamicRoutes routes={props.routes} />}
     </div>
   )
 }
@@ -57,26 +45,60 @@ const routes: RouteElementType[] = [
   {
     path: '/topics',
     breadcrumb: 'Topics',
-    component: () => <Topics />
+    component: Topics,
+    routes: [
+      {
+        path: '/topics',
+        breadcrumb: null,
+        component: () => (
+          <>
+            <Breadcrumbs />
+            Topics Overview
+          </>
+        ),
+        exact: true
+      },
+      {
+        path: '/topics/detail',
+        breadcrumb: 'Detail',
+        component: () => (
+          <>
+            <Breadcrumbs />
+            Topics Detail
+          </>
+        ),
+        exact: true
+      }
+    ]
   }
 ]
 
 const Template: Story = () => (
   <ConfigProvider>
-    <HashRouter>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/topics">Topics</Link>
-        </li>
-      </ul>
+    <LayoutContext.Provider
+      value={{
+        routes,
+        layoutType: null,
+        setLayoutType: () => null,
+        fullPageLoading: false,
+        setFullPageLoading: () => null
+      }}
+    >
+      <HashRouter>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/topics">Topics</Link>
+          </li>
+        </ul>
 
-      <hr />
+        <hr />
 
-      <DynamicRoutes routes={routes} />
-    </HashRouter>
+        <DynamicRoutes routes={routes} />
+      </HashRouter>
+    </LayoutContext.Provider>
   </ConfigProvider>
 )
 

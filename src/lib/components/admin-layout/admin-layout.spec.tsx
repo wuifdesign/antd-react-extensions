@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { AdminLayout } from './admin-layout'
-import { RouteElementType } from './route-element.type'
+import { RouteElementType } from '../dynamic-routes/route-element.type'
 import { RouterHistory } from '../../utils'
 
 const routes: RouteElementType[] = [

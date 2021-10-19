@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useContext } from 'react'
-import { RouteElementType } from './route-element.type'
+import { RouteElementType } from '../dynamic-routes/route-element.type'
 import { RouteLayoutType } from './components/route-layout'
 
 export type LayoutContextType = {

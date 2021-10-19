@@ -9,7 +9,7 @@ import {
   MailOutlined,
   UserOutlined
 } from '@ant-design/icons'
-import { RouteElementType } from './route-element.type'
+import { RouteElementType } from '../dynamic-routes/route-element.type'
 import { PageContent } from '../page-content'
 import { Button } from '../button'
 import { ErrorPage } from '../error-page'
