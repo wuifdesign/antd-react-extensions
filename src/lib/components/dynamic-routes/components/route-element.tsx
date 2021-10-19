@@ -3,8 +3,9 @@ import { Route, RouteComponentProps } from 'react-router-dom'
 import { ErrorBoundary } from '../../error-boundary/error-boundary'
 import { ErrorPage } from '../../error-page'
 import { LoadingSpinner } from '../../loading-spinner'
-import { RouteElementType, useLayoutContext } from '../../admin-layout'
+import { useLayoutContext } from '../../admin-layout'
 import { CanActivateFallbackType } from '../can-activate-fallback.type'
+import { RouteElementType } from '../route-element.type'
 
 export type RouteElementProps = RouteElementType & {
   canActivateFallbackBase?: CanActivateFallbackType

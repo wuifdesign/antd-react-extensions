@@ -1,8 +1,8 @@
 import React from 'react'
 import { Switch } from 'react-router-dom'
-import { RouteElementType } from '../admin-layout'
 import { RouteElement } from './components/route-element'
 import { CanActivateFallbackType } from './can-activate-fallback.type'
+import { RouteElementType } from './route-element.type'
 
 export type DynamicRoutesProps = {
   routes: RouteElementType[]
