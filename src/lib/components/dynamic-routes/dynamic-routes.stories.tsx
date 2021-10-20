@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react'
 import { DynamicRoutes } from './dynamic-routes'
 import { ConfigProvider } from '../config-provider'
 import { HashRouter, Link, useRouteMatch } from 'react-router-dom'
-import { RouterPageType } from './router-page.type'
+import { RouterPageProps } from './router-page.props'
 import Breadcrumbs from '../breadcrumbs/breadcrumbs'
 import { LayoutContext } from '../admin-layout/layout-context'
 import { RouteElementType } from './route-element.type'
@@ -13,7 +13,7 @@ export default {
   title: 'Components/Dynamic Routes'
 } as Meta
 
-const Topics: React.FC<RouterPageType> = (props) => {
+const Topics: React.FC<RouterPageProps> = (props) => {
   const { url } = useRouteMatch()
 
   return (
