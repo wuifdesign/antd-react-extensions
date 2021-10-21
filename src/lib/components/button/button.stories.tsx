@@ -22,9 +22,6 @@ const Template: Story<PropsWithChildren<ButtonProps>> = (args) => (
       <Button {...args} type="primary" ghost>
         Ghost
       </Button>
-      <Button {...args} type="link" ghost>
-        Ghost Link
-      </Button>
       <Button {...args} type="text">
         Text
       </Button>
@@ -52,9 +49,6 @@ const Template: Story<PropsWithChildren<ButtonProps>> = (args) => (
       </Button>
       <Button {...args} type="primary" ghost disabled>
         Ghost
-      </Button>
-      <Button {...args} type="link" ghost disabled>
-        Ghost Link
       </Button>
       <Button {...args} type="text" disabled>
         Text

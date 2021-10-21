@@ -22,7 +22,7 @@ export const RouteLayout: React.FC<RouteLayoutProps> = ({
 
   if (layoutType === 'default') {
     return (
-      <DefaultLayout menu={[]} logo={() => 'LOGO'} copyright={copyright} {...defaultLayoutProps}>
+      <DefaultLayout menu={[]} logo={() => 'PLACEHOLDER'} copyright={copyright} {...defaultLayoutProps}>
         {children}
       </DefaultLayout>
     )
@@ -30,7 +30,7 @@ export const RouteLayout: React.FC<RouteLayoutProps> = ({
 
   if (layoutType === 'auth') {
     return (
-      <AuthLayout logo={'LOGO'} copyright={copyright} {...authLayoutProps}>
+      <AuthLayout logo={'PLACEHOLDER'} copyright={copyright} {...authLayoutProps}>
         {children}
       </AuthLayout>
     )
