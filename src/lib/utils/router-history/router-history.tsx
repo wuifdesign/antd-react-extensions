@@ -18,6 +18,9 @@ export const RouterHistory = {
     }
   },
   getHistory() {
+    if (!history) {
+      history = createHashHistory()
+    }
     return history
   }
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 
 export type CollapseContainerProps = {
   style?: React.CSSProperties
@@ -32,7 +32,6 @@ const setInitStyle = (container: HTMLDivElement | null, isOpened: boolean) => {
 const CollapseContainer: React.FC<CollapseContainerProps> = ({ style, isOpened = true, children }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
-  const isInitial = useRef(true)
 
   const onResize = useCallback((shouldOpen: boolean) => {
     const container = containerRef.current
@@ -59,19 +58,14 @@ const CollapseContainer: React.FC<CollapseContainerProps> = ({ style, isOpened =
     onResize(isOpened)
   }, [isOpened, onResize])
 
+  useLayoutEffect(() => {
+    setInitStyle(containerRef.current, isOpened)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <div
-      ref={(ref) => {
-        if (isInitial.current) {
-          isInitial.current = false
-          setInitStyle(ref, isOpened)
-        }
-        containerRef.current = ref
-      }}
-      className="collapse-container"
-      onTransitionEnd={onTransitionEnd}
-    >
-      <div ref={contentRef} style={{ ...style }}>
+    <div ref={containerRef} className="collapse-container" onTransitionEnd={onTransitionEnd}>
+      <div ref={contentRef} style={style}>
         {children}
       </div>
     </div>

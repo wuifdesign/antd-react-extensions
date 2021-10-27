@@ -22,6 +22,7 @@ import { NotificationsPopover } from '../notifications-popover'
 import { Link } from 'react-router-dom'
 import { SiderTheme } from 'antd/es/layout/Sider'
 import { ConfigProvider } from '../config-provider'
+import { RouterHistory } from '../../utils'
 
 export default {
   component: AdminLayout,
