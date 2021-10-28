@@ -73,8 +73,8 @@ export const DynamicMenu: React.FC<DynamicMenuProps> = ({ elements, ...props }) 
   const location = useLocation()
   const menuWithKeys = useMemo(() => enhanceMenu(elements), [elements])
 
-  const [selectedKeys, setSelectedKeys] = useState(getActiveMenuKeys(location.pathname, menuWithKeys))
-  const [openKeys, setOpenKeys] = useState(getActiveMenuKeys(location.pathname, menuWithKeys))
+  const [selectedKeys, setSelectedKeys] = useState(() => getActiveMenuKeys(location.pathname, menuWithKeys))
+  const [openKeys, setOpenKeys] = useState(() => getActiveMenuKeys(location.pathname, menuWithKeys))
 
   useEffect(() => {
     const activeKeys = getActiveMenuKeys(location.pathname, menuWithKeys)
