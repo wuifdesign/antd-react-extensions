@@ -51,7 +51,7 @@ const getActiveMenuKeys = (pathname: string, enhancedMenu: EnhancedMenuElement[]
       }
       activeKeys = [...activeKeys, ...subActiveKeys]
     } else if (!('type' in item) && item.url) {
-      if (matchPath(pathname, { path: item.url, exact: !!item.exact })) {
+      if (matchPath({ path: item.url, end: !!item.end }, pathname)) {
         isActive = true
       }
     }

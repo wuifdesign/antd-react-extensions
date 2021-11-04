@@ -1,30 +1,18 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Meta, Story } from '@storybook/react'
 import { UrlAwareTabs, UrlAwareTabsProps } from './url-aware-tabs'
 import { Tabs } from 'antd'
-import { Router } from 'react-router'
-import { createHashHistory } from 'history'
+import { HashRouter } from 'react-router-dom'
 
 export default {
   component: UrlAwareTabs,
   title: 'Components/Url Aware Tabs'
 } as Meta
 
-const history = createHashHistory()
-
 const Template: Story<Partial<PropsWithChildren<UrlAwareTabsProps>>> = (args) => {
-  const [path, setPath] = useState<string | null>('/')
-
-  useEffect(() => {
-    history.listen((location) => {
-      setPath(location.pathname + location.search)
-    })
-    setPath(history.location.pathname + history.location.search)
-  }, [])
-
   return (
-    <Router history={history}>
-      <b>Current Path:</b> {path}
+    <HashRouter>
+      <b>Current Path:</b>
       <UrlAwareTabs {...args}>
         <Tabs.TabPane tab="Tab 1" key="1">
           Content of Tab 1
@@ -33,7 +21,7 @@ const Template: Story<Partial<PropsWithChildren<UrlAwareTabsProps>>> = (args) =>
           Content of Tab 2
         </Tabs.TabPane>
       </UrlAwareTabs>
-    </Router>
+    </HashRouter>
   )
 }
 

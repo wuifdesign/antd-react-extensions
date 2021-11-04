@@ -3,7 +3,7 @@ import React from 'react'
 export type MenuItem = {
   title: string
   url: string
-  exact?: boolean
+  end?: boolean
   icon?: React.ReactNode
   isActive?: (currentPath: string) => boolean
 }

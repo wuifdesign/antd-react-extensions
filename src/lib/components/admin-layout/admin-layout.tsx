@@ -1,7 +1,5 @@
 import React, { useMemo, useState } from 'react'
 import { Layout, Spin } from 'antd'
-import { Router } from 'react-router'
-import { RouteElementType } from '../dynamic-routes/route-element.type'
 import { DefaultLayoutProps } from './layouts/default-layout/default-layout'
 import { AuthLayoutProps } from './layouts/auth-layout/auth-layout'
 import { RouterHistory } from '../../utils/router-history'
@@ -9,12 +7,14 @@ import { LayoutContext, LayoutContextType } from './layout-context'
 import { DefaultLayoutProvider } from './layouts/default-layout/default-layout-context'
 import { LayoutFullPageLoading } from './components/layout-full-page-loading'
 import { RouteLayout, RouteLayoutType } from './components/route-layout'
-import { CanActivateFallbackType, DynamicRoutes } from '../dynamic-routes'
 import { createStyleMap } from '../../utils/create-style-map/create-style-map'
+import { EnhancedRouteType } from '../enhanced-routes'
+import { enhanceRoutes } from '../enhanced-routes/enhance-routes'
+import { useNavigate, useRoutes } from 'react-router-dom'
 
 export type AdminLayoutProps = {
-  routes: RouteElementType[]
-  canActivateFallback?: CanActivateFallbackType
+  routes: EnhancedRouteType[]
+  guardWithLayout?: boolean
   loading?: boolean
   authLayoutProps?: AuthLayoutProps
   defaultLayoutProps?: DefaultLayoutProps
@@ -25,6 +25,13 @@ const styles = createStyleMap({
   layout: { minHeight: '100vh' }
 })
 
+const RoutesComponent: React.FC<{ routes: EnhancedRouteType[] }> = ({ routes }) => {
+  const enhancedRoutes = useMemo(() => enhanceRoutes(routes), [routes])
+  const navigate = useNavigate()
+  RouterHistory.setNavigateFunction(navigate)
+  return useRoutes(enhancedRoutes)
+}
+
 /**
  * Default Layout for the Admin Interface. Can be configured for specific needs.
  *
@@ -33,7 +40,7 @@ const styles = createStyleMap({
  */
 export const AdminLayout: React.FC<AdminLayoutProps> = ({
   routes,
-  canActivateFallback,
+  guardWithLayout = true,
   loading = false,
   copyright,
   authLayoutProps,
@@ -42,27 +49,36 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   const [fullPageLoading, setFullPageLoading] = useState(false)
   const [layoutType, setLayoutType] = useState<RouteLayoutType>('default')
   const layoutContext: LayoutContextType = useMemo(
-    () => ({ routes, fullPageLoading, setFullPageLoading, layoutType, setLayoutType }),
-    [routes, fullPageLoading, setFullPageLoading, layoutType, setLayoutType]
+    () => ({
+      routes,
+      fullPageLoading,
+      setFullPageLoading,
+      layoutType,
+      setLayoutType,
+      guardWithLayout
+    }),
+    [routes, guardWithLayout, fullPageLoading, setFullPageLoading, layoutType, setLayoutType]
   )
 
   if (loading) {
     return <LayoutFullPageLoading />
   }
 
+  const SelectedRouter = RouterHistory.getRouter()
+
   return (
     <LayoutContext.Provider value={layoutContext}>
       <DefaultLayoutProvider initialSidebarCollapsed={defaultLayoutProps?.initialSidebarCollapsed}>
         <Layout style={styles.layout}>
-          <Router history={RouterHistory.getHistory()}>
+          <SelectedRouter>
             <RouteLayout
               copyright={copyright}
               defaultLayoutProps={defaultLayoutProps}
               authLayoutProps={authLayoutProps}
             >
-              <DynamicRoutes canActivateFallback={canActivateFallback} routes={routes} />
+              <RoutesComponent routes={routes} />
             </RouteLayout>
-          </Router>
+          </SelectedRouter>
         </Layout>
         {fullPageLoading && (
           <div className="loading-overlay">

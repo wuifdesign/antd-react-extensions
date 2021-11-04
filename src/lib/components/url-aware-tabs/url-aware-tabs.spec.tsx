@@ -2,8 +2,8 @@ import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { UrlAwareTabs } from './url-aware-tabs'
 import { Tabs } from 'antd'
-import { MemoryRouter, Route } from 'react-router-dom'
-import * as H from 'history'
+import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { Location } from 'history'
 
 const TabContent: React.FC<{ path: string; paramName?: string }> = ({ path, paramName }) => {
   return (
@@ -30,7 +30,12 @@ describe('UrlAwareTabs', () => {
     expect(screen.queryByText('Content of Tab 2')).toBeInTheDocument()
   })
   test('should change url on click', async () => {
-    let testLocation: H.Location<any>
+    let testLocation: Location
+    const Page: React.FC = () => {
+      testLocation = useLocation()
+      return null
+    }
+
     const { baseElement } = render(
       <MemoryRouter initialEntries={['/']}>
         <UrlAwareTabs>
@@ -41,13 +46,9 @@ describe('UrlAwareTabs', () => {
             Content of Tab 2
           </Tabs.TabPane>
         </UrlAwareTabs>
-        <Route
-          path="*"
-          render={({ location }) => {
-            testLocation = location
-            return null
-          }}
-        />
+        <Routes>
+          <Route path="*" element={<Page />} />
+        </Routes>
       </MemoryRouter>
     )
     const getQuery = () => {

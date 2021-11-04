@@ -1,26 +1,35 @@
-import { createBrowserHistory, createHashHistory, createMemoryHistory, History } from 'history'
+import React from 'react'
+import { BrowserRouter, HashRouter, MemoryRouter, To } from 'react-router-dom'
+import { NavigateFunction, NavigateOptions } from 'react-router'
 
 export type RouterHistoryTypesType = 'browser' | 'hash' | 'memory'
 
-let history: History
+let router: React.ElementType
+let navigateFunction: NavigateFunction
 
 export const RouterHistory = {
-  setHistoryByType(type?: RouterHistoryTypesType) {
-    if (history) {
+  setType(type?: RouterHistoryTypesType) {
+    if (router) {
       return
     }
     if (type === 'browser') {
-      history = createBrowserHistory()
+      router = BrowserRouter
     } else if (type === 'memory') {
-      history = createMemoryHistory()
+      router = MemoryRouter
     } else {
-      history = createHashHistory()
+      router = HashRouter
     }
   },
-  getHistory() {
-    if (!history) {
-      history = createHashHistory()
+  setNavigateFunction(navigate: NavigateFunction) {
+    navigateFunction = navigate
+  },
+  getRouter() {
+    if (!router) {
+      router = HashRouter
     }
-    return history
+    return router
+  },
+  navigate(to: To, options?: NavigateOptions) {
+    return navigateFunction(to, options)
   }
 }

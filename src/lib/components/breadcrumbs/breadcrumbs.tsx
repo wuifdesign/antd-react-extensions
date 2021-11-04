@@ -1,17 +1,56 @@
 import React, { useMemo } from 'react'
-import withBreadcrumbs, { BreadcrumbsRoute } from 'react-router-breadcrumbs-hoc'
 import { useLayoutContext } from '../admin-layout'
-import BreadcrumbDisplay from './breadcrumb-display'
+import { Link, useLocation } from 'react-router-dom'
+import { Breadcrumb } from 'antd'
+import { createStyleMap } from '../../utils/create-style-map/create-style-map'
+import { matchEnhancedRoutes } from '../enhanced-routes/match-enhance-routes'
+
+type BreadcrumbElement = {
+  link: string
+  element: React.ReactNode
+}
+
+const styles = createStyleMap({
+  breadcrumb: { fontWeight: 'normal' }
+})
 
 const Breadcrumbs: React.FC = () => {
+  const location = useLocation()
   const { routes } = useLayoutContext()
 
-  const EnhancedBreadCrumbs = useMemo(
-    () => withBreadcrumbs(routes as BreadcrumbsRoute[], { disableDefaults: true })(BreadcrumbDisplay),
-    [routes]
-  )
+  const breadcrumbs = useMemo(() => {
+    const fullBreadcrumbs = matchEnhancedRoutes(routes, location)
+    const temp: BreadcrumbElement[] = []
+    if (fullBreadcrumbs) {
+      for (const route of fullBreadcrumbs) {
+        const { breadcrumb } = route.route
+        if (breadcrumb) {
+          temp.push({
+            link: route.pathname,
+            element: typeof breadcrumb === 'function' ? breadcrumb(route) : breadcrumb
+          })
+        }
+        if (route.route.is404) {
+          break
+        }
+      }
+    }
+    return temp
+  }, [routes, location])
 
-  return <EnhancedBreadCrumbs />
+  if (breadcrumbs.length) {
+    return (
+      <Breadcrumb style={styles.breadcrumb}>
+        {breadcrumbs.map(({ link, element }, index) => (
+          <Breadcrumb.Item key={link}>
+            {index < breadcrumbs.length - 1 ? <Link to={link}>{element}</Link> : element}
+          </Breadcrumb.Item>
+        ))}
+      </Breadcrumb>
+    )
+  }
+
+  return null
 }
 
 export default Breadcrumbs

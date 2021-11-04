@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { useContext } from 'react'
-import { RouteElementType } from '../dynamic-routes/route-element.type'
 import { RouteLayoutType } from './components/route-layout'
+import { EnhancedRouteType } from '../enhanced-routes/enhanced-route.type'
 
 export type LayoutContextType = {
-  routes: RouteElementType[]
+  routes: EnhancedRouteType[]
+  guardWithLayout: boolean
   fullPageLoading: boolean
   setFullPageLoading: (isLoading: boolean) => void
   layoutType: RouteLayoutType
@@ -13,6 +14,7 @@ export type LayoutContextType = {
 
 export const LayoutContext = React.createContext<LayoutContextType>({
   routes: [],
+  guardWithLayout: true,
   fullPageLoading: false,
   setFullPageLoading: () => null,
   layoutType: null,

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Tabs, TabsProps } from 'antd'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { addUrlParameters } from '../../utils/add-url-parameters'
 
 export type UrlAwareTabsProps = TabsProps & {
@@ -11,7 +11,7 @@ export type UrlAwareTabsProps = TabsProps & {
  * Antd Tabs but saving current active tab as url parameter.
  */
 export const UrlAwareTabs: React.FC<UrlAwareTabsProps> = ({ paramName = 'tab', children, ...tabsProps }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const location = useLocation()
 
   const data = useMemo(() => {
@@ -28,7 +28,7 @@ export const UrlAwareTabs: React.FC<UrlAwareTabsProps> = ({ paramName = 'tab', c
       animated={false}
       {...tabsProps}
       onChange={(value) => {
-        history.replace(addUrlParameters(location.pathname, { ...data.paramsObject, [paramName]: value }))
+        navigate(addUrlParameters(location.pathname, { ...data.paramsObject, [paramName]: value }), { replace: true })
         if (tabsProps.onChange) {
           tabsProps.onChange(value)
         }

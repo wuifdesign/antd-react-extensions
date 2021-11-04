@@ -5,7 +5,7 @@ import { ConfigProvider } from '../config-provider'
 import { MenuElement } from '../admin-layout'
 import { DashboardOutlined as IconDashboard } from '@ant-design/icons/lib/icons'
 import { LockOutlined } from '@ant-design/icons'
-import { MemoryRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 export default {
   component: DynamicMenu,
@@ -17,13 +17,13 @@ const menu: MenuElement[] = [
     title: 'Dashboard',
     icon: <IconDashboard />,
     url: '/',
-    exact: true
+    end: true
   },
   {
     title: 'Sub Page',
     icon: <IconDashboard />,
     url: '/sub-page',
-    exact: true
+    end: true
   },
   {
     title: 'Demo Submenu',
@@ -40,11 +40,11 @@ const menu: MenuElement[] = [
 
 const Template: Story<PropsWithChildren<DynamicMenuProps>> = (args) => (
   <ConfigProvider>
-    <MemoryRouter>
+    <HashRouter>
       <div style={{ width: 300 }}>
         <DynamicMenu {...args} elements={menu} />
       </div>
-    </MemoryRouter>
+    </HashRouter>
   </ConfigProvider>
 )
 

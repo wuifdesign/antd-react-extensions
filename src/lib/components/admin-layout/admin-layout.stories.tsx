@@ -9,7 +9,6 @@ import {
   MailOutlined,
   UserOutlined
 } from '@ant-design/icons'
-import { RouteElementType } from '../dynamic-routes/route-element.type'
 import { PageContent } from '../page-content'
 import { Button } from '../button'
 import { ErrorPage } from '../error-page'
@@ -22,7 +21,8 @@ import { NotificationsPopover } from '../notifications-popover'
 import { Link } from 'react-router-dom'
 import { SiderTheme } from 'antd/es/layout/Sider'
 import { ConfigProvider } from '../config-provider'
-import { RouterHistory } from '../../utils'
+import { EnhancedRouteType } from '../enhanced-routes'
+import { LoadingSpinner } from '../loading-spinner'
 
 export default {
   component: AdminLayout,
@@ -33,226 +33,47 @@ export default {
   }
 } as Meta
 
-const routes: RouteElementType[] = [
-  {
-    path: '/',
-    breadcrumb: 'Dashboard',
-    component: () => (
-      <PageContent hideBreadcrumbs>
-        <PageContent.Header
-          title="Dashboard"
-          icon={<IconDashboard />}
-          extra={<Button type="primary">Add Something</Button>}
-        />
-        <PageContent.Element>Dashboard</PageContent.Element>
-        <PageContent.Element
-          collapsable
-          title="My Title"
-          subTitle="My SubTitle"
-          extra={<Button type="primary">Add Something</Button>}
-        >
-          Dashboard
-        </PageContent.Element>
-        <PageContent.Element
-          title="My Title"
-          subTitle="My SubTitle"
-          extra={<Button type="primary">Add Something</Button>}
-          removeBodyPadding
-        >
-          Dashboard
-        </PageContent.Element>
-      </PageContent>
-    ),
-    exact: true
-  },
-  {
-    path: '/sub-page',
-    layout: 'default',
-    breadcrumb: 'Sub Page',
-    component: () => {
-      const data = [
-        {
-          key: '1',
-          name: 'John Brown',
-          status: 'success'
-        },
-        {
-          key: '2',
-          name: 'Jim Green',
-          status: 'success'
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          status: 'success'
-        },
-        {
-          key: '4',
-          name: 'Jim Red',
-          status: 'success'
-        }
-      ]
-
-      const columns = [
-        {
-          title: 'Name',
-          dataIndex: 'name'
-        },
-        {
-          title: 'Status',
-          dataIndex: 'status'
-        }
-      ]
-
-      return (
-        <PageContent>
-          <PageContent.Header
-            title="SubPage"
-            icon={<IconDashboard />}
-            extra={<Button type="primary">Add Something</Button>}
-          />
-          <PageContent.Element removeBodyPadding>
-            <Table size="small" columns={columns} dataSource={data} />
-          </PageContent.Element>
-          <PageContent.Element
-            title="My Title"
-            subTitle="My SubTitle"
-            extra={<Button type="primary">Add Something</Button>}
-          >
-            Dashboard
-          </PageContent.Element>
-        </PageContent>
-      )
-    },
-    exact: true
-  },
-  {
-    path: '/restricted',
-    layout: 'default',
-    breadcrumb: 'Restricted',
-    component: () => (
-      <PageContent>
-        <PageContent.Header title="Restricted" />
-        {console.log('restricted')}
-      </PageContent>
-    ),
-    canActivate: () => false,
-    exact: true
-  },
-  {
-    path: '/restricted-without-layout',
-    layout: 'default',
-    breadcrumb: 'Restricted',
-    component: () => (
-      <PageContent>
-        <PageContent.Header title="Restricted" />
-        {console.log('restricted')}
-      </PageContent>
-    ),
-    canActivate: () => false,
-    canActivateFallback: {
-      renderLayout: false
-    },
-    exact: true
-  },
-  {
-    path: '/restricted-loading',
-    layout: 'default',
-    breadcrumb: 'Restricted Loading',
-    component: () => (
-      <PageContent>
-        <PageContent.Header title="Restricted Loading" />
-        {console.log('restricted')}
-      </PageContent>
-    ),
-    canActivate: () => undefined,
-    exact: true
-  },
-  {
-    path: '/auth',
-    layout: 'auth',
-    component: () => <>Auth Layout</>,
-    exact: true
-  },
-  {
-    path: '/restricted-with-route-fallback',
-    layout: 'default',
-    breadcrumb: 'Restricted with Route Fallback',
-    component: () => (
-      <PageContent>
-        <PageContent.Header title="Restricted with Route Fallback" />
-        {console.log('restricted with route fallback')}
-      </PageContent>
-    ),
-    canActivate: () => false,
-    canActivateFallback: {
-      renderLayout: true,
-      component: 'My Custom Fallback without Layout'
-    },
-    exact: true
-  },
-  {
-    path: '/blank',
-    layout: 'blank',
-    component: () => <>Blank</>,
-    exact: true
-  },
-  {
-    path: '*',
-    layout: 'default',
-    component: () => <ErrorPage type={404} />,
-    breadcrumb: '404',
-    is404: true
-  }
-]
-
 const menu: MenuElement[] = [
   {
     title: 'Dashboard',
     icon: <IconDashboard />,
     url: '/',
-    exact: true
+    end: true
   },
   {
     title: 'Sub Page',
     icon: <IconDashboard />,
     url: '/sub-page',
-    exact: true
+    end: true
   },
   {
     title: 'Auth',
     icon: <IconDashboard />,
     url: '/auth',
-    exact: true
+    end: true
   },
   {
     title: 'Restricted',
     icon: <LockOutlined />,
     url: '/restricted',
-    exact: true
+    end: true
   },
   {
     title: 'Restricted without Layout',
     icon: <LockOutlined />,
     url: '/restricted-without-layout',
-    exact: true
+    end: true
   },
   {
     title: 'Restricted Loading',
     icon: <LockOutlined />,
     url: '/restricted-loading',
-    exact: true
-  },
-  {
-    title: 'Restricted with Fallback',
-    icon: <LockOutlined />,
-    url: '/restricted-with-route-fallback',
-    exact: true
+    end: true
   },
   {
     title: 'Blank',
     url: '/blank',
-    exact: true
+    end: true
   },
   {
     title: 'Demo Submenu',
@@ -274,6 +95,164 @@ const menu: MenuElement[] = [
         url: '/404'
       }
     ]
+  }
+]
+
+const Dashboard: React.FC = () => {
+  return (
+    <PageContent hideBreadcrumbs>
+      <PageContent.Header
+        title="Dashboard"
+        icon={<IconDashboard />}
+        extra={<Button type="primary">Add Something</Button>}
+      />
+      <PageContent.Element>Dashboard</PageContent.Element>
+      <PageContent.Element
+        collapsable
+        title="My Title"
+        subTitle="My SubTitle"
+        extra={<Button type="primary">Add Something</Button>}
+      >
+        Dashboard
+      </PageContent.Element>
+      <PageContent.Element
+        title="My Title"
+        subTitle="My SubTitle"
+        extra={<Button type="primary">Add Something</Button>}
+        removeBodyPadding
+      >
+        Dashboard
+      </PageContent.Element>
+    </PageContent>
+  )
+}
+
+const SubPage: React.FC = () => {
+  const data = [
+    {
+      key: '1',
+      name: 'John Brown',
+      status: 'success'
+    },
+    {
+      key: '2',
+      name: 'Jim Green',
+      status: 'success'
+    },
+    {
+      key: '3',
+      name: 'Joe Black',
+      status: 'success'
+    },
+    {
+      key: '4',
+      name: 'Jim Red',
+      status: 'success'
+    }
+  ]
+
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name'
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status'
+    }
+  ]
+
+  return (
+    <PageContent>
+      <PageContent.Header
+        title="SubPage"
+        icon={<IconDashboard />}
+        extra={<Button type="primary">Add Something</Button>}
+      />
+      <PageContent.Element removeBodyPadding>
+        <Table size="small" columns={columns} dataSource={data} />
+      </PageContent.Element>
+      <PageContent.Element
+        title="My Title"
+        subTitle="My SubTitle"
+        extra={<Button type="primary">Add Something</Button>}
+      >
+        Dashboard
+      </PageContent.Element>
+    </PageContent>
+  )
+}
+
+const Restricted: React.FC = () => {
+  return (
+    <PageContent>
+      <PageContent.Header title="Restricted" />
+      {console.log('restricted')}
+    </PageContent>
+  )
+}
+
+const Guard: React.FC<{ allowed: boolean | undefined }> = ({ allowed, children }) => {
+  if (allowed === undefined) {
+    return <LoadingSpinner />
+  }
+  if (!allowed) {
+    return <ErrorPage type={403} />
+  }
+  return <>{children}</>
+}
+
+const routes: EnhancedRouteType[] = [
+  {
+    path: '/',
+    breadcrumb: 'Dashboard',
+    element: <Dashboard />
+  },
+  {
+    path: '/sub-page',
+    layout: 'default',
+    breadcrumb: 'Sub Page',
+    element: <SubPage />,
+    guard: <Guard allowed={true} />
+  },
+  {
+    path: '/restricted',
+    layout: 'default',
+    breadcrumb: 'Restricted',
+    element: <Restricted />,
+    guard: <Guard allowed={false} />
+  },
+  {
+    path: '/restricted-without-layout',
+    layout: 'default',
+    breadcrumb: 'Restricted',
+    element: <Restricted />,
+    guard: <Guard allowed={false} />,
+    guardWithLayout: false
+  },
+  {
+    path: '/restricted-loading',
+    layout: 'default',
+    breadcrumb: 'Restricted Loading',
+    element: <Restricted />,
+    guard: <Guard allowed={undefined} />
+  },
+  {
+    path: '/auth',
+    layout: 'auth',
+    element: <>Auth Layout</>
+  },
+  {
+    path: '/blank',
+    layout: 'blank',
+    element: <>Blank</>
+  },
+  {
+    path: '*',
+    layout: 'default',
+    element: <ErrorPage type={404} />,
+    breadcrumb: '404',
+    is404: true
   }
 ]
 
@@ -403,55 +382,54 @@ DarkMenu.args = {
   siderTheme: 'dark'
 }
 
+const authRoutes: EnhancedRouteType[] = [
+  {
+    index: true,
+    layout: 'auth',
+    element: (
+      <>
+        <Form initialValues={{ remember: true }}>
+          <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+          </Form.Item>
+          <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+            <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
+          </Form.Item>
+
+          <Form.Item>
+            <Row>
+              <Col flex={1}>
+                <Form.Item name="remember" valuePropName="checked" noStyle>
+                  <Checkbox>Remember me</Checkbox>
+                </Form.Item>
+              </Col>
+              <Col style={{ textAlign: 'right' }}>
+                <a className="login-form-forgot" href="/">
+                  Forgot password
+                </a>
+              </Col>
+            </Row>
+          </Form.Item>
+
+          <Button type="primary" htmlType="submit" block>
+            Log In
+          </Button>
+
+          <Button type="link" block style={{ marginTop: 10 }}>
+            Register Now
+          </Button>
+        </Form>
+      </>
+    )
+  }
+]
+
 export const Auth = () => {
   return (
     <div style={{ transform: 'translateZ(0)' }}>
       <AdminLayout
         copyright="Copyright © 2021 ..."
-        routes={[
-          {
-            path: '/',
-            layout: 'auth',
-            component: () => (
-              <Form initialValues={{ remember: true }}>
-                <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
-                  <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                </Form.Item>
-                <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
-                  <Input
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    type="password"
-                    placeholder="Password"
-                  />
-                </Form.Item>
-
-                <Form.Item>
-                  <Row>
-                    <Col flex={1}>
-                      <Form.Item name="remember" valuePropName="checked" noStyle>
-                        <Checkbox>Remember me</Checkbox>
-                      </Form.Item>
-                    </Col>
-                    <Col style={{ textAlign: 'right' }}>
-                      <a className="login-form-forgot" href="/">
-                        Forgot password
-                      </a>
-                    </Col>
-                  </Row>
-                </Form.Item>
-
-                <Button type="primary" htmlType="submit" block>
-                  Log In
-                </Button>
-
-                <Button type="link" block style={{ marginTop: 10 }}>
-                  Register Now
-                </Button>
-              </Form>
-            ),
-            exact: true
-          }
-        ]}
+        routes={authRoutes}
         authLayoutProps={{
           logo: 'AdminLogo'
         }}

@@ -1,44 +1,37 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { AdminLayout } from './admin-layout'
-import { RouteElementType } from '../dynamic-routes/route-element.type'
 import { RouterHistory } from '../../utils'
+import { EnhancedRouteType } from '../enhanced-routes'
 
-const routes: RouteElementType[] = [
+const Guard: React.FC<{ allowed: boolean }> = ({ allowed, children }) => {
+  if (!allowed) {
+    return <>BLOCKED</>
+  }
+  return <>{children}</>
+}
+
+const routes: EnhancedRouteType[] = [
   {
     path: '/',
     layout: 'default',
     breadcrumb: 'Dashboard',
-    component: () => <div data-testid="name">Dashboard</div>,
-    exact: true
+    element: <div data-testid="name">Dashboard</div>
   },
   {
     path: '/restricted',
     layout: 'default',
     breadcrumb: 'Restricted',
-    component: () => <div data-testid="name">Restricted</div>,
-    canActivate: () => false,
-    exact: true
+    element: <div data-testid="name">Restricted</div>,
+    guard: <Guard allowed={false} />
   },
   {
     path: '/restricted-with-fallback',
     layout: 'default',
     breadcrumb: 'Restricted',
-    component: () => <div data-testid="name">Restricted</div>,
-    canActivate: () => false,
-    canActivateFallback: {
-      renderLayout: false,
-      component: 'My Custom Fallback without Layout'
-    },
-    exact: true
-  },
-  {
-    path: '/restricted-with-undefined',
-    layout: 'default',
-    breadcrumb: 'Restricted',
-    component: () => <div data-testid="name">Restricted</div>,
-    canActivate: () => undefined,
-    exact: true
+    element: <div data-testid="name">Restricted</div>,
+    guard: <Guard allowed={false} />,
+    guardWithLayout: false
   }
 ]
 
@@ -67,24 +60,16 @@ describe('AdminLayout', () => {
   })
 
   it('should render fallback for restricted route', () => {
-    RouterHistory.setHistoryByType('memory')
-    RouterHistory.getHistory().push('/restricted')
+    RouterHistory.setType('memory')
+    RouterHistory.navigate('/restricted')
     render(<AdminLayout {...defaultProps} />)
-    expect(screen.getByText('403')).toBeInTheDocument()
+    expect(screen.getByText('BLOCKED')).toBeInTheDocument()
   })
 
   it('should render fallback for restricted route with fallback', () => {
-    RouterHistory.setHistoryByType('memory')
-    RouterHistory.getHistory().push('/restricted-with-fallback')
+    RouterHistory.setType('memory')
+    RouterHistory.navigate('/restricted-with-fallback')
     render(<AdminLayout {...defaultProps} />)
-    expect(screen.getByText('My Custom Fallback without Layout')).toBeInTheDocument()
-    expect(screen.queryByText('Restricted')).not.toBeInTheDocument()
-  })
-
-  it('should render spinner on undefined canActivate', () => {
-    RouterHistory.setHistoryByType('memory')
-    RouterHistory.getHistory().push('/restricted-with-undefined')
-    const { baseElement } = render(<AdminLayout {...defaultProps} />)
-    expect(baseElement.querySelector('.ant-spin.ant-spin-spinning')).toBeInTheDocument()
+    waitFor(() => expect(screen.queryByText('Logo')).not.toBeInTheDocument())
   })
 })
