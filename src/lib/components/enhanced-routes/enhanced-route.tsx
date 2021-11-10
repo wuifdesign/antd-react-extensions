@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { Suspense, useCallback, useEffect, useState } from 'react'
 import { useLayoutContext } from '../admin-layout'
 import { GuardWrapper } from './guard-wrapper'
 import { EnhancedRouteType } from './enhanced-route.type'
+import { ErrorBoundary } from '../error-boundary'
+import { LoadingSpinner } from '../loading-spinner'
 
 export type EnhancedRouteProps = {
   element?: React.ReactElement | null
@@ -41,8 +43,14 @@ export const EnhancedRoute: React.FC<EnhancedRouteProps> = ({ element, route, gu
     setWithLayout(calculatedGuardWithLayout)
   }, [setWithLayout, guardWithLayout, contextGuardWithLayout])
 
+  const enhancedElement = (
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingSpinner />}>{element}</Suspense>
+    </ErrorBoundary>
+  )
+
   if (guard) {
-    return React.cloneElement(guard, { children: <GuardWrapper onRender={onRender}>{element}</GuardWrapper> })
+    return React.cloneElement(guard, { children: <GuardWrapper onRender={onRender}>{enhancedElement}</GuardWrapper> })
   }
-  return <>{element}</>
+  return <>{enhancedElement}</>
 }
