@@ -1,6 +1,6 @@
 {
   "name": "antd-react-extensions",
-  "version": "0.16.1",
+  "version": "0.16.2",
   "license": "MIT",
   "repository": "https://github.com/wuifdesign/antd-react-extensions",
   "main": "dist/index.js",
@@ -96,7 +96,7 @@
     "antd": "^4.17.0-alpha.6",
     "babel-loader": "8.1.0",
     "copyfiles": "^2.4.1",
-    "cypress": "^8.7.0",
+    "cypress": "^9.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-config-standard-react": "^11.0.1",

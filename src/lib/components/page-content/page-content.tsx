@@ -1,5 +1,5 @@
 import React from 'react'
-import Breadcrumbs from '../breadcrumbs/breadcrumbs'
+import { Breadcrumbs } from '../breadcrumbs'
 import { LoadingSpinner } from '../loading-spinner'
 import { PageContentHeader, PageContentHeaderProps } from './components/page-content-header'
 import { PageContentElement, PageContentElementProps } from './components/page-content-element'

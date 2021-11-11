@@ -53,4 +53,4 @@ const Breadcrumbs: React.FC = () => {
   return null
 }
 
-export default Breadcrumbs
+export { Breadcrumbs }
