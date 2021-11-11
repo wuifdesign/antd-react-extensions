@@ -2,6 +2,15 @@ import React from 'react'
 
 export type WhenProps = {
   condition: boolean
+  comment?: string
+}
+
+export type OtherWiseProps = {
+  comment?: string
+}
+
+export type ChooseProps = {
+  comment?: string
 }
 
 const When: React.FC<WhenProps> = ({ children }) => {
@@ -9,12 +18,12 @@ const When: React.FC<WhenProps> = ({ children }) => {
 }
 When.displayName = 'When'
 
-const OtherWise: React.FC = ({ children }) => {
+const OtherWise: React.FC<OtherWiseProps> = ({ children }) => {
   return <>{children}</>
 }
 OtherWise.displayName = 'OtherWise'
 
-const Choose: React.FC = ({ children }) => {
+const Choose: React.FC<ChooseProps> = ({ children }) => {
   const childrenArray: any[] = React.Children.toArray(children)
 
   for (let index = 0; index < childrenArray.length; index++) {

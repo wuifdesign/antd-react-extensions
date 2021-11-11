@@ -2,6 +2,7 @@ import React from 'react'
 
 export type IfProps = {
   condition: boolean
+  comment?: string
 }
 
 const If: React.FC<IfProps> = ({ condition, children }) => {
