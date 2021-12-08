@@ -16,10 +16,10 @@ type ChildComponents = {
 }
 
 const PageContent: React.FC<PageContentProps> & ChildComponents = ({
-  children,
   hideBreadcrumbs,
   style,
-  loading = false
+  loading = false,
+  children
 }) => (
   <div className="page-content" style={style}>
     {!hideBreadcrumbs && <Breadcrumbs />}

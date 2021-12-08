@@ -1,5 +1,6 @@
 import React from 'react'
 import { Col, Row, RowProps, ColProps } from 'antd'
+import { FCWithoutChildren } from '../../utils'
 
 export type DataDisplayElementType = {
   title: React.ReactNode
@@ -12,7 +13,7 @@ export type DataDisplayProps = RowProps & {
   elements: DataDisplayElementType[] | undefined | null
 }
 
-export const DataDisplay: React.FC<DataDisplayProps> = ({
+export const DataDisplay: FCWithoutChildren<DataDisplayProps> = ({
   col: defaultColProps = { xs: 24, sm: 12, md: 6 },
   elements,
   ...props

@@ -5,6 +5,7 @@ import { useDefaultLayoutContext } from './default-layout-context'
 import { useIsMobile } from '../../../config-provider'
 import { DynamicMenu } from '../../../dynamic-menu'
 import { useLocation } from 'react-router-dom'
+import { FCWithoutChildren } from '../../../../utils'
 
 const { Sider } = Layout
 
@@ -23,7 +24,7 @@ export type AdminLayoutSidebarProps = {
   menuAppend?: React.ReactNode | string
 }
 
-const DefaultLayoutSidebar: React.FC<AdminLayoutSidebarProps> = ({
+const DefaultLayoutSidebar: FCWithoutChildren<AdminLayoutSidebarProps> = ({
   logo,
   logoCollapsed,
   menu,

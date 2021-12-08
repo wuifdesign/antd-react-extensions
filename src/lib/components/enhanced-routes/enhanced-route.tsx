@@ -4,6 +4,7 @@ import { GuardWrapper } from './guard-wrapper'
 import { EnhancedRouteType } from './enhanced-route.type'
 import { ErrorBoundary } from '../error-boundary'
 import { LoadingSpinner } from '../loading-spinner'
+import { FCWithoutChildren } from '../../utils'
 
 export type EnhancedRouteProps = {
   element?: React.ReactElement | null
@@ -12,7 +13,7 @@ export type EnhancedRouteProps = {
   guardWithLayout?: boolean
 }
 
-export const EnhancedRoute: React.FC<EnhancedRouteProps> = ({ element, route, guard, guardWithLayout }) => {
+export const EnhancedRoute: FCWithoutChildren<EnhancedRouteProps> = ({ element, route, guard, guardWithLayout }) => {
   const { guardWithLayout: contextGuardWithLayout } = useLayoutContext()
   const { setLayoutType } = useLayoutContext()
   const [withLayout, setWithLayout] = useState(true)

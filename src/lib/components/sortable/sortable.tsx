@@ -36,7 +36,7 @@ export const Sortable = <T,>({
   onDelete,
   itemStyle,
   disabled
-}: SortableProps<T>) => {
+}: SortableProps<T>): JSX.Element => {
   const sensors = useSensors(useSensor(PointerSensor), useSensor(MouseSensor))
 
   const keys = useMemo(() => {

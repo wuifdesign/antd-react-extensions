@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Select, SelectProps } from 'antd'
 import { Editable, EditableProps } from '../editable'
+import { FCWithoutChildren } from '../../../utils'
 
 type SelectValueType = string | number | string[] | number[]
 
@@ -12,7 +13,7 @@ export type EditableSelectProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   renderDisplay?: (labels: { label: string; value: string | number }[]) => React.ReactNode
 }
 
-export const EditableSelect: React.FC<EditableSelectProps> = ({ selectProps, renderDisplay, ...props }) => {
+export const EditableSelect: FCWithoutChildren<EditableSelectProps> = ({ selectProps, renderDisplay, ...props }) => {
   const [value, setValue] = useState<SelectValueType | undefined | null>(props.value)
   const isSingleSelect = selectProps?.mode !== 'multiple' && selectProps?.mode !== 'tags'
 

@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import { ImagePreviewProps } from '../../image-preview/image-preview'
 import { ImagePreview } from '../../image-preview'
 import { useTranslations } from '../../config-provider/use-translations'
+import { FCWithoutChildren } from '../../../utils'
 
 const getBase64 = (img: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -41,7 +42,7 @@ export type InputImageProps = {
   }
 }
 
-export const InputImage: React.FC<InputImageProps> = ({
+export const InputImage: FCWithoutChildren<InputImageProps> = ({
   defaultImage,
   onChange,
   clearable = false,

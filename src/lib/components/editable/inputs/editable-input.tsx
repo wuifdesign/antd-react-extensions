@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Input } from 'antd'
 import { Editable, EditableProps } from '../editable'
+import { FCWithoutChildren } from '../../../utils'
 
 export type EditableInputProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   value?: string | undefined | null
@@ -8,7 +9,7 @@ export type EditableInputProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   onSubmit?: (value: string | undefined) => Promise<void>
 }
 
-export const EditableInput: React.FC<EditableInputProps> = ({ ...props }) => {
+export const EditableInput: FCWithoutChildren<EditableInputProps> = ({ ...props }) => {
   const [value, setValue] = useState<string | undefined | null>(props.value)
 
   useEffect(() => {

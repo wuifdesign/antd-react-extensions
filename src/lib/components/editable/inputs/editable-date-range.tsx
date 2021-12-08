@@ -3,6 +3,7 @@ import { DatePicker } from 'antd'
 import moment, { Moment } from 'moment'
 import { Editable, EditableProps } from '../editable'
 import { RangePickerBaseProps } from 'antd/es/date-picker/generatePicker'
+import { FCWithoutChildren } from '../../../utils'
 
 export type EditableDateRangeProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   value?: [string, string] | undefined | null
@@ -11,7 +12,7 @@ export type EditableDateRangeProps = Omit<EditableProps, 'value' | 'onSubmit'> &
   dateRangePickerProps?: RangePickerBaseProps<any>
 }
 
-export const EditableDateRange: React.FC<EditableDateRangeProps> = ({ dateRangePickerProps, ...props }) => {
+export const EditableDateRange: FCWithoutChildren<EditableDateRangeProps> = ({ dateRangePickerProps, ...props }) => {
   let defaultValue: [Moment, Moment] | undefined
   if (props.value?.length === 2 && props.value[0] && props.value[1]) {
     defaultValue = [moment(props.value[0]), moment(props.value[1])]

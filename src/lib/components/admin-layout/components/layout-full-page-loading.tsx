@@ -1,8 +1,9 @@
 import React from 'react'
 import { useTranslations } from '../../config-provider'
 import { Spin } from 'antd'
+import { FCWithoutChildren } from '../../../utils'
 
-export const LayoutFullPageLoading: React.FC = () => {
+export const LayoutFullPageLoading: FCWithoutChildren = () => {
   const translations = useTranslations()
   return (
     <div className="page-loading">

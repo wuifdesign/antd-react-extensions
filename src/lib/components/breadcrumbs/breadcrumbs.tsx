@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Breadcrumb } from 'antd'
 import { createStyleMap } from '../../utils/create-style-map/create-style-map'
 import { matchEnhancedRoutes } from '../enhanced-routes/match-enhance-routes'
+import { FCWithoutChildren } from '../../utils'
 
 type BreadcrumbElement = {
   link: string
@@ -14,7 +15,7 @@ const styles = createStyleMap({
   breadcrumb: { fontWeight: 'normal' }
 })
 
-const Breadcrumbs: React.FC = () => {
+const Breadcrumbs: FCWithoutChildren = () => {
   const location = useLocation()
   const { routes } = useLayoutContext()
 

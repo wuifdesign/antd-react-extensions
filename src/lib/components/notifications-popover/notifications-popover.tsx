@@ -4,6 +4,7 @@ import { BellOutlined } from '@ant-design/icons'
 import { Button } from '../button'
 import { NotificationsList } from '../notifications-list'
 import { NotificationsListProps } from '../notifications-list/notifications-list'
+import { FCWithoutChildren } from '../../utils'
 
 export type NotificationsPopoverProps = {
   count?: number
@@ -16,7 +17,7 @@ export type NotificationsPopoverProps = {
 /**
  * Wrapper around the antd list component to display notifications.
  */
-export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
+export const NotificationsPopover: FCWithoutChildren<NotificationsPopoverProps> = ({
   dot,
   count,
   icon = <BellOutlined />,

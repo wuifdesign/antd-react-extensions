@@ -1,5 +1,6 @@
 import React from 'react'
 import { Col, List, ListProps, Row } from 'antd'
+import { FCWithoutChildren } from '../../utils'
 
 export type NotificationsListItemType = {
   icon?: React.ReactNode
@@ -20,7 +21,7 @@ export type NotificationsListProps = Omit<ListProps<NotificationsListItemType>, 
 /**
  * Wrapper around the antd list component to display notifications.
  */
-export const NotificationsList: React.FC<NotificationsListProps> = ({
+export const NotificationsList: FCWithoutChildren<NotificationsListProps> = ({
   dataSource,
   maxHeight = 400,
   width,

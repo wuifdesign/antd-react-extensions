@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { Button } from 'antd'
 import { IconCancel, IconEdit, IconLoading, IconSave } from '../icons'
 import { useTranslations } from '../config-provider/use-translations'
+import { FCWithoutChildren } from '../../utils'
 
 export type EditableProps = {
   onSubmit?: (value: any) => Promise<void>
@@ -21,7 +22,7 @@ export type BaseEditableProps = EditableProps & {
   ) => React.ReactNode
 }
 
-export const Editable: React.FC<BaseEditableProps> = ({
+export const Editable: FCWithoutChildren<BaseEditableProps> = ({
   value,
   valuePlaceholder = '-',
   editAble = true,

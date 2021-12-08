@@ -5,6 +5,7 @@ import { MenuOutlined } from '@ant-design/icons'
 import { IconDelete } from '../icons'
 import { Button } from '../button'
 import { useTranslations } from '../config-provider/use-translations'
+import { FCWithoutChildren } from '../../utils'
 
 export type SortableItemProps = {
   id: string
@@ -15,7 +16,14 @@ export type SortableItemProps = {
   onDelete?: (id: string) => void
 }
 
-const SortableItem: React.FC<SortableItemProps> = ({ id, item, itemStyle, disabled = false, bordered, onDelete }) => {
+const SortableItem: FCWithoutChildren<SortableItemProps> = ({
+  id,
+  item,
+  itemStyle,
+  disabled = false,
+  bordered,
+  onDelete
+}) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id, disabled })
   const translations = useTranslations()
   const classNames = ['sortable-item']

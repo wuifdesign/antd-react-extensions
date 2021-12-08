@@ -1,10 +1,4 @@
-import React, { ReactElement, ReactNode, ValidationMap, WeakValidationMap } from 'react'
-
-export type FCRequiredChildren<T = {}, Children = ReactNode> = React.FC<
-  T & {
-    children: Children
-  }
->
+import { ReactElement, ValidationMap, WeakValidationMap } from 'react'
 
 export type FCWithoutChildren<P = {}> = {
   (props: P, context?: any): ReactElement<any, any> | null

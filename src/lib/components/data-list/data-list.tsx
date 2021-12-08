@@ -1,5 +1,6 @@
 import React from 'react'
 import { Col, Row, Typography } from 'antd'
+import { FCWithoutChildren } from '../../utils'
 
 export type DataListElementType = {
   title: React.ReactNode
@@ -11,7 +12,7 @@ export type DataListGroupProps = {
   elements: DataListElementType[] | undefined | null
 }
 
-export const DataList: React.FC<DataListGroupProps> = ({ elements, title }) => (
+export const DataList: FCWithoutChildren<DataListGroupProps> = ({ elements, title }) => (
   <div className="data-list-group">
     {!!title && (
       <div style={{ display: 'flex' }}>

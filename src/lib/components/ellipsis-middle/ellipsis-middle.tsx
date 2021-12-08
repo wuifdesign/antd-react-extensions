@@ -1,5 +1,6 @@
 import React from 'react'
 import { Typography } from 'antd'
+import { FCRequiredChildren } from '../../utils'
 
 const { Text } = Typography
 
@@ -11,7 +12,7 @@ export type EllipsisMiddleProps = {
 /**
  * You can ellipsis in middle of string (https://ant.design/components/typography/#components-typography-demo-ellipsis-middle).
  */
-export const EllipsisMiddle: React.FC<EllipsisMiddleProps> = ({
+export const EllipsisMiddle: FCRequiredChildren<EllipsisMiddleProps, string> = ({
   suffixCount,
   getTitle = (content) => content,
   children

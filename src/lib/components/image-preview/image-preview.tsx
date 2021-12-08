@@ -4,6 +4,7 @@ import { IconDelete, IconEdit, IconFullscreen } from '../icons'
 import { confirmDelete } from '../../utils/confirm-dialogs'
 import { ImageModal } from './image-modal'
 import { useTranslations } from '../config-provider/use-translations'
+import { FCWithoutChildren } from '../../utils'
 
 export type ImagePreviewProps = {
   url: string | undefined | null
@@ -28,7 +29,7 @@ const buttonsContainerStyle: React.CSSProperties = {
   right: 5
 }
 
-export const ImagePreview: React.FC<ImagePreviewProps> = ({
+export const ImagePreview: FCWithoutChildren<ImagePreviewProps> = ({
   url,
   thumbUrl = url,
   style,

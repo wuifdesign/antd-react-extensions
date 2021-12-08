@@ -3,6 +3,7 @@ import { Col, Layout, Row } from 'antd'
 import { useDefaultLayoutContext } from './default-layout-context'
 import { IconMenu, IconMenuClose, IconMenuOpen } from '../../../icons'
 import { useIsMobile } from '../../../config-provider'
+import { FCWithoutChildren } from '../../../../utils'
 
 const { Header } = Layout
 
@@ -13,7 +14,7 @@ export type AdminLayoutHeaderProps = {
   sidebarCollapsedWidth?: number
 }
 
-const DefaultLayoutHeader: React.FC<AdminLayoutHeaderProps> = ({
+const DefaultLayoutHeader: FCWithoutChildren<AdminLayoutHeaderProps> = ({
   logoMobile,
   headerRight,
   sidebarWidth,

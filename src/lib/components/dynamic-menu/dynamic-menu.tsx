@@ -3,6 +3,7 @@ import { Menu, MenuProps } from 'antd'
 import { Link, matchPath, useLocation } from 'react-router-dom'
 import { MenuElement } from '../admin-layout'
 import { EnhancedMenuElement } from '../admin-layout/menu-element.type'
+import { FCWithoutChildren } from '../../utils'
 
 const enhanceMenu = (menuPart: MenuElement[], prefix: string = ''): EnhancedMenuElement[] => {
   Object.keys(menuPart).forEach((index) => {
@@ -69,7 +70,7 @@ export type DynamicMenuProps = MenuProps & {
   elements: MenuElement[]
 }
 
-export const DynamicMenu: React.FC<DynamicMenuProps> = ({ elements, ...props }) => {
+export const DynamicMenu: FCWithoutChildren<DynamicMenuProps> = ({ elements, ...props }) => {
   const location = useLocation()
   const menuWithKeys = useMemo(() => enhanceMenu(elements), [elements])
 

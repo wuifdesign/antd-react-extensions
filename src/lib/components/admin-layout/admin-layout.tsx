@@ -11,6 +11,7 @@ import { createStyleMap } from '../../utils/create-style-map/create-style-map'
 import { EnhancedRouteType } from '../enhanced-routes'
 import { enhanceRoutes } from '../enhanced-routes/enhance-routes'
 import { useNavigate, useRoutes } from 'react-router-dom'
+import { FCWithoutChildren } from '../../utils'
 
 export type AdminLayoutProps = {
   routes: EnhancedRouteType[]
@@ -25,7 +26,7 @@ const styles = createStyleMap({
   layout: { minHeight: '100vh' }
 })
 
-const RoutesComponent: React.FC<{ routes: EnhancedRouteType[] }> = ({ routes }) => {
+const RoutesComponent: FCWithoutChildren<{ routes: EnhancedRouteType[] }> = ({ routes }) => {
   const enhancedRoutes = useMemo(() => enhanceRoutes(routes), [routes])
   const navigate = useNavigate()
   RouterHistory.setNavigateFunction(navigate)
@@ -38,7 +39,7 @@ const RoutesComponent: React.FC<{ routes: EnhancedRouteType[] }> = ({ routes }) 
  * LazyLoad Routes:
  * `const DashboardPage = React.lazy(() => import(/* webpackChunkName: "dashboard" *\/'../dashboard.page'))`
  */
-export const AdminLayout: React.FC<AdminLayoutProps> = ({
+export const AdminLayout: FCWithoutChildren<AdminLayoutProps> = ({
   routes,
   guardWithLayout = true,
   loading = false,
