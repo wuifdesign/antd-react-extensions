@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Tabs, TabsProps } from 'antd'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { addUrlParameters } from '../../utils/add-url-parameters'
+import { useSearchParams } from 'react-router-dom'
 
 export type UrlAwareTabsProps = TabsProps & {
   paramName?: string
@@ -11,29 +10,18 @@ export type UrlAwareTabsProps = TabsProps & {
  * Antd Tabs but saving current active tab as url parameter.
  */
 export const UrlAwareTabs: React.FC<UrlAwareTabsProps> = ({ paramName = 'tab', children, ...tabsProps }) => {
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  const data = useMemo(() => {
-    const params = new URLSearchParams(location.search)
-    const paramsObject: Record<string, string> = {}
-    params.forEach((key, value) => {
-      paramsObject[value] = key
-    })
-    return { params, paramsObject }
-  }, [location.search])
+  const [searchParams, setSearchParams] = useSearchParams()
 
   return (
     <Tabs
       animated={false}
       {...tabsProps}
       onChange={(value) => {
-        navigate(addUrlParameters(location.pathname, { ...data.paramsObject, [paramName]: value }), { replace: true })
-        if (tabsProps.onChange) {
-          tabsProps.onChange(value)
-        }
+        searchParams.set(paramName, value)
+        setSearchParams(searchParams, { replace: true })
+        tabsProps.onChange?.(value)
       }}
-      defaultActiveKey={data.params.get(paramName) || tabsProps.defaultActiveKey}
+      defaultActiveKey={searchParams.get(paramName) || tabsProps.defaultActiveKey}
     >
       {children}
     </Tabs>

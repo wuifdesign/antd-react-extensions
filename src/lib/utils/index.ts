@@ -1,4 +1,3 @@
-export * from './add-url-parameters'
 export * from './component-types'
 export * from './confirm-dialogs'
 export * from './deep-diff'
