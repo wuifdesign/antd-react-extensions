@@ -1,7 +1,9 @@
 {
   "reject": [
+    "@storybook/preset-create-react-app",
     "babel-loader",
     "less-loader",
+    "react-scripts",
     "typescript",
     "webpack"
   ]

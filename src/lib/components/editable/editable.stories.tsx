@@ -5,8 +5,7 @@ import { EditableDateRange } from './inputs/editable-date-range'
 import { EditableInput } from './inputs/editable-input'
 import { EditableSelect } from './inputs/editable-select'
 import { EditableTextarea } from './inputs/editable-textarea'
-import { Space } from 'antd'
-import { SelectProps } from 'antd/es'
+import { Space, SelectProps } from 'antd'
 
 export default {
   component: EditableInput,

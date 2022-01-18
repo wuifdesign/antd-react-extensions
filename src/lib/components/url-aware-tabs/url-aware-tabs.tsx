@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs, TabsProps } from 'antd'
 import { useSearchParams } from 'react-router-dom'
+import { getKeysFromChildComponents } from '../../utils'
 
 export type UrlAwareTabsProps = TabsProps & {
   paramName?: string
@@ -9,7 +10,8 @@ export type UrlAwareTabsProps = TabsProps & {
 /**
  * Antd Tabs but saving current active tab as url parameter.
  */
-export const UrlAwareTabs: React.FC<UrlAwareTabsProps> = ({ paramName = 'tab', children, ...tabsProps }) => {
+export const UrlAwareTabs: React.FC<UrlAwareTabsProps> = ({ paramName = 'tab', activeKey, children, ...tabsProps }) => {
+  const childKeys = getKeysFromChildComponents(children)
   const [searchParams, setSearchParams] = useSearchParams()
 
   return (
@@ -21,7 +23,7 @@ export const UrlAwareTabs: React.FC<UrlAwareTabsProps> = ({ paramName = 'tab', c
         setSearchParams(searchParams, { replace: true })
         tabsProps.onChange?.(value)
       }}
-      defaultActiveKey={searchParams.get(paramName) || tabsProps.defaultActiveKey}
+      activeKey={activeKey || searchParams.get(paramName) || tabsProps.defaultActiveKey || childKeys[0]}
     >
       {children}
     </Tabs>

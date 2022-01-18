@@ -12,7 +12,6 @@ export default {
 const Template: Story<Partial<PropsWithChildren<UrlAwareTabsProps>>> = (args) => {
   return (
     <HashRouter>
-      <b>Current Path:</b>
       <UrlAwareTabs {...args}>
         <Tabs.TabPane tab="Tab 1" key="1">
           Content of Tab 1
@@ -27,3 +26,8 @@ const Template: Story<Partial<PropsWithChildren<UrlAwareTabsProps>>> = (args) =>
 
 export const Base = Template.bind({})
 Base.args = {}
+
+export const UseDefaultKey = Template.bind({})
+UseDefaultKey.args = {
+  defaultActiveKey: '2'
+}
