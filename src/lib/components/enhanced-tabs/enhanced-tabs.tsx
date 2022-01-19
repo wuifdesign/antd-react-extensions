@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs, TabsProps } from 'antd'
 import { useSearchParams } from 'react-router-dom'
-import { getPropFromChildComponents } from '../../utils'
+import { getKeyFromChildComponents } from '../../utils'
 import { EnhancedTabPane, EnhancedTabPaneProps } from './enhanced-tab-pane'
 
 export type EnhancedTabsProps = TabsProps & {
@@ -23,11 +23,15 @@ const EnhancedTabs: React.FC<EnhancedTabsProps> & ChildComponents = ({
   children,
   ...tabsProps
 }) => {
-  const childKeys = getPropFromChildComponents(children, 'key')
+  const childKeys = getKeyFromChildComponents(children)
   const [searchParams, setSearchParams] = useSearchParams()
 
   if (useUrlState) {
     activeKey = activeKey || searchParams.get(urlParamName) || tabsProps.defaultActiveKey || childKeys[0]
+
+    if (!childKeys.includes(activeKey)) {
+      activeKey = childKeys[0]
+    }
   }
 
   return (
@@ -35,8 +39,10 @@ const EnhancedTabs: React.FC<EnhancedTabsProps> & ChildComponents = ({
       animated={false}
       {...tabsProps}
       onChange={(value) => {
-        searchParams.set(urlParamName, value)
-        setSearchParams(searchParams, { replace: true })
+        if (useUrlState) {
+          searchParams.set(urlParamName, value)
+          setSearchParams(searchParams, { replace: true })
+        }
         tabsProps.onChange?.(value)
       }}
       activeKey={activeKey}

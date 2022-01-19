@@ -1,22 +1,19 @@
 import React from 'react'
-import { getPropFromChildComponents } from './get-prop-from-child-components'
+import { getKeyFromChildComponents } from './get-key-from-child-components'
 
 describe('getKeysFromChildComponents', () => {
   test('should get keys', async () => {
-    const keys = getPropFromChildComponents(
-      [<a key="test_1" />, <a key="test_2" />, <a href="#" />, <a key="test_3" />],
-      'key'
-    )
+    const keys = getKeyFromChildComponents([<a key="test_1" />, <a key="test_2" />, <a href="#" />, <a key="test_3" />])
     expect(keys).toEqual(['test_1', 'test_2', 'test_3'])
   })
 
   test('should handle single child', async () => {
-    const keys = getPropFromChildComponents(<a key="test_1" />, 'key')
+    const keys = getKeyFromChildComponents(<a key="test_1" />)
     expect(keys).toEqual(['test_1'])
   })
 
   test('should return empty array for no children', async () => {
-    const keys = getPropFromChildComponents(null, 'key')
+    const keys = getKeyFromChildComponents(null)
     expect(keys).toEqual([])
   })
 })
