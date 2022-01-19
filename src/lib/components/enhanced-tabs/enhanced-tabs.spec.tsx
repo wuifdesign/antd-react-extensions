@@ -1,21 +1,22 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { UrlAwareTabs } from './url-aware-tabs'
+import { EnhancedTabs } from './enhanced-tabs'
 import { Tabs } from 'antd'
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { Location } from 'history'
+import { LockOutlined, UserOutlined } from '@ant-design/icons'
 
-const TabContent: React.FC<{ path: string; paramName?: string }> = ({ path, paramName }) => {
+const TabContent: React.FC<{ path: string; urlParamName?: string }> = ({ path, urlParamName }) => {
   return (
     <MemoryRouter initialEntries={[path]}>
-      <UrlAwareTabs paramName={paramName}>
-        <Tabs.TabPane tab="Tab 1" key="1">
+      <EnhancedTabs urlParamName={urlParamName}>
+        <EnhancedTabs.TabPane icon={<UserOutlined />} tab="Tab 1" key="1">
           Content of Tab 1
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Tab 2" key="2">
+        </EnhancedTabs.TabPane>
+        <EnhancedTabs.TabPane icon={<LockOutlined />} tab="Tab 2" key="2">
           Content of Tab 2
-        </Tabs.TabPane>
-      </UrlAwareTabs>
+        </EnhancedTabs.TabPane>
+      </EnhancedTabs>
     </MemoryRouter>
   )
 }
@@ -25,10 +26,12 @@ describe('UrlAwareTabs', () => {
     render(<TabContent path="/" />)
     expect(screen.queryByText('Content of Tab 1')).toBeInTheDocument()
   })
+
   test('should display second tab', async () => {
     render(<TabContent path="/?tab=2" />)
     expect(screen.queryByText('Content of Tab 2')).toBeInTheDocument()
   })
+
   test('should change url on click', async () => {
     let testLocation: Location
     const Page: React.FC = () => {
@@ -38,14 +41,14 @@ describe('UrlAwareTabs', () => {
 
     const { baseElement } = render(
       <MemoryRouter initialEntries={['/']}>
-        <UrlAwareTabs>
+        <EnhancedTabs>
           <Tabs.TabPane tab="Tab 1" key="1">
             Content of Tab 1
           </Tabs.TabPane>
           <Tabs.TabPane tab="Tab 2" key="2">
             Content of Tab 2
           </Tabs.TabPane>
-        </UrlAwareTabs>
+        </EnhancedTabs>
         <Routes>
           <Route path="*" element={<Page />} />
         </Routes>
@@ -60,8 +63,14 @@ describe('UrlAwareTabs', () => {
     expect(getQuery()).toBe('?tab=2')
     expect(screen.queryByText('Content of Tab 2')).toBeInTheDocument()
   })
+
   test('should change param name', async () => {
-    render(<TabContent path="/?test=2" paramName="test" />)
+    render(<TabContent path="/?test=2" urlParamName="test" />)
     expect(screen.queryByText('Content of Tab 2')).toBeInTheDocument()
+  })
+
+  test('should render icon', async () => {
+    const { baseElement } = render(<TabContent path="/" />)
+    expect(baseElement.querySelector('.anticon.anticon-user')).toBeInTheDocument()
   })
 })
