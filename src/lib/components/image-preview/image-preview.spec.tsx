@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { ImagePreview } from './image-preview'
 
 describe('ImagePreview', () => {
@@ -17,9 +17,7 @@ describe('ImagePreview', () => {
     const { baseElement } = render(<ImagePreview url="/test.png" />)
     const button = screen.getByTitle(/Show Full Size/i)
     expect(button).toBeInTheDocument()
-    act(() => {
-      fireEvent.click(button)
-    })
+    fireEvent.click(button)
     await waitFor(() => {
       const modal = baseElement.querySelector('.ant-modal')
       expect(modal).toBeInTheDocument()
@@ -31,9 +29,7 @@ describe('ImagePreview', () => {
     const { baseElement } = render(<ImagePreview url="/test.png" onDelete={onDelete} />)
     const button = screen.getByTitle(/Delete Image/i)
     expect(button).toBeInTheDocument()
-    act(() => {
-      fireEvent.click(button)
-    })
+    fireEvent.click(button)
     await waitFor(() => {
       const modal = baseElement.querySelector('.ant-modal')
       expect(modal).toBeInTheDocument()
@@ -41,9 +37,7 @@ describe('ImagePreview', () => {
     expect(onDelete).toHaveBeenCalledTimes(0)
     const deleteButton = baseElement.querySelector('.ant-modal .ant-btn-dangerous')
     expect(deleteButton).toBeInTheDocument()
-    act(() => {
-      fireEvent.click(deleteButton as HTMLElement)
-    })
+    fireEvent.click(deleteButton as HTMLElement)
     await waitFor(() => {
       expect(onDelete).toHaveBeenCalledTimes(1)
     })
@@ -54,9 +48,7 @@ describe('ImagePreview', () => {
     render(<ImagePreview url="/test.png" askForDeleteConfirmation={false} onDelete={onDelete} />)
     const button = screen.getByTitle(/Delete Image/i)
     expect(button).toBeInTheDocument()
-    act(() => {
-      fireEvent.click(button)
-    })
+    fireEvent.click(button)
     expect(onDelete).toHaveBeenCalledTimes(1)
   })
 
@@ -65,9 +57,7 @@ describe('ImagePreview', () => {
     render(<ImagePreview url="/test.png" fullscreenButton={false} onEdit={onEdit} />)
     const button = screen.getByTitle(/Edit Image/i)
     expect(button).toBeInTheDocument()
-    act(() => {
-      fireEvent.click(button)
-    })
+    fireEvent.click(button)
     expect(onEdit).toHaveBeenCalledTimes(1)
   })
 

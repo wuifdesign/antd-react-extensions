@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { EditableDateRange } from './editable-date-range'
 
 export const EditableDateRangeParent: React.FC<{ value: [string, string]; handleSubmit: (value: any) => void }> = ({
@@ -31,9 +31,7 @@ describe('EditableDateRange', () => {
 
   it('should display placeholder', () => {
     render(<EditableDateRange placeholder={['First Placeholder', 'Second Placeholder']} />)
-    act(() => {
-      fireEvent.click(screen.getByTitle(/Edit Data/i))
-    })
+    fireEvent.click(screen.getByTitle(/Edit Data/i))
     expect(screen.getByPlaceholderText(/First Placeholder/i)).toBeInTheDocument()
     expect(screen.getByPlaceholderText(/Second Placeholder/i)).toBeInTheDocument()
   })
@@ -45,14 +43,10 @@ describe('EditableDateRange', () => {
     })
     render(<EditableDateRangeParent value={['2020-10-10', '2020-10-15']} handleSubmit={handleSubmit} />)
     expect(screen.getByText(/2020-10-10 - 2020-10-15/i)).toBeInTheDocument()
-    act(() => {
-      fireEvent.click(screen.getByTitle(/Edit Data/i))
-    })
+    fireEvent.click(screen.getByTitle(/Edit Data/i))
     const dateRangeElement = screen.getByTitle(/2020-10-09/i)
     expect(dateRangeElement).toBeInTheDocument()
-    act(() => {
-      fireEvent.click(dateRangeElement)
-    })
+    fireEvent.click(dateRangeElement)
     await waitFor(() => {
       const element = document.querySelector('.editable-display')
       const check = element?.innerHTML.includes('2020-10-09 - 2020-10-15')

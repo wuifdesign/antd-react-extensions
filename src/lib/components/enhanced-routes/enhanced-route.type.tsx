@@ -1,6 +1,8 @@
 import React from 'react'
 import { RouteMatch } from 'react-router-dom'
 
+export type EnhancedRouteLayoutType = 'default' | 'auth' | 'blank'
+
 export type EnhancedRouteMatch<ParamKey extends string = string> = RouteMatch<ParamKey> & {
   route: EnhancedRouteType
 }
@@ -11,7 +13,7 @@ export type EnhancedRouteType = {
   element?: React.ReactElement | null
   index?: boolean
   path?: string
-  layout?: 'default' | 'auth' | 'blank'
+  layout?: EnhancedRouteLayoutType
   breadcrumb?: React.ReactNode | ((match: EnhancedRouteMatch) => React.ReactNode)
   is404?: boolean
   guard?: React.ReactElement | null

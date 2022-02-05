@@ -3,12 +3,12 @@ import { getKeyFromChildComponents } from './get-key-from-child-components'
 
 describe('getKeysFromChildComponents', () => {
   test('should get keys', async () => {
-    const keys = getKeyFromChildComponents([<a key="test_1" />, <a key="test_2" />, <a href="#" />, <a key="test_3" />])
+    const keys = getKeyFromChildComponents([<div key="test_1" />, <div key="test_2" />, <div />, <div key="test_3" />])
     expect(keys).toEqual(['test_1', 'test_2', 'test_3'])
   })
 
   test('should handle single child', async () => {
-    const keys = getKeyFromChildComponents(<a key="test_1" />)
+    const keys = getKeyFromChildComponents(<div key="test_1" />)
     expect(keys).toEqual(['test_1'])
   })
 

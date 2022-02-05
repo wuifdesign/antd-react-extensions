@@ -7,6 +7,7 @@ import { useTranslations } from '../config-provider/use-translations'
 import clsx from 'clsx'
 import { LoadingSpinner } from '../loading-spinner'
 import { FormLayout } from 'antd/es/form/Form'
+import { HtmlDataProps } from '../../types/html-data-props.type'
 
 export type FormOverlayButtons = 'reset' | 'cancel' | 'submit' | React.ReactNode
 
@@ -24,11 +25,11 @@ export type FormContainerProps = {
   title?: string
   type?: 'drawer' | 'modal' | 'inline'
   formLayout?: FormLayout
-  submitButtonProps?: ButtonProps
+  submitButtonProps?: ButtonProps & HtmlDataProps
   submitButtonText?: string
   submitButtonIcon?: React.ReactNode
   submitButtonDisabled?: boolean
-  cancelButtonProps?: ButtonProps
+  cancelButtonProps?: ButtonProps & HtmlDataProps
   cancelButtonText?: string
   buttons?: {
     left: FormOverlayButtons[]

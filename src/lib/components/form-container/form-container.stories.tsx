@@ -39,6 +39,8 @@ const Template: Story<PropsWithChildren<FormContainerProps>> = (args) => {
         submitButtonIcon={<IconSave />}
         submitButtonText={'Save'}
         submitButtonDisabled={buttonDisabled}
+        submitButtonProps={{ 'data-cy': 'submit' }}
+        cancelButtonProps={{ 'data-cy': 'cancel' }}
         initialValues={{ name: 'John Doe' }}
       >
         <Button style={{ marginBottom: 16 }} block onClick={() => setButtonDisabled(!buttonDisabled)}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { FormContainer, FormContainerProps } from './form-container'
 import { Form, Input } from 'antd'
 
@@ -100,9 +100,7 @@ describe('FormOverlay', () => {
     )
     const button = screen.getByText(/Save/i)
     expect(button).toBeInTheDocument()
-    act(() => {
-      fireEvent.click(button)
-    })
+    fireEvent.click(button)
     await waitFor(() => null)
     expect(handleSubmit).toHaveBeenCalledTimes(1)
   })

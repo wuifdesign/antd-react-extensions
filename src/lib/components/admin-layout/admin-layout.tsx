@@ -3,10 +3,10 @@ import { Layout, Spin } from 'antd'
 import { DefaultLayoutProps } from './layouts/default-layout/default-layout'
 import { AuthLayoutProps } from './layouts/auth-layout/auth-layout'
 import { RouterHistory } from '../../utils/router-history'
-import { LayoutContext, LayoutContextType } from './layout-context'
+import { LayoutContext } from './layout-context'
 import { DefaultLayoutProvider } from './layouts/default-layout/default-layout-context'
 import { LayoutFullPageLoading } from './components/layout-full-page-loading'
-import { RouteLayout, RouteLayoutType } from './components/route-layout'
+import { RouteLayout } from './components/route-layout'
 import { createStyleMap } from '../../utils/create-style-map/create-style-map'
 import { EnhancedRouteType } from '../enhanced-routes'
 import { enhanceRoutes } from '../enhanced-routes/enhance-routes'
@@ -48,18 +48,6 @@ export const AdminLayout: FCWithoutChildren<AdminLayoutProps> = ({
   defaultLayoutProps
 }) => {
   const [fullPageLoading, setFullPageLoading] = useState(false)
-  const [layoutType, setLayoutType] = useState<RouteLayoutType>('default')
-  const layoutContext: LayoutContextType = useMemo(
-    () => ({
-      routes,
-      fullPageLoading,
-      setFullPageLoading,
-      layoutType,
-      setLayoutType,
-      guardWithLayout
-    }),
-    [routes, guardWithLayout, fullPageLoading, setFullPageLoading, layoutType, setLayoutType]
-  )
 
   if (loading) {
     return <LayoutFullPageLoading />
@@ -68,7 +56,14 @@ export const AdminLayout: FCWithoutChildren<AdminLayoutProps> = ({
   const SelectedRouter = RouterHistory.getRouter()
 
   return (
-    <LayoutContext.Provider value={layoutContext}>
+    <LayoutContext.Provider
+      value={{
+        routes,
+        fullPageLoading,
+        setFullPageLoading,
+        guardWithLayout
+      }}
+    >
       <DefaultLayoutProvider initialSidebarCollapsed={defaultLayoutProps?.initialSidebarCollapsed}>
         <Layout style={styles.layout}>
           <SelectedRouter>

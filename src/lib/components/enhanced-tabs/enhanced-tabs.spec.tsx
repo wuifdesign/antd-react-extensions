@@ -33,7 +33,7 @@ describe('UrlAwareTabs', () => {
   })
 
   test('should change url on click', async () => {
-    let testLocation: Location
+    let testLocation: Location<any>
     const Page: React.FC = () => {
       testLocation = useLocation()
       return null

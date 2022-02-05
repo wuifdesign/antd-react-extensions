@@ -18,7 +18,7 @@ describe('truncate', () => {
     expect(check).toEqual('abcdefghi123')
   })
 
-  it("shouldn't truncate short string ", () => {
+  it("shouldn't truncate short string", () => {
     const check = truncate('test')
     expect(check).toEqual('test')
   })

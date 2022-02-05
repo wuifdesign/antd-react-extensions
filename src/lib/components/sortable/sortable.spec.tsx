@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { Sortable, SortableProps } from './sortable'
 
 const defaultProps: SortableProps<number> = {
@@ -53,9 +53,7 @@ describe('Sortable', () => {
     const btn = screen.getAllByTitle('Delete')
     const firstBtn = btn[0]
     expect(firstBtn).toBeInTheDocument()
-    act(() => {
-      fireEvent.click(firstBtn)
-    })
+    fireEvent.click(firstBtn)
     expect(onDelete).toHaveBeenCalledTimes(1)
   })
 })

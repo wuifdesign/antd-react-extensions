@@ -11,7 +11,7 @@ describe('deepDiff', () => {
     expect(check).toEqual({ b: 3 })
   })
 
-  it('should return deep diff values ', () => {
+  it('should return deep diff values', () => {
     const check = deepDiff({ a: 1, b: { a: 1, b: 2 } }, { a: 1, b: { a: 1, b: 3 } }, null)
     expect(check).toEqual({ b: { b: 3 } })
   })

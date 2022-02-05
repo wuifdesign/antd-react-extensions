@@ -10,7 +10,7 @@ const columns: AdvancedTableColumnType<any>[] = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    render: (text) => <a>{text}</a>,
+    render: (text) => <a href="/">{text}</a>,
     visible: false
   },
   {
@@ -51,8 +51,8 @@ const columns: AdvancedTableColumnType<any>[] = [
     exportable: false,
     render: (text, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <a href="/">Invite {record.name}</a>
+        <a href="/">Delete</a>
       </Space>
     )
   }

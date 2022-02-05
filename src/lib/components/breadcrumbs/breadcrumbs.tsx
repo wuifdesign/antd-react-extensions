@@ -5,6 +5,7 @@ import { Breadcrumb } from 'antd'
 import { createStyleMap } from '../../utils/create-style-map/create-style-map'
 import { matchEnhancedRoutes } from '../enhanced-routes/match-enhance-routes'
 import { FCWithoutChildren } from '../../utils'
+import { EnhancedRouteMatch } from '../enhanced-routes'
 
 type BreadcrumbElement = {
   link: string
@@ -20,20 +21,32 @@ const Breadcrumbs: FCWithoutChildren = () => {
   const { routes } = useLayoutContext()
 
   const breadcrumbs = useMemo(() => {
-    const fullBreadcrumbs = matchEnhancedRoutes(routes, location)
+    const matches: EnhancedRouteMatch[] = []
+    let path: string = location.pathname
+    while (true) {
+      const match = matchEnhancedRoutes(routes, path).pop()
+      if (match) {
+        matches.push(match)
+      }
+      const lastIndex = path.lastIndexOf('/')
+      if (lastIndex > -1) {
+        path = path.substring(0, lastIndex)
+      } else {
+        break
+      }
+    }
+    matches.reverse()
     const temp: BreadcrumbElement[] = []
-    if (fullBreadcrumbs) {
-      for (const route of fullBreadcrumbs) {
-        const { breadcrumb } = route.route
-        if (breadcrumb) {
-          temp.push({
-            link: route.pathname,
-            element: typeof breadcrumb === 'function' ? breadcrumb(route) : breadcrumb
-          })
-        }
-        if (route.route.is404) {
-          break
-        }
+    for (const route of matches) {
+      const { breadcrumb } = route.route
+      if (breadcrumb) {
+        temp.push({
+          link: route.pathname,
+          element: typeof breadcrumb === 'function' ? breadcrumb(route) : breadcrumb
+        })
+      }
+      if (route.route.is404) {
+        break
       }
     }
     return temp

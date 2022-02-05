@@ -26,6 +26,14 @@ const routes: EnhancedRouteType[] = [
     guard: <Guard allowed={false} />
   },
   {
+    path: '/allow-without-layout',
+    layout: 'default',
+    breadcrumb: 'Allow Without Layout',
+    element: <div data-testid="name">Allowed</div>,
+    guard: <Guard allowed={true} />,
+    guardWithLayout: false
+  },
+  {
     path: '/restricted-with-fallback',
     layout: 'default',
     breadcrumb: 'Restricted',
@@ -52,24 +60,24 @@ describe('AdminLayout', () => {
     expect(title.innerHTML).toBe('Dashboard')
   })
 
-  it('should render dashboard route', () => {
-    render(<AdminLayout {...defaultProps} />)
-    const title = screen.getByTestId('name')
-    expect(title).toBeInTheDocument()
-    expect(title.innerHTML).toBe('Dashboard')
-  })
-
-  it('should render fallback for restricted route', () => {
+  it('should render restricted route', () => {
     RouterHistory.setType('memory')
     RouterHistory.navigate('/restricted')
     render(<AdminLayout {...defaultProps} />)
     expect(screen.getByText('BLOCKED')).toBeInTheDocument()
   })
 
-  it('should render fallback for restricted route with fallback', () => {
+  it('should render allow route', async () => {
+    RouterHistory.setType('memory')
+    RouterHistory.navigate('/allow-without-layout')
+    render(<AdminLayout {...defaultProps} />)
+    expect(await screen.findByText('Logo')).toBeInTheDocument()
+  })
+
+  it('should render restricted route without layout', async () => {
     RouterHistory.setType('memory')
     RouterHistory.navigate('/restricted-with-fallback')
     render(<AdminLayout {...defaultProps} />)
-    waitFor(() => expect(screen.queryByText('Logo')).not.toBeInTheDocument())
+    await waitFor(() => expect(screen.queryByText('Logo')).not.toBeInTheDocument())
   })
 })

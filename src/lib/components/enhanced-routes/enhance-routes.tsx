@@ -7,14 +7,7 @@ export const enhanceRoutes = (routes: EnhancedRouteType[]): RouteObject[] => {
   return routes.map((route) => {
     const routeObject: RouteObject = {
       caseSensitive: route.caseSensitive,
-      element: (
-        <EnhancedRoute
-          route={route}
-          element={route.element}
-          guard={route.guard}
-          guardWithLayout={route.guardWithLayout}
-        />
-      ),
+      element: <EnhancedRoute route={route} element={route.element} />,
       index: route.index,
       path: route.path
     }

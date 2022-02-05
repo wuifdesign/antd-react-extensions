@@ -53,6 +53,12 @@ const menu: MenuElement[] = [
     end: true
   },
   {
+    title: 'Allowed',
+    icon: <LockOutlined />,
+    url: '/allowed',
+    end: true
+  },
+  {
     title: 'Restricted',
     icon: <LockOutlined />,
     url: '/restricted',
@@ -197,7 +203,16 @@ const Guard: React.FC<{ allowed: boolean | undefined }> = ({ allowed, children }
     return <LoadingSpinner />
   }
   if (!allowed) {
-    return <ErrorPage type={403} />
+    return (
+      <ErrorPage
+        type={403}
+        extra={
+          <Link to="/">
+            <Button>Go Back</Button>
+          </Link>
+        }
+      />
+    )
   }
   return <>{children}</>
 }
@@ -213,7 +228,31 @@ const routes: EnhancedRouteType[] = [
     layout: 'default',
     breadcrumb: 'Sub Page',
     element: <SubPage />,
+    guard: <Guard allowed={true} />,
+    children: [
+      {
+        path: 'sub',
+        layout: 'default',
+        breadcrumb: 'Sub Page Sub 1',
+        element: <SubPage />,
+        guard: <Guard allowed={true} />
+      }
+    ]
+  },
+  {
+    path: '/sub-page/sub2',
+    layout: 'default',
+    breadcrumb: 'Sub Page Sub 2',
+    element: <SubPage />,
     guard: <Guard allowed={true} />
+  },
+  {
+    path: '/allowed',
+    layout: 'default',
+    breadcrumb: 'Allowed',
+    element: <SubPage />,
+    guard: <Guard allowed={true} />,
+    guardWithLayout: false
   },
   {
     path: '/restricted',
@@ -274,7 +313,7 @@ const Template: Story<{ siderTheme?: SiderTheme }> = ({ siderTheme }) => {
             ),
             sidebarMenuAppend: (collapsed) => (
               <div style={{ textAlign: 'center', margin: 15, border: '1px solid #eee' }}>
-                <a href="#">{!collapsed ? 'AfterMenu' : 'AM'}</a>
+                <a href="/">{!collapsed ? 'AfterMenu' : 'AM'}</a>
               </div>
             ),
             headerRight: (

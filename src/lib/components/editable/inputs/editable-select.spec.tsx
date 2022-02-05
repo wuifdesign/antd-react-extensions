@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { SelectProps } from 'antd/es'
 import { EditableSelect } from './editable-select'
 
@@ -50,9 +50,7 @@ describe('EditableSelect', () => {
 
     it('should display placeholder', async () => {
       render(<EditableSelect selectProps={selectProps} placeholder="My Placeholder" />)
-      act(() => {
-        fireEvent.click(screen.getByTitle(/Edit Data/i))
-      })
+      fireEvent.click(screen.getByTitle(/Edit Data/i))
       await screen.findByText(/My Placeholder/i)
       expect(screen.getByText(/My Placeholder/i)).toBeInTheDocument()
     })
@@ -64,14 +62,10 @@ describe('EditableSelect', () => {
       })
       render(<EditableSelectParent value="1" handleSubmit={handleSubmit} />)
       expect(screen.getByText(/Value 1/i)).toBeInTheDocument()
-      act(() => {
-        fireEvent.click(screen.getByTitle(/Edit Data/i))
-      })
+      fireEvent.click(screen.getByTitle(/Edit Data/i))
       const optionElement = screen.getByTitle(/Value 2/i)
       expect(optionElement).toBeInTheDocument()
-      act(() => {
-        fireEvent.click(optionElement)
-      })
+      fireEvent.click(optionElement)
       await waitFor(() => {
         const element = document.querySelector('.editable-display')
         const check = element?.innerHTML.includes('Value 2')
@@ -94,9 +88,7 @@ describe('EditableSelect', () => {
 
     it('should display placeholder', async () => {
       render(<EditableSelect selectProps={selectPropsMultiple} placeholder="My Placeholder" />)
-      act(() => {
-        fireEvent.click(screen.getByTitle(/Edit Data/i))
-      })
+      fireEvent.click(screen.getByTitle(/Edit Data/i))
       await screen.findByText(/My Placeholder/i)
       expect(screen.getByText(/My Placeholder/i)).toBeInTheDocument()
     })
@@ -110,17 +102,11 @@ describe('EditableSelect', () => {
         <EditableSelectParent innerSelectProps={selectPropsMultiple} value={['1', '2']} handleSubmit={handleSubmit} />
       )
       expect(screen.getByText(/Value 1, Value 2/i)).toBeInTheDocument()
-      act(() => {
-        fireEvent.click(screen.getByTitle(/Edit Data/i))
-      })
+      fireEvent.click(screen.getByTitle(/Edit Data/i))
       const optionElement = screen.getByTitle(/Value 3/i)
       expect(optionElement).toBeInTheDocument()
-      act(() => {
-        fireEvent.click(optionElement)
-      })
-      act(() => {
-        fireEvent.click(screen.getByTitle('Save'))
-      })
+      fireEvent.click(optionElement)
+      fireEvent.click(screen.getByTitle('Save'))
       await waitFor(() => {
         const element = document.querySelector('.editable-display')
         const check = element?.innerHTML.includes('Value 1, Value 2, Value 3')
