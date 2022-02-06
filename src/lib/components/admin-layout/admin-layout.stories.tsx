@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Meta, Story } from '@storybook/react'
 import { AdminLayout } from './admin-layout'
 import {
@@ -23,6 +23,7 @@ import { SiderTheme } from 'antd/es/layout/Sider'
 import { ConfigProvider } from '../config-provider'
 import { EnhancedRouteType } from '../enhanced-routes'
 import { LoadingSpinner } from '../loading-spinner'
+import { useLayoutContext } from './layout-context'
 
 export default {
   component: AdminLayout,
@@ -105,6 +106,14 @@ const menu: MenuElement[] = [
 ]
 
 const Dashboard: React.FC = () => {
+  const { fullPageLoading, setFullPageLoading } = useLayoutContext()
+
+  useEffect(() => {
+    if (fullPageLoading) {
+      setTimeout(() => setFullPageLoading(false), 2000)
+    }
+  }, [fullPageLoading, setFullPageLoading])
+
   return (
     <PageContent hideBreadcrumbs>
       <PageContent.Header
@@ -129,6 +138,8 @@ const Dashboard: React.FC = () => {
       >
         Dashboard
       </PageContent.Element>
+      <Button onClick={() => setFullPageLoading('Loading Tip')}>FullPageLoading With Tip</Button>
+      <Button onClick={() => setFullPageLoading(true)}>FullPageLoading</Button>
     </PageContent>
   )
 }
@@ -227,22 +238,6 @@ const routes: EnhancedRouteType[] = [
     path: '/sub-page',
     layout: 'default',
     breadcrumb: 'Sub Page',
-    element: <SubPage />,
-    guard: <Guard allowed={true} />,
-    children: [
-      {
-        path: 'sub',
-        layout: 'default',
-        breadcrumb: 'Sub Page Sub 1',
-        element: <SubPage />,
-        guard: <Guard allowed={true} />
-      }
-    ]
-  },
-  {
-    path: '/sub-page/sub2',
-    layout: 'default',
-    breadcrumb: 'Sub Page Sub 2',
     element: <SubPage />,
     guard: <Guard allowed={true} />
   },

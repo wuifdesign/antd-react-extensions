@@ -5,8 +5,8 @@ import { EnhancedRouteType } from '../enhanced-routes/enhanced-route.type'
 export type LayoutContextType = {
   routes: EnhancedRouteType[]
   guardWithLayout: boolean
-  fullPageLoading: boolean
-  setFullPageLoading: (isLoading: boolean) => void
+  fullPageLoading: string | boolean
+  setFullPageLoading: (isLoading: string | boolean) => void
 }
 
 export const LayoutContext = React.createContext<LayoutContextType>({

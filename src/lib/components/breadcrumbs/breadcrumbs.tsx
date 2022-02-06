@@ -16,7 +16,7 @@ const styles = createStyleMap({
   breadcrumb: { fontWeight: 'normal' }
 })
 
-const Breadcrumbs: FCWithoutChildren = () => {
+const Breadcrumbs: FCWithoutChildren = ({ ...props }) => {
   const location = useLocation()
   const { routes } = useLayoutContext()
 
@@ -24,7 +24,7 @@ const Breadcrumbs: FCWithoutChildren = () => {
     const matches: EnhancedRouteMatch[] = []
     let path: string = location.pathname
     while (true) {
-      const match = matchEnhancedRoutes(routes, path).pop()
+      const match = matchEnhancedRoutes(routes, path)?.pop()
       if (match) {
         matches.push(match)
       }
@@ -54,7 +54,7 @@ const Breadcrumbs: FCWithoutChildren = () => {
 
   if (breadcrumbs.length) {
     return (
-      <Breadcrumb style={styles.breadcrumb}>
+      <Breadcrumb style={styles.breadcrumb} {...props}>
         {breadcrumbs.map(({ link, element }, index) => (
           <Breadcrumb.Item key={link}>
             {index < breadcrumbs.length - 1 ? <Link to={link}>{element}</Link> : element}

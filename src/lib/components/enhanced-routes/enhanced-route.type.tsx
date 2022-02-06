@@ -18,4 +18,5 @@ export type EnhancedRouteType = {
   is404?: boolean
   guard?: React.ReactElement | null
   guardWithLayout?: boolean
+  meta?: any
 }

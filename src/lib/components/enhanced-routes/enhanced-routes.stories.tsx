@@ -102,8 +102,6 @@ const Template: Story = () => {
         value={{
           routes,
           guardWithLayout: true,
-          layoutType: null,
-          setLayoutType: () => null,
           fullPageLoading: false,
           setFullPageLoading: () => null
         }}

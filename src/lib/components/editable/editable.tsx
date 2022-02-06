@@ -31,7 +31,8 @@ export const Editable: FCWithoutChildren<BaseEditableProps> = ({
   valueDisplay = (value) => value,
   editElement,
   onStartEdit,
-  onExitEdit
+  onExitEdit,
+  ...props
 }) => {
   const [loading, setLoading] = useState(false)
   const [editMode, setEditMode] = useState(false)
@@ -113,7 +114,7 @@ export const Editable: FCWithoutChildren<BaseEditableProps> = ({
   }
 
   return (
-    <div style={style}>
+    <div {...props} style={style}>
       <div className="editable editable-display">
         <span className={!value ? 'text-muted' : ''} style={{ paddingTop: 3, paddingBottom: 3 }}>
           {valueDisplay(value) || valuePlaceholder}

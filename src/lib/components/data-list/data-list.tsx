@@ -12,8 +12,8 @@ export type DataListGroupProps = {
   elements: DataListElementType[] | undefined | null
 }
 
-export const DataList: FCWithoutChildren<DataListGroupProps> = ({ elements, title }) => (
-  <div className="data-list-group">
+export const DataList: FCWithoutChildren<DataListGroupProps> = ({ elements, title, ...props }) => (
+  <div {...props} className="data-list-group">
     {!!title && (
       <div style={{ display: 'flex' }}>
         <div style={{ flex: 1 }} className="data-list-group-title">

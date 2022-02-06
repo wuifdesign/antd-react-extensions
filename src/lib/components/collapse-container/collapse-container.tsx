@@ -29,7 +29,7 @@ const setInitStyle = (container: HTMLDivElement | null, isOpened: boolean) => {
   }
 }
 
-const CollapseContainer: React.FC<CollapseContainerProps> = ({ style, isOpened = true, children }) => {
+const CollapseContainer: React.FC<CollapseContainerProps> = ({ style, isOpened = true, children, ...props }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
 
@@ -64,7 +64,7 @@ const CollapseContainer: React.FC<CollapseContainerProps> = ({ style, isOpened =
   }, [])
 
   return (
-    <div ref={containerRef} className="collapse-container" onTransitionEnd={onTransitionEnd}>
+    <div {...props} ref={containerRef} className="collapse-container" onTransitionEnd={onTransitionEnd}>
       <div ref={contentRef} style={style}>
         {children}
       </div>

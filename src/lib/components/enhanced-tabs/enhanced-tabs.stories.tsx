@@ -38,5 +38,5 @@ Base.args = {}
 
 export const UseDefaultKey = Template.bind({})
 UseDefaultKey.args = {
-  defaultActiveKey: '2'
+  defaultActiveKey: 'tab_2'
 }

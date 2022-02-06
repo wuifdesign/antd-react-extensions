@@ -35,7 +35,8 @@ export const Sortable = <T,>({
   confirmationContent = 'Do you really want to move this item?',
   onDelete,
   itemStyle,
-  disabled
+  disabled,
+  ...props
 }: SortableProps<T>): JSX.Element => {
   const sensors = useSensors(useSensor(PointerSensor), useSensor(MouseSensor))
 
@@ -105,7 +106,7 @@ export const Sortable = <T,>({
       }}
     >
       <SortableContext items={keys} strategy={verticalListSortingStrategy}>
-        <div className="sortable-container">
+        <div {...props} className="sortable-container">
           {items.map((item) => {
             const key = getItemKey(item)
             return (

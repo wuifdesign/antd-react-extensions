@@ -7,7 +7,7 @@ import { useTranslations } from '../config-provider/use-translations'
 import clsx from 'clsx'
 import { LoadingSpinner } from '../loading-spinner'
 import { FormLayout } from 'antd/es/form/Form'
-import { HtmlDataProps } from '../../types/html-data-props.type'
+import { HtmlDataProps } from '../../utils/types/html-data-props.type'
 
 export type FormOverlayButtons = 'reset' | 'cancel' | 'submit' | React.ReactNode
 
@@ -36,7 +36,7 @@ export type FormContainerProps = {
     right: FormOverlayButtons[]
   }
   initialValues?: object
-  formProps?: FormProps
+  formProps?: FormProps & HtmlDataProps
 }
 
 export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<FormContainerHandles, FormContainerProps>(

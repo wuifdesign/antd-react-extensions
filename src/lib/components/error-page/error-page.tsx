@@ -13,10 +13,11 @@ export type ErrorPageProps = {
   extra?: React.ReactNode
 }
 
-export const ErrorPage: FCWithoutChildren<ErrorPageProps> = ({ type, icon, title, description, extra }) => {
+export const ErrorPage: FCWithoutChildren<ErrorPageProps> = ({ type, icon, title, description, extra, ...props }) => {
   const translations = useTranslations()
   return (
     <Result
+      {...props}
       icon={icon}
       status={type}
       title={title || translations.ErrorPage[type]?.title}

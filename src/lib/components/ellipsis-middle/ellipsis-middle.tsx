@@ -15,7 +15,8 @@ export type EllipsisMiddleProps = {
 export const EllipsisMiddle: FCRequiredChildren<EllipsisMiddleProps, string> = ({
   suffixCount,
   getTitle = (content) => content,
-  children
+  children,
+  ...props
 }) => {
   if (!children || typeof children !== 'string') {
     return null
@@ -23,7 +24,7 @@ export const EllipsisMiddle: FCRequiredChildren<EllipsisMiddleProps, string> = (
   const start = children.slice(0, children.length - suffixCount).trim()
   const suffix = children.slice(-suffixCount).trim()
   return (
-    <Text style={{ maxWidth: '100%' }} ellipsis={{ suffix }} title={getTitle(children)}>
+    <Text {...props} style={{ maxWidth: '100%' }} ellipsis={{ suffix }} title={getTitle(children)}>
       {start}
     </Text>
   )

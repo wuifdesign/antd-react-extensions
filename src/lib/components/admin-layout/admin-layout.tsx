@@ -47,7 +47,7 @@ export const AdminLayout: FCWithoutChildren<AdminLayoutProps> = ({
   authLayoutProps,
   defaultLayoutProps
 }) => {
-  const [fullPageLoading, setFullPageLoading] = useState(false)
+  const [fullPageLoading, setFullPageLoading] = useState<string | boolean>(false)
 
   if (loading) {
     return <LayoutFullPageLoading />
@@ -76,9 +76,9 @@ export const AdminLayout: FCWithoutChildren<AdminLayoutProps> = ({
             </RouteLayout>
           </SelectedRouter>
         </Layout>
-        {fullPageLoading && (
+        {fullPageLoading !== false && (
           <div className="loading-overlay">
-            <Spin size="large" />
+            <Spin size="large" tip={typeof fullPageLoading === 'string' ? fullPageLoading : undefined} />
           </div>
         )}
       </DefaultLayoutProvider>

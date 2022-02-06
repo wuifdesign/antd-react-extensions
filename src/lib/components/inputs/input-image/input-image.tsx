@@ -46,7 +46,8 @@ export const InputImage: FCWithoutChildren<InputImageProps> = ({
   defaultImage,
   onChange,
   clearable = false,
-  imagePreviewProps
+  imagePreviewProps,
+  ...props
 }) => {
   const [previewImage, setPreviewImage] = useState(defaultImage)
   const translations = useTranslations()
@@ -82,7 +83,7 @@ export const InputImage: FCWithoutChildren<InputImageProps> = ({
   }
 
   return (
-    <div style={{ display: 'flex' }} className="input-image">
+    <div {...props} style={{ display: 'flex' }} className="input-image">
       <ImagePreview
         askForDeleteConfirmation={false}
         {...imagePreviewProps}

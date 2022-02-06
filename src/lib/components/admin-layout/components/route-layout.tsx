@@ -4,8 +4,7 @@ import { AuthLayout, AuthLayoutProps } from '../layouts/auth-layout/auth-layout'
 import { useLayoutContext } from '../layout-context'
 import { BlankLayout } from '../layouts/blank-layout/blank-layout'
 import { useLocation } from 'react-router-dom'
-import { EnhancedRouteMatch, EnhancedRouteType, matchEnhancedRoutes } from '../../enhanced-routes'
-import { Location } from 'history'
+import { EnhancedRouteType, matchEnhancedRoutes } from '../../enhanced-routes'
 import { GuardWrapper } from '../../enhanced-routes/guard-wrapper'
 
 export type RouteLayoutProps = {
@@ -56,21 +55,26 @@ export const RouteLayout: React.FC<RouteLayoutProps> = ({
 }) => {
   const { routes, guardWithLayout: contextGuardWithLayout } = useLayoutContext()
   const location = useLocation()
-  const currentRoute = matchEnhancedRoutes(routes, location as Location).pop() as EnhancedRouteMatch
+  const currentRoute = matchEnhancedRoutes(routes, location.pathname)?.pop()
   const [layoutType, setLayoutType] = useState('blank')
-  const guard = currentRoute.route.guard
 
   useLayoutEffect(() => {
-    setLayoutType(getLayout(currentRoute.route, true, contextGuardWithLayout))
-  }, [currentRoute.route, contextGuardWithLayout])
+    if (currentRoute?.route) {
+      setLayoutType(getLayout(currentRoute.route, true, contextGuardWithLayout))
+    }
+  }, [currentRoute?.route, contextGuardWithLayout])
 
   const onRender = useCallback(() => {
-    setLayoutType(getLayout(currentRoute.route, false, contextGuardWithLayout))
-  }, [currentRoute.route, contextGuardWithLayout])
+    if (currentRoute?.route) {
+      setLayoutType(getLayout(currentRoute.route, false, contextGuardWithLayout))
+    }
+  }, [currentRoute?.route, contextGuardWithLayout])
 
   let elements = children
-  if (guard) {
-    elements = React.cloneElement(guard, { children: <GuardWrapper onRender={onRender}>{elements}</GuardWrapper> })
+  if (currentRoute?.route.guard) {
+    elements = React.cloneElement(currentRoute.route.guard, {
+      children: <GuardWrapper onRender={onRender}>{elements}</GuardWrapper>
+    })
   }
 
   if (layoutType === 'default') {

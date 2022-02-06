@@ -5,13 +5,14 @@ import { Button } from '../button'
 import { NotificationsList } from '../notifications-list'
 import { NotificationsListProps } from '../notifications-list/notifications-list'
 import { FCWithoutChildren } from '../../utils'
+import { HtmlDataProps } from '../../utils/types/html-data-props.type'
 
 export type NotificationsPopoverProps = {
   count?: number
   dot?: boolean
   icon?: React.ReactNode
-  notificationListProps: NotificationsListProps
-  popoverProps?: PopoverProps
+  notificationListProps: NotificationsListProps & HtmlDataProps
+  popoverProps?: PopoverProps & HtmlDataProps
 }
 
 /**

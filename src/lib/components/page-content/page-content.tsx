@@ -3,10 +3,12 @@ import { Breadcrumbs } from '../breadcrumbs'
 import { LoadingSpinner } from '../loading-spinner'
 import { PageContentHeader, PageContentHeaderProps } from './components/page-content-header'
 import { PageContentElement, PageContentElementProps } from './components/page-content-element'
+import clsx from 'clsx'
 
 export type PageContentProps = {
   style?: React.CSSProperties
   loading?: boolean
+  className?: string
   hideBreadcrumbs?: boolean
 }
 
@@ -17,11 +19,12 @@ type ChildComponents = {
 
 const PageContent: React.FC<PageContentProps> & ChildComponents = ({
   hideBreadcrumbs,
-  style,
   loading = false,
-  children
+  className,
+  children,
+  ...props
 }) => (
-  <div className="page-content" style={style}>
+  <div {...props} className={clsx('page-content', className)}>
     {!hideBreadcrumbs && <Breadcrumbs />}
     {loading ? <LoadingSpinner marginTopOffset={!hideBreadcrumbs ? -16 : 0} /> : children}
   </div>

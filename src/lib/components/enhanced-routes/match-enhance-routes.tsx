@@ -7,5 +7,5 @@ export const matchEnhancedRoutes = (
   locationArg: Partial<Location> | string,
   basename?: string
 ) => {
-  return matchRoutes(routes, locationArg, basename) as EnhancedRouteMatch[]
+  return matchRoutes(routes, locationArg, basename) as EnhancedRouteMatch[] | null
 }
