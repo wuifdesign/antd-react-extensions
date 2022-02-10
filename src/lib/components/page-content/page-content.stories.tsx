@@ -4,7 +4,7 @@ import { PageContent, PageContentProps } from './page-content'
 import { PageContentHeader, PageContentHeaderProps } from './components/page-content-header'
 import { PageContentElement, PageContentElementProps } from './components/page-content-element'
 import { MemoryRouter } from 'react-router-dom'
-import { Button } from '../button'
+import { EnhancedButton } from '../enhanced-button'
 import { DashboardOutlined } from '@ant-design/icons'
 
 export default {
@@ -26,7 +26,7 @@ const Template: Story<TemplateProps> = (args) => (
       <PageContent.Element
         title="My Title"
         subTitle="My SubTitle"
-        extra={<Button type="primary">Add Something</Button>}
+        extra={<EnhancedButton type="primary">Add Something</EnhancedButton>}
         {...args.elementProps}
       >
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et

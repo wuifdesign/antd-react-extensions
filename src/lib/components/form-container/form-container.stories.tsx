@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useState } from 'react'
 import { Meta, Story } from '@storybook/react'
 import { FormContainer, FormContainerProps } from './form-container'
-import { Button } from '../button/button'
+import { EnhancedButton } from '../enhanced-button'
 import { IconSave } from '../icons'
 import { Form, Input } from 'antd'
 
@@ -17,9 +17,9 @@ const Template: Story<PropsWithChildren<FormContainerProps>> = (args) => {
   return (
     <>
       {args.type !== 'inline' && (
-        <Button style={{ margin: 25 }} onClick={() => setDrawerVisible(true)}>
+        <EnhancedButton style={{ margin: 25 }} onClick={() => setDrawerVisible(true)}>
           Open {args.type}
-        </Button>
+        </EnhancedButton>
       )}
       <FormContainer
         {...args}
@@ -43,9 +43,9 @@ const Template: Story<PropsWithChildren<FormContainerProps>> = (args) => {
         cancelButtonProps={{ 'data-cy': 'cancel' }}
         initialValues={{ name: 'John Doe' }}
       >
-        <Button style={{ marginBottom: 16 }} block onClick={() => setButtonDisabled(!buttonDisabled)}>
+        <EnhancedButton style={{ marginBottom: 16 }} block onClick={() => setButtonDisabled(!buttonDisabled)}>
           Toggle Submit Disabled
-        </Button>
+        </EnhancedButton>
         <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter a name' }]}>
           <Input placeholder="Please enter a name" />
         </Form.Item>

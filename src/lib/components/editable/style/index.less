@@ -6,6 +6,8 @@
   }
 
   &.editable-input {
+    margin-top: -2px;
+    margin-bottom: -2px;
     margin-left: -(@input-padding-horizontal + @border-width-base);
   }
 
@@ -23,22 +25,5 @@
     .@{ant-prefix}-select-selector {
       padding-right: 55px;
     }
-  }
-}
-
-.editable-btn {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  background: transparent;
-  transition: all @animation-duration-base;
-
-  &:focus {
-    outline: none;
-    color: @primary-color;
-  }
-
-  &:hover {
-    color: @primary-color;
   }
 }

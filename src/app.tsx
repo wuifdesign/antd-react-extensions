@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, FormContainer, Sortable, EditableDate, EditableInput } from './lib'
+import { EnhancedButton, FormContainer, Sortable, EditableDate, EditableInput } from './lib'
 
 function App() {
   const [items, setItems] = useState([{ name: 'Name 1' }, { name: 'Name 2' }, { name: 'Name 3' }])
@@ -14,7 +14,7 @@ function App() {
           setItems(data.newItems)
         }}
       />
-      <Button>Button</Button>
+      <EnhancedButton>Button</EnhancedButton>
       <EditableInput />
       <EditableDate />
       <EditableDate />

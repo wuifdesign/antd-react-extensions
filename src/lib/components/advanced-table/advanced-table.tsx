@@ -7,7 +7,7 @@ import {
   ReloadOutlined,
   SettingOutlined
 } from '@ant-design/icons'
-import { Button } from '../button'
+import { EnhancedButton } from '../enhanced-button'
 import { DataDisplay } from '../data-display'
 import { ExpandableConfig } from 'rc-table/lib/interface'
 import { useIsMobile, useTranslations } from '../config-provider'
@@ -211,9 +211,9 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
         <div className="advanced-table-header">
           {!!filters && (
             <div className="advanced-table-header-filter-btn">
-              <Button icon={filterIcon} onClick={() => setFiltersVisible(!filtersVisible)}>
+              <EnhancedButton icon={filterIcon} onClick={() => setFiltersVisible(!filtersVisible)}>
                 {filtersVisible ? translations.AdvancedTable.hideFilters : translations.AdvancedTable.showFilters}
-              </Button>
+              </EnhancedButton>
             </div>
           )}
           {!!title && <div className="advanced-table-header-title">{title}</div>}
@@ -221,7 +221,7 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
             {extra}
             <Space style={{ marginLeft: 12 }} size={12}>
               {!!onRefresh && (
-                <Button
+                <EnhancedButton
                   type="text-inline"
                   onClick={() => onRefresh()}
                   title={translations.AdvancedTable.reloadTable}
@@ -242,41 +242,50 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
                   arrowPointAtCenter
                   title={
                     <div style={{ textAlign: 'center' }}>
-                      <Button type="link" onClick={() => changeSettings({ rowSize: undefined })} size="small" block>
+                      <EnhancedButton
+                        type="link"
+                        onClick={() => changeSettings({ rowSize: undefined })}
+                        size="small"
+                        block
+                      >
                         {translations.AdvancedTable.resetSettings}
-                      </Button>
+                      </EnhancedButton>
                     </div>
                   }
                   content={
                     <>
-                      <Button
+                      <EnhancedButton
                         block
                         type="text"
                         onClick={() => onSizeChange('large')}
                         disabled={currentSize === 'large'}
                       >
                         {translations.AdvancedTable.large}
-                      </Button>
-                      <Button
+                      </EnhancedButton>
+                      <EnhancedButton
                         block
                         type="text"
                         onClick={() => onSizeChange('middle')}
                         disabled={currentSize === 'middle'}
                       >
                         {translations.AdvancedTable.medium}
-                      </Button>
-                      <Button
+                      </EnhancedButton>
+                      <EnhancedButton
                         block
                         type="text"
                         onClick={() => onSizeChange('small')}
                         disabled={currentSize === 'small'}
                       >
                         {translations.AdvancedTable.small}
-                      </Button>
+                      </EnhancedButton>
                     </>
                   }
                 >
-                  <Button type="text-inline" icon={columnHeightIcon} title={translations.AdvancedTable.columnHeight} />
+                  <EnhancedButton
+                    type="text-inline"
+                    icon={columnHeightIcon}
+                    title={translations.AdvancedTable.columnHeight}
+                  />
                 </Popover>
               )}
               {!hideSettings && (
@@ -286,14 +295,14 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
                   arrowPointAtCenter
                   title={
                     <div style={{ textAlign: 'center' }}>
-                      <Button
+                      <EnhancedButton
                         type="link"
                         onClick={() => changeSettings({ visibleColumns: undefined })}
                         size="small"
                         block
                       >
                         {translations.AdvancedTable.resetSettings}
-                      </Button>
+                      </EnhancedButton>
                     </div>
                   }
                   content={
@@ -313,7 +322,7 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
                     </ul>
                   }
                 >
-                  <Button type="text-inline" icon={settingsIcon} title={translations.AdvancedTable.settings} />
+                  <EnhancedButton type="text-inline" icon={settingsIcon} title={translations.AdvancedTable.settings} />
                 </Popover>
               )}
             </Space>
@@ -325,7 +334,7 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
               <div className="advanced-table-filters-body">{filters}</div>
               <Row>
                 <Col style={{ marginRight: 'auto' }}>
-                  <Button
+                  <EnhancedButton
                     disabled={!!loading}
                     type="link"
                     onClick={() => {
@@ -337,12 +346,12 @@ export const AdvancedTable: React.ForwardRefExoticComponent<AdvancedTableProps> 
                     icon={<IconUndo />}
                   >
                     {translations.AdvancedTable.btnResetFilters}
-                  </Button>
+                  </EnhancedButton>
                 </Col>
                 <Col>
-                  <Button htmlType="submit" loading={!!loading} icon={filterIcon} type="primary">
+                  <EnhancedButton htmlType="submit" loading={!!loading} icon={filterIcon} type="primary">
                     {translations.AdvancedTable.btnApplyFilters}
-                  </Button>
+                  </EnhancedButton>
                 </Col>
               </Row>
             </Form>

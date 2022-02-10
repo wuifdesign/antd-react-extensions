@@ -1,5 +1,5 @@
 import { Meta, Canvas } from '@storybook/addon-docs'
-import { Button } from '../components'
+import { EnhancedButton } from '../components'
 import { confirmAction, confirmDelete } from './confirm-dialogs'
 
 <Meta title="Library Functions" />
@@ -61,15 +61,15 @@ const a = hasCommonElements([1, 2, 3], [1])
 Confirm actions before continuing.
 
 <Canvas>
-  <Button onClick={() => confirmAction({
+  <EnhancedButton onClick={() => confirmAction({
     onOk: () => console.log('run action')
-  })}>Confirm Dialog</Button>
+  })}>Confirm Dialog</EnhancedButton>
 </Canvas>
 
 <Canvas>
-  <Button onClick={() => confirmDelete({
+  <EnhancedButton onClick={() => confirmDelete({
     onOk: () => console.log('delete')
-  })}>Delete with Confirm Dialog</Button>
+  })}>Delete with Confirm Dialog</EnhancedButton>
 </Canvas>
 
 ```ts

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Badge, Popover, PopoverProps } from 'antd'
 import { BellOutlined } from '@ant-design/icons'
-import { Button } from '../button'
+import { EnhancedButton } from '../enhanced-button'
 import { NotificationsList } from '../notifications-list'
 import { NotificationsListProps } from '../notifications-list/notifications-list'
 import { FCWithoutChildren } from '../../utils'
@@ -33,11 +33,11 @@ export const NotificationsPopover: FCWithoutChildren<NotificationsPopoverProps> 
       content={<NotificationsList width={300} {...notificationListProps} />}
       {...popoverProps}
     >
-      <Button style={{ height: 'auto' }} type="text">
+      <EnhancedButton style={{ height: 'auto' }} type="text">
         <Badge dot={dot} count={count} size="small">
           {icon}
         </Badge>
-      </Button>
+      </EnhancedButton>
     </Popover>
   )
 }

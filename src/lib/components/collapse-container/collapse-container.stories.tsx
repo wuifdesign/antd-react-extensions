@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useState } from 'react'
 import { Meta, Story } from '@storybook/react'
 import { CollapseContainer, CollapseContainerProps } from './collapse-container'
-import { Button } from '../button'
+import { EnhancedButton } from '../enhanced-button'
 
 export default {
   component: CollapseContainer,
@@ -12,9 +12,9 @@ const Template: Story<PropsWithChildren<CollapseContainerProps>> = (args) => {
   const [isOpen, setIsOpen] = useState(args.isOpened)
   return (
     <>
-      <Button style={{ marginBottom: 10 }} onClick={() => setIsOpen(!isOpen)}>
+      <EnhancedButton style={{ marginBottom: 10 }} onClick={() => setIsOpen(!isOpen)}>
         Toggle Content
-      </Button>
+      </EnhancedButton>
       <CollapseContainer style={{ border: '1px solid #eee', padding: 10, marginTop: 20 }} isOpened={isOpen}>
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
         dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet

@@ -2,7 +2,7 @@ import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { Drawer, Form, FormProps, Modal, Space } from 'antd'
 import { FormInstance } from 'antd/es/form'
 import { IconUndo } from '../icons'
-import { Button, ButtonProps } from '../button/button'
+import { EnhancedButton, EnhancedButtonProps } from '../enhanced-button'
 import { useTranslations } from '../config-provider/use-translations'
 import clsx from 'clsx'
 import { LoadingSpinner } from '../loading-spinner'
@@ -25,11 +25,11 @@ export type FormContainerProps = {
   title?: string
   type?: 'drawer' | 'modal' | 'inline'
   formLayout?: FormLayout
-  submitButtonProps?: ButtonProps & HtmlDataProps
+  submitButtonProps?: EnhancedButtonProps & HtmlDataProps
   submitButtonText?: string
   submitButtonIcon?: React.ReactNode
   submitButtonDisabled?: boolean
-  cancelButtonProps?: ButtonProps & HtmlDataProps
+  cancelButtonProps?: EnhancedButtonProps & HtmlDataProps
   cancelButtonText?: string
   buttons?: {
     left: FormOverlayButtons[]
@@ -98,7 +98,7 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
         switch (button) {
           case 'submit':
             parsedButtons.push(
-              <Button
+              <EnhancedButton
                 key="submit"
                 disabled={submitButtonDisabled}
                 htmlType="submit"
@@ -107,26 +107,26 @@ export const FormContainer: React.FC<FormContainerProps> = React.forwardRef<Form
                 {...submitButtonProps}
               >
                 {submitButtonText || translations.FormOverlay.btnSave}
-              </Button>
+              </EnhancedButton>
             )
             break
           case 'cancel':
             parsedButtons.push(
-              <Button key="cancel" onClick={onCancel} {...cancelButtonProps}>
+              <EnhancedButton key="cancel" onClick={onCancel} {...cancelButtonProps}>
                 {cancelButtonText || translations.FormOverlay.btnCancel}
-              </Button>
+              </EnhancedButton>
             )
             break
           case 'reset':
             parsedButtons.push(
-              <Button
+              <EnhancedButton
                 key="reset"
                 type="link"
                 onClick={() => (formRef.current ? formRef.current.resetFields() : null)}
                 icon={<IconUndo />}
               >
                 {translations.FormOverlay.btnReset}
-              </Button>
+              </EnhancedButton>
             )
             break
           default:

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ButtonProps } from '../../button'
+import { EnhancedButton, EnhancedButtonProps } from '../../enhanced-button'
 import { AdvancedTableColumnType } from '../types/advanced-table-column.type'
 import { renderToStaticMarkup } from 'react-dom/server'
 
@@ -7,7 +7,7 @@ export type AdvancedTableCsvExportProps = {
   dataSource: readonly any[] | undefined
   readonly columns: AdvancedTableColumnType<any>[]
   fileName?: string
-  btnProps?: ButtonProps
+  btnProps?: EnhancedButtonProps
 }
 
 const componentToString = (value: any) => {
@@ -70,9 +70,9 @@ const AdvancedTableCsvExport: React.FC<AdvancedTableCsvExportProps> = ({
   btnProps,
   children
 }) => (
-  <Button onClick={() => handleDownloadCSV(dataSource, columns, fileName)} {...btnProps}>
+  <EnhancedButton onClick={() => handleDownloadCSV(dataSource, columns, fileName)} {...btnProps}>
     {children}
-  </Button>
+  </EnhancedButton>
 )
 
 export default AdvancedTableCsvExport

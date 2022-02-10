@@ -3,7 +3,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { MenuOutlined } from '@ant-design/icons'
 import { IconDelete } from '../icons'
-import { Button } from '../button'
+import { EnhancedButton } from '../enhanced-button'
 import { useTranslations } from '../config-provider/use-translations'
 import { FCWithoutChildren } from '../../utils'
 
@@ -55,7 +55,7 @@ const SortableItem: FCWithoutChildren<SortableItemProps> = ({
       )}
       <div className="sortable-content">{item}</div>
       {!!onDelete && (
-        <Button
+        <EnhancedButton
           size="small"
           type="link"
           danger
@@ -64,7 +64,7 @@ const SortableItem: FCWithoutChildren<SortableItemProps> = ({
           title={translations.SortableItem.btnDeleteTitle}
         >
           <IconDelete />
-        </Button>
+        </EnhancedButton>
       )}
     </div>
   )

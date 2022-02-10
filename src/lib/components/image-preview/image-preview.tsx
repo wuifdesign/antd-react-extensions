@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Button } from 'antd'
 import { IconDelete, IconEdit, IconFullscreen } from '../icons'
 import { confirmDelete } from '../../utils/confirm-dialogs'
 import { ImageModal } from './image-modal'
 import { useTranslations } from '../config-provider/use-translations'
 import { FCWithoutChildren } from '../../utils'
+import { EnhancedButton } from '../enhanced-button'
 
 export type ImagePreviewProps = {
   url: string | undefined | null
@@ -96,7 +96,7 @@ export const ImagePreview: FCWithoutChildren<ImagePreviewProps> = ({
       )}
       <div style={buttonsContainerStyle}>
         {fullscreenButton && url && (
-          <Button
+          <EnhancedButton
             type="primary"
             shape="circle"
             title={translations.ImagePreview.btnFullSizeTitle}
@@ -104,10 +104,10 @@ export const ImagePreview: FCWithoutChildren<ImagePreviewProps> = ({
             onClick={() => setPreviewVisible(true)}
           >
             <IconFullscreen />
-          </Button>
+          </EnhancedButton>
         )}
         {triggerEdit && (
-          <Button
+          <EnhancedButton
             onClick={triggerEdit}
             type="primary"
             shape="circle"
@@ -116,10 +116,10 @@ export const ImagePreview: FCWithoutChildren<ImagePreviewProps> = ({
             style={{ marginLeft: 5 }}
           >
             <IconEdit />
-          </Button>
+          </EnhancedButton>
         )}
         {onDelete && (
-          <Button
+          <EnhancedButton
             onClick={triggerDelete}
             danger
             shape="circle"
@@ -128,7 +128,7 @@ export const ImagePreview: FCWithoutChildren<ImagePreviewProps> = ({
             style={{ marginLeft: 5 }}
           >
             <IconDelete />
-          </Button>
+          </EnhancedButton>
         )}
       </div>
       {url && <ImageModal visible={previewVisible} imageUrl={url} onClose={() => setPreviewVisible(false)} />}

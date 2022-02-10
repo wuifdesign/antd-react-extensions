@@ -10,7 +10,7 @@ import {
   UserOutlined
 } from '@ant-design/icons'
 import { PageContent } from '../page-content'
-import { Button } from '../button'
+import { EnhancedButton } from '../enhanced-button'
 import { ErrorPage } from '../error-page'
 import { MenuElement } from './menu-element.type'
 import { Avatar, Checkbox, Col, Dropdown, Form, Input, Menu, Row, Table } from 'antd'
@@ -119,27 +119,27 @@ const Dashboard: React.FC = () => {
       <PageContent.Header
         title="Dashboard"
         icon={<IconDashboard />}
-        extra={<Button type="primary">Add Something</Button>}
+        extra={<EnhancedButton type="primary">Add Something</EnhancedButton>}
       />
       <PageContent.Element>Dashboard</PageContent.Element>
       <PageContent.Element
         collapsable
         title="My Title"
         subTitle="My SubTitle"
-        extra={<Button type="primary">Add Something</Button>}
+        extra={<EnhancedButton type="primary">Add Something</EnhancedButton>}
       >
         Dashboard
       </PageContent.Element>
       <PageContent.Element
         title="My Title"
         subTitle="My SubTitle"
-        extra={<Button type="primary">Add Something</Button>}
+        extra={<EnhancedButton type="primary">Add Something</EnhancedButton>}
         removeBodyPadding
       >
         Dashboard
       </PageContent.Element>
-      <Button onClick={() => setFullPageLoading('Loading Tip')}>FullPageLoading With Tip</Button>
-      <Button onClick={() => setFullPageLoading(true)}>FullPageLoading</Button>
+      <EnhancedButton onClick={() => setFullPageLoading('Loading Tip')}>FullPageLoading With Tip</EnhancedButton>
+      <EnhancedButton onClick={() => setFullPageLoading(true)}>FullPageLoading</EnhancedButton>
     </PageContent>
   )
 }
@@ -184,7 +184,7 @@ const SubPage: React.FC = () => {
       <PageContent.Header
         title="SubPage"
         icon={<IconDashboard />}
-        extra={<Button type="primary">Add Something</Button>}
+        extra={<EnhancedButton type="primary">Add Something</EnhancedButton>}
       />
       <PageContent.Element removeBodyPadding>
         <Table size="small" columns={columns} dataSource={data} />
@@ -192,7 +192,7 @@ const SubPage: React.FC = () => {
       <PageContent.Element
         title="My Title"
         subTitle="My SubTitle"
-        extra={<Button type="primary">Add Something</Button>}
+        extra={<EnhancedButton type="primary">Add Something</EnhancedButton>}
       >
         Dashboard
       </PageContent.Element>
@@ -219,7 +219,7 @@ const Guard: React.FC<{ allowed: boolean | undefined }> = ({ allowed, children }
         type={403}
         extra={
           <Link to="/">
-            <Button>Go Back</Button>
+            <EnhancedButton>Go Back</EnhancedButton>
           </Link>
         }
       />
@@ -361,7 +361,7 @@ const Template: Story<{ siderTheme?: SiderTheme }> = ({ siderTheme }) => {
                     </Menu>
                   }
                 >
-                  <Button type="text">de</Button>
+                  <EnhancedButton type="text">de</EnhancedButton>
                 </Dropdown>
               </>
             ),
@@ -392,12 +392,12 @@ const Template: Story<{ siderTheme?: SiderTheme }> = ({ siderTheme }) => {
                     </Menu>
                   }
                 >
-                  <Button type="text" style={{ textAlign: collapsed ? 'center' : undefined }}>
+                  <EnhancedButton type="text" style={{ textAlign: collapsed ? 'center' : undefined }}>
                     <Avatar size="small" className="user-avatar" style={{ marginRight: collapsed ? 0 : 8 }}>
                       UN
                     </Avatar>
                     {!collapsed && <span style={{ verticalAlign: 'middle' }}>UserName</span>}
-                  </Button>
+                  </EnhancedButton>
                 </Dropdown>
               </div>
             )
@@ -445,13 +445,13 @@ const authRoutes: EnhancedRouteType[] = [
             </Row>
           </Form.Item>
 
-          <Button type="primary" htmlType="submit" block>
+          <EnhancedButton type="primary" htmlType="submit" block>
             Log In
-          </Button>
+          </EnhancedButton>
 
-          <Button type="link" block style={{ marginTop: 10 }}>
+          <EnhancedButton type="link" block style={{ marginTop: 10 }}>
             Register Now
-          </Button>
+          </EnhancedButton>
         </Form>
       </>
     )

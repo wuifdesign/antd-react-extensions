@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from 'react'
-import { Button } from 'antd'
 import { IconCancel, IconEdit, IconLoading, IconSave } from '../icons'
 import { useTranslations } from '../config-provider/use-translations'
 import { FCWithoutChildren } from '../../utils'
+import { EnhancedButton } from '../enhanced-button'
+import { Space } from 'antd'
 
 export type EditableProps = {
   onSubmit?: (value: any) => Promise<void>
@@ -88,21 +89,22 @@ export const Editable: FCWithoutChildren<BaseEditableProps> = ({
         {loading ? (
           <>{loading ? <IconLoading /> : <IconSave />}</>
         ) : (
-          <>
-            <button className="editable-btn" onClick={onCancel} title={translations.Editable.btnCancelTitle}>
-              <IconCancel />
-            </button>
+          <Space>
+            <EnhancedButton
+              type="text-inline"
+              onClick={onCancel}
+              title={translations.Editable.btnCancelTitle}
+              icon={<IconCancel />}
+            />
             {!!saveHandler && (
-              <button
-                className="editable-btn"
-                style={{ marginLeft: 10 }}
+              <EnhancedButton
+                type="link-inline"
                 onClick={saveHandler}
                 title={translations.Editable.btnSaveTitle}
-              >
-                <IconSave />
-              </button>
+                icon={<IconSave />}
+              />
             )}
-          </>
+          </Space>
         )}
       </>
     ),
@@ -120,14 +122,13 @@ export const Editable: FCWithoutChildren<BaseEditableProps> = ({
           {valueDisplay(value) || valuePlaceholder}
         </span>
         {editAble && (
-          <Button
+          <EnhancedButton
             title={translations.Editable.btnEditTitle}
-            type="link"
-            style={{ padding: 0, marginLeft: 5 }}
+            type="link-inline"
+            style={{ marginLeft: 5 }}
             onClick={onInitEdit}
-          >
-            <IconEdit />
-          </Button>
+            icon={<IconEdit />}
+          />
         )}
       </div>
     </div>

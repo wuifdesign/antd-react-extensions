@@ -4,7 +4,7 @@ import { AdvancedTable, AdvancedTableProps } from './advanced-table'
 import { Form, Input, Space, Tag } from 'antd'
 import { AdvancedTableColumnType } from './types/advanced-table-column.type'
 import { useAdvancedTable } from './utils/use-advanced-table'
-import { Button } from '../button'
+import { EnhancedButton } from '../enhanced-button'
 
 export default {
   component: AdvancedTable,
@@ -120,9 +120,9 @@ const WrappedTemplate: Story<PropsWithChildren<AdvancedTableProps>> = ({ ...args
   const [visible, setVisible] = useState(true)
   return (
     <>
-      <Button style={{ marginBottom: 16 }} onClick={() => setVisible(!visible)}>
+      <EnhancedButton style={{ marginBottom: 16 }} onClick={() => setVisible(!visible)}>
         Toggle Visibility
-      </Button>
+      </EnhancedButton>
       {visible && <TemplateWithHook {...args} cacheState={true} />}
     </>
   )
