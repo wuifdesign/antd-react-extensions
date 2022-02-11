@@ -10,19 +10,6 @@ type UseAdvancedTableReturnType = {
   tableProps: (props: AdvancedTableProps) => InnerAdvancedTableProps
 }
 
-let advancedTableCache: Record<string, { filterValues?: any; currentPage?: number; currentPageSize?: number }> = {}
-
-/**
- * if no key is provided all data will be cleared
- */
-export const clearAdvancedTableCache = (key?: string) => {
-  if (key) {
-    delete advancedTableCache[key]
-  } else {
-    advancedTableCache = {}
-  }
-}
-
 export const useAdvancedTable = (
   options: {
     cacheKey?: string

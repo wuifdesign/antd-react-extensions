@@ -1,6 +1,6 @@
 import React from 'react'
 import { Spin, SpinProps } from 'antd'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 import clsx from 'clsx'
 
 export type LoadingSpinnerProps = SpinProps & {

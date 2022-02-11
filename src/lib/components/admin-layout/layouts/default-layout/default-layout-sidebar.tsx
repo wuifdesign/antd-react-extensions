@@ -5,7 +5,7 @@ import { useDefaultLayoutContext } from './default-layout-context'
 import { useIsMobile } from '../../../config-provider'
 import { DynamicMenu } from '../../../dynamic-menu'
 import { useLocation } from 'react-router-dom'
-import { FCWithoutChildren } from '../../../../utils'
+import { FCWithoutChildren } from '../../../..'
 
 const { Sider } = Layout
 

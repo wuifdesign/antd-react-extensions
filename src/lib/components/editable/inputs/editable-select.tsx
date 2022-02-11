@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Select, SelectProps } from 'antd'
 import { Editable, EditableProps } from '../editable'
-import { FCWithoutChildren } from '../../../utils'
+import { FCWithoutChildren } from '../../..'
 
 type SelectValueType = string | number | string[] | number[]
 

@@ -4,8 +4,8 @@ import { Link, useLocation } from 'react-router-dom'
 import { Breadcrumb } from 'antd'
 import { createStyleMap } from '../../utils/create-style-map/create-style-map'
 import { matchEnhancedRoutes } from '../enhanced-routes/match-enhance-routes'
-import { FCWithoutChildren } from '../../utils'
-import { EnhancedRouteMatch } from '../enhanced-routes'
+import { FCWithoutChildren } from '../..'
+import { EnhancedRouteMatch } from '../enhanced-routes/enhanced-route.type'
 
 type BreadcrumbElement = {
   link: string

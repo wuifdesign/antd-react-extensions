@@ -3,7 +3,7 @@ import { IconDelete, IconEdit, IconFullscreen } from '../icons'
 import { confirmDelete } from '../../utils/confirm-dialogs'
 import { ImageModal } from './image-modal'
 import { useTranslations } from '../config-provider/use-translations'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 import { EnhancedButton } from '../enhanced-button'
 
 export type ImagePreviewProps = {

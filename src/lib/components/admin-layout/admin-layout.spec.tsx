@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import { AdminLayout } from './admin-layout'
-import { RouterHistory } from '../../utils'
+import { RouterHistory } from '../../utils/router-history'
 import { EnhancedRouteType } from '../enhanced-routes'
 
 const Guard: React.FC<{ allowed: boolean }> = ({ allowed, children }) => {

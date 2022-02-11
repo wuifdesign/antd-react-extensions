@@ -3,7 +3,7 @@ import { Col, Layout, Row } from 'antd'
 import { useDefaultLayoutContext } from './default-layout-context'
 import { IconMenu, IconMenuClose, IconMenuOpen } from '../../../icons'
 import { useIsMobile } from '../../../config-provider'
-import { FCWithoutChildren } from '../../../../utils'
+import { FCWithoutChildren } from '../../../..'
 
 const { Header } = Layout
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, List, ListProps, Row } from 'antd'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 
 export type NotificationsListItemType = {
   icon?: React.ReactNode

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Input } from 'antd'
 import { useTextareaScrollbarWidth } from '../../../utils/hooks'
 import { Editable, EditableProps } from '../editable'
-import { FCWithoutChildren } from '../../../utils'
+import { FCWithoutChildren } from '../../..'
 
 export type EditableTextareaProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   value?: string | undefined | null

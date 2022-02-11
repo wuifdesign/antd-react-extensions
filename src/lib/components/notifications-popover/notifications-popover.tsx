@@ -4,7 +4,7 @@ import { BellOutlined } from '@ant-design/icons'
 import { EnhancedButton } from '../enhanced-button'
 import { NotificationsList } from '../notifications-list'
 import { NotificationsListProps } from '../notifications-list/notifications-list'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 import { HtmlDataProps } from '../../utils/types/html-data-props.type'
 
 export type NotificationsPopoverProps = {

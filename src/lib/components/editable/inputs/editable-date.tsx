@@ -2,7 +2,7 @@ import React from 'react'
 import { DatePicker, DatePickerProps } from 'antd'
 import moment from 'moment'
 import { Editable, EditableProps } from '../editable'
-import { FCWithoutChildren } from '../../../utils'
+import { FCWithoutChildren } from '../../..'
 
 export type EditableDateProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   value?: string | undefined | null

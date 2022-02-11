@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslations } from '../../config-provider'
 import { Spin } from 'antd'
-import { FCWithoutChildren } from '../../../utils'
+import { FCWithoutChildren } from '../../..'
 
 export const LayoutFullPageLoading: FCWithoutChildren = () => {
   const translations = useTranslations()

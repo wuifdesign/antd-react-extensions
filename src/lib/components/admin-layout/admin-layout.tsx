@@ -11,7 +11,7 @@ import { createStyleMap } from '../../utils/create-style-map/create-style-map'
 import { EnhancedRouteType } from '../enhanced-routes'
 import { enhanceRoutes } from '../enhanced-routes/enhance-routes'
 import { useNavigate, useRoutes } from 'react-router-dom'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 
 export type AdminLayoutProps = {
   routes: EnhancedRouteType[]

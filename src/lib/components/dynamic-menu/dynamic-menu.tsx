@@ -3,7 +3,7 @@ import { Menu, MenuProps } from 'antd'
 import { Link, matchPath, useLocation } from 'react-router-dom'
 import { MenuElement } from '../admin-layout'
 import { EnhancedMenuElement } from '../admin-layout/menu-element.type'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 
 const enhanceMenu = (menuPart: MenuElement[], prefix: string = ''): EnhancedMenuElement[] => {
   Object.keys(menuPart).forEach((index) => {

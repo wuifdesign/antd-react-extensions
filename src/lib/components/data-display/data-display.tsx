@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Row, RowProps, ColProps } from 'antd'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 
 export type DataDisplayElementType = {
   title: React.ReactNode

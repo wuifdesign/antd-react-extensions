@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { IconCancel, IconEdit, IconLoading, IconSave } from '../icons'
 import { useTranslations } from '../config-provider/use-translations'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 import { EnhancedButton } from '../enhanced-button'
 import { Space } from 'antd'
 

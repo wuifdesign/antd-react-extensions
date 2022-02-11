@@ -5,7 +5,7 @@ import { MenuOutlined } from '@ant-design/icons'
 import { IconDelete } from '../icons'
 import { EnhancedButton } from '../enhanced-button'
 import { useTranslations } from '../config-provider/use-translations'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 
 export type SortableItemProps = {
   id: string

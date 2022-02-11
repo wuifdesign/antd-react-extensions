@@ -1,8 +1,6 @@
 import { ConfigProvider } from './config-provider'
-import { Canvas, Meta, Source } from '@storybook/addon-docs'
-import { ErrorPage } from '../error-page'
+import { Canvas, Meta } from '@storybook/addon-docs'
 import { useTheme } from './use-theme'
-import { defaultTranslations } from './default-translations'
 
 <Meta title="Config Provider" />
 
@@ -13,8 +11,8 @@ import { defaultTranslations } from './default-translations'
 If you want to change translations you can pass translations to the ConfigProvider.
 
 <Canvas>
-  <ConfigProvider translations={{ ErrorPage: { 404: { title: 'Custom 404 Title' } } }}>
-    <ErrorPage type={404} />
+  <ConfigProvider translations={{ LayoutFullPageLoading: { tip: 'Please wait...' } }}>
+    ...
   </ConfigProvider>
 </Canvas>
 
@@ -24,20 +22,6 @@ If you want to change translations you can pass translations to the ConfigProvid
 const defaultTranslations = {
   LayoutFullPageLoading: {
     tip: 'Loading...'
-  },
-  ErrorPage: {
-    403: {
-      title: '403',
-      description: 'Sorry, you are not authorized to access this page.'
-    },
-    404: {
-      title: '404',
-      description: 'Sorry, the page you visited does not exist.'
-    },
-    500: {
-      title: '500',
-      description: 'Sorry, something went wrong please try again.'
-    }
   },
   Editable: {
     btnEditTitle: 'Edit Data',

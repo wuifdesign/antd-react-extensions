@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from 'antd'
-import { FCRequiredChildren } from '../../utils'
+import { FCRequiredChildren } from '../..'
 
 const { Text } = Typography
 

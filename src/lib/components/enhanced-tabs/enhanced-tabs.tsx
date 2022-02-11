@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs, TabsProps } from 'antd'
 import { useSearchParams } from 'react-router-dom'
-import { getKeyFromChildComponents } from '../../utils'
+import { getKeyFromChildComponents } from '../..'
 import { EnhancedTabPane, EnhancedTabPaneProps } from './enhanced-tab-pane'
 
 export type EnhancedTabsProps = TabsProps & {

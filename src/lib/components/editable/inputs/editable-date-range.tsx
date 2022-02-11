@@ -3,7 +3,7 @@ import { DatePicker } from 'antd'
 import moment, { Moment } from 'moment'
 import { Editable, EditableProps } from '../editable'
 import { RangePickerBaseProps } from 'antd/es/date-picker/generatePicker'
-import { FCWithoutChildren } from '../../../utils'
+import { FCWithoutChildren } from '../../..'
 
 export type EditableDateRangeProps = Omit<EditableProps, 'value' | 'onSubmit'> & {
   value?: [string, string] | undefined | null

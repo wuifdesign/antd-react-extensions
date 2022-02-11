@@ -6,20 +6,6 @@ export const defaultTranslations = {
   LayoutFullPageLoading: {
     tip: 'Loading...'
   },
-  ErrorPage: {
-    403: {
-      title: '403',
-      description: 'Sorry, you are not authorized to access this page.'
-    },
-    404: {
-      title: '404',
-      description: 'Sorry, the page you visited does not exist.'
-    },
-    500: {
-      title: '500',
-      description: 'Sorry, something went wrong please try again.'
-    }
-  },
   Editable: {
     btnEditTitle: 'Edit Data',
     btnSaveTitle: 'Save',

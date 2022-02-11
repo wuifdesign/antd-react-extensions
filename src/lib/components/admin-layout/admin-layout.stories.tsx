@@ -11,9 +11,8 @@ import {
 } from '@ant-design/icons'
 import { PageContent } from '../page-content'
 import { EnhancedButton } from '../enhanced-button'
-import { ErrorPage } from '../error-page'
 import { MenuElement } from './menu-element.type'
-import { Avatar, Checkbox, Col, Dropdown, Form, Input, Menu, Row, Table } from 'antd'
+import { Avatar, Checkbox, Col, Dropdown, Form, Input, Menu, Result, Row, Table } from 'antd'
 import { AuthLayout } from './layouts/auth-layout/auth-layout'
 import { DefaultLayout } from './layouts/default-layout/default-layout'
 import { BlankLayout } from './layouts/blank-layout/blank-layout'
@@ -215,8 +214,8 @@ const Guard: React.FC<{ allowed: boolean | undefined }> = ({ allowed, children }
   }
   if (!allowed) {
     return (
-      <ErrorPage
-        type={403}
+      <Result
+        status={403}
         extra={
           <Link to="/">
             <EnhancedButton>Go Back</EnhancedButton>
@@ -284,7 +283,7 @@ const routes: EnhancedRouteType[] = [
   {
     path: '*',
     layout: 'default',
-    element: <ErrorPage type={404} />,
+    element: <Result status={404} />,
     breadcrumb: '404',
     is404: true
   }

@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import { EnhancedRouteType } from './enhanced-route.type'
 import { ErrorBoundary } from '../error-boundary'
 import { LoadingSpinner } from '../loading-spinner'
-import { FCWithoutChildren } from '../../utils'
+import { FCWithoutChildren } from '../..'
 
 export type EnhancedRouteProps = {
   element?: React.ReactElement | null
