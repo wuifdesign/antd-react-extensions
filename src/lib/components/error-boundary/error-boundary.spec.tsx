@@ -13,20 +13,6 @@ describe('ErrorBoundary', () => {
     expect(title).toBeInTheDocument()
   })
 
-  it('should display error page', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
-    render(
-      <ErrorBoundary>
-        <ComponentWithError />
-      </ErrorBoundary>
-    )
-    const title = screen.queryByText(/500/i)
-    expect(title).toBeInTheDocument()
-    const info = screen.queryByText(/Sorry, something went wrong please try again./i)
-    expect(info).toBeInTheDocument()
-    spy.mockRestore()
-  })
-
   it('should display fallback', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation()
     render(
