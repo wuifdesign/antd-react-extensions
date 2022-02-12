@@ -296,6 +296,7 @@ const Template: Story<{ siderTheme?: SiderTheme }> = ({ siderTheme }) => {
         <AdminLayout
           routes={routes}
           copyright="Copyright © 2021 ..."
+          errorBoundaryFallback="Error Fallback"
           defaultLayoutProps={{
             menu,
             logo: (type) => (type !== 'collapsed' ? 'AdminLogo' : 'AL'),

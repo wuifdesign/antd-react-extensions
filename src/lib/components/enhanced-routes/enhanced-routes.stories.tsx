@@ -2,14 +2,12 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react'
 import { ConfigProvider } from '../config-provider'
 import { HashRouter, Link, Outlet, useRoutes } from 'react-router-dom'
-import { EnhancedRoute } from './enhanced-route'
 import { Breadcrumbs } from '../breadcrumbs'
 import { LayoutContext } from '../admin-layout/layout-context'
 import { enhanceRoutes } from './enhance-routes'
 import { EnhancedRouteType } from './enhanced-route.type'
 
 export default {
-  component: EnhancedRoute,
   title: 'Components/Enhanced Routes'
 } as Meta
 

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { Suspense, useMemo, useState } from 'react'
 import { Layout, Spin } from 'antd'
 import { DefaultLayoutProps } from './layouts/default-layout/default-layout'
 import { AuthLayoutProps } from './layouts/auth-layout/auth-layout'
@@ -11,7 +11,7 @@ import { createStyleMap } from '../../utils/create-style-map/create-style-map'
 import { EnhancedRouteType } from '../enhanced-routes'
 import { enhanceRoutes } from '../enhanced-routes/enhance-routes'
 import { useNavigate, useRoutes } from 'react-router-dom'
-import { FCWithoutChildren } from '../..'
+import { ErrorBoundary, FCWithoutChildren, LoadingSpinner } from '../..'
 
 export type AdminLayoutProps = {
   routes: EnhancedRouteType[]
@@ -20,6 +20,8 @@ export type AdminLayoutProps = {
   authLayoutProps?: AuthLayoutProps
   defaultLayoutProps?: DefaultLayoutProps
   copyright?: React.ReactNode
+  errorBoundaryFallback?: React.ReactNode
+  routeLoadingFallback?: React.ReactNode
 }
 
 const styles = createStyleMap({
@@ -45,7 +47,9 @@ export const AdminLayout: FCWithoutChildren<AdminLayoutProps> = ({
   loading = false,
   copyright,
   authLayoutProps,
-  defaultLayoutProps
+  defaultLayoutProps,
+  errorBoundaryFallback,
+  routeLoadingFallback
 }) => {
   const [fullPageLoading, setFullPageLoading] = useState<string | boolean>(false)
 
@@ -72,7 +76,11 @@ export const AdminLayout: FCWithoutChildren<AdminLayoutProps> = ({
               defaultLayoutProps={defaultLayoutProps}
               authLayoutProps={authLayoutProps}
             >
-              <RoutesComponent routes={routes} />
+              <ErrorBoundary fallback={errorBoundaryFallback}>
+                <Suspense fallback={routeLoadingFallback || <LoadingSpinner />}>
+                  <RoutesComponent routes={routes} />
+                </Suspense>
+              </ErrorBoundary>
             </RouteLayout>
           </SelectedRouter>
         </Layout>
