@@ -8,13 +8,14 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     {
-      "name": "@storybook/preset-create-react-app",
-      "options": {
-        "craOverrides": {
-          "fileLoaderExcludes": ["less"]
+      'name': '@storybook/preset-create-react-app',
+      'options': {
+        'craOverrides': {
+          'fileLoaderExcludes': ['less']
         }
       }
-    }
+    },
+    'storybook-addon-next-router'
   ],
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'

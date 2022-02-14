@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Menu, MenuProps } from 'antd'
-import { Link, matchPath, useLocation } from 'react-router-dom'
-import { MenuElement } from '../admin-layout'
-import { EnhancedMenuElement } from '../admin-layout/menu-element.type'
+import { MenuElement } from '../enhanced-layout'
+import { EnhancedMenuElement } from './menu-element.type'
 import { FCWithoutChildren } from '../..'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const enhanceMenu = (menuPart: MenuElement[], prefix: string = ''): EnhancedMenuElement[] => {
   Object.keys(menuPart).forEach((index) => {
@@ -36,7 +37,7 @@ const renderMenu = (item: EnhancedMenuElement) => {
   }
   return (
     <Menu.Item key={item.key} icon={item.icon}>
-      <Link to={item.url}>{item.title}</Link>
+      <Link href={item.url}>{item.title}</Link>
     </Menu.Item>
   )
 }
@@ -52,12 +53,16 @@ const getActiveMenuKeys = (pathname: string, enhancedMenu: EnhancedMenuElement[]
       }
       activeKeys = [...activeKeys, ...subActiveKeys]
     } else if (!('type' in item) && item.url) {
-      if (matchPath({ path: item.url, end: !!item.end }, pathname)) {
+      if (item.url === pathname) {
         isActive = true
       }
     }
-    if ('isActive' in item && !!item.isActive) {
-      isActive = item.isActive(pathname)
+    if ('isActive' in item && !isActive && !!item.isActive) {
+      if (typeof item.isActive === 'function') {
+        isActive = item.isActive(pathname)
+      } else {
+        isActive = item.isActive.includes(pathname)
+      }
     }
     if (isActive) {
       activeKeys.push(item.key)
@@ -68,20 +73,21 @@ const getActiveMenuKeys = (pathname: string, enhancedMenu: EnhancedMenuElement[]
 
 export type DynamicMenuProps = MenuProps & {
   elements: MenuElement[]
+  collapsed?: boolean
 }
 
-export const DynamicMenu: FCWithoutChildren<DynamicMenuProps> = ({ elements, ...props }) => {
-  const location = useLocation()
+export const DynamicMenu: FCWithoutChildren<DynamicMenuProps> = ({ elements, collapsed, ...props }) => {
+  const { pathname } = useRouter() || { pathname: '' }
   const menuWithKeys = useMemo(() => enhanceMenu(elements), [elements])
 
-  const [selectedKeys, setSelectedKeys] = useState(() => getActiveMenuKeys(location.pathname, menuWithKeys))
-  const [openKeys, setOpenKeys] = useState(() => getActiveMenuKeys(location.pathname, menuWithKeys))
+  const [selectedKeys, setSelectedKeys] = useState(() => getActiveMenuKeys(pathname, menuWithKeys))
+  const [openKeys, setOpenKeys] = useState(selectedKeys)
 
   useEffect(() => {
-    const activeKeys = getActiveMenuKeys(location.pathname, menuWithKeys)
+    const activeKeys = getActiveMenuKeys(pathname, menuWithKeys)
     setSelectedKeys(activeKeys)
     setOpenKeys((keys) => [...Array.from(new Set([...keys].concat(activeKeys)))])
-  }, [location, menuWithKeys])
+  }, [pathname, elements, menuWithKeys])
 
   const onOpenChange = useCallback((keys: React.Key[]) => {
     setOpenKeys(keys as string[])
@@ -91,7 +97,7 @@ export const DynamicMenu: FCWithoutChildren<DynamicMenuProps> = ({ elements, ...
     <Menu
       theme="light"
       mode="inline"
-      openKeys={openKeys}
+      openKeys={!collapsed ? openKeys : undefined}
       {...props}
       onOpenChange={onOpenChange}
       selectedKeys={selectedKeys}

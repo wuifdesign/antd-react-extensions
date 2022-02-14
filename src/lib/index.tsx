@@ -1,10 +1,5 @@
-export { AdminLayout, useLayoutContext } from './components/admin-layout'
-export type { AdminLayoutProps, MenuElement } from './components/admin-layout'
-
 export { AdvancedTable, useAdvancedTable } from './components/advanced-table'
 export type { AdvancedTableProps, AdvancedTableHandles, AdvancedTableColumnType } from './components/advanced-table'
-
-export { Breadcrumbs } from './components/breadcrumbs'
 
 export { CollapseContainer } from './components/collapse-container'
 export type { CollapseContainerProps } from './components/collapse-container'
@@ -47,8 +42,8 @@ export type { EllipsisMiddleProps } from './components/ellipsis-middle'
 export { EnhancedButton } from './components/enhanced-button'
 export type { EnhancedButtonProps } from './components/enhanced-button'
 
-export { matchEnhancedRoutes } from './components/enhanced-routes'
-export type { EnhancedRouteType } from './components/enhanced-routes'
+export { EnhancedLayout, AdminLayout, AuthLayout, BlankLayout, useLayoutContext } from './components/enhanced-layout'
+export type { EnhancedLayoutProps, AdminLayoutProps, AuthLayoutProps, MenuElement } from './components/enhanced-layout'
 
 export { EnhancedTabs } from './components/enhanced-tabs'
 export type { EnhancedTabsProps } from './components/enhanced-tabs'

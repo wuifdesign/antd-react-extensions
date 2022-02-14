@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - nextjs
   pull_request:
     branches:
       - main
+      - nextjs
 
 jobs:
   test:
