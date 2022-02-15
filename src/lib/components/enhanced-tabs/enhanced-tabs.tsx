@@ -1,8 +1,8 @@
 import React from 'react'
 import { Tabs, TabsProps } from 'antd'
-import { useSearchParams } from 'react-router-dom'
 import { getKeyFromChildComponents } from '../..'
 import { EnhancedTabPane, EnhancedTabPaneProps } from './enhanced-tab-pane'
+import { useRouter } from 'next/router'
 
 export type EnhancedTabsProps = TabsProps & {
   useUrlState?: boolean
@@ -24,10 +24,10 @@ const EnhancedTabs: React.FC<EnhancedTabsProps> & ChildComponents = ({
   ...tabsProps
 }) => {
   const childKeys = getKeyFromChildComponents(children)
-  const [searchParams, setSearchParams] = useSearchParams()
+  const { pathname, query, replace } = useRouter() || { pathname: '/', replace: () => null, query: {} }
 
   if (useUrlState) {
-    activeKey = activeKey || searchParams.get(urlParamName) || tabsProps.defaultActiveKey || childKeys[0]
+    activeKey = activeKey || (query[urlParamName] as string) || tabsProps.defaultActiveKey || childKeys[0]
 
     if (!childKeys.includes(activeKey)) {
       activeKey = childKeys[0]
@@ -40,8 +40,13 @@ const EnhancedTabs: React.FC<EnhancedTabsProps> & ChildComponents = ({
       {...tabsProps}
       onChange={(value) => {
         if (useUrlState) {
-          searchParams.set(urlParamName, value)
-          setSearchParams(searchParams, { replace: true })
+          replace({
+            pathname,
+            query: {
+              ...query,
+              [urlParamName]: value
+            }
+          })
         }
         tabsProps.onChange?.(value)
       }}
