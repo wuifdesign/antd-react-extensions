@@ -110,9 +110,6 @@ export { hasCommonElements } from './utils/has-common-elements'
 
 export { useBodyClass, useLocalStorage, useTextareaScrollbarWidth } from './utils/hooks'
 
-export { RouterHistory } from './utils/router-history'
-export type { RouterHistoryTypesType } from './utils/router-history'
-
 export { truncate } from './utils/truncate'
 
 export type { HtmlDataProps } from './utils/types'
