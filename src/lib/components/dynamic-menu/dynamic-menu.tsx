@@ -37,7 +37,9 @@ const renderMenu = (item: EnhancedMenuElement) => {
   }
   return (
     <Menu.Item key={item.key} icon={item.icon}>
-      <Link href={item.url}>{item.title}</Link>
+      <Link href={item.url} prefetch={item.prefetch === true}>
+        {item.title}
+      </Link>
     </Menu.Item>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * Sync state to local storage so that it persists through a page refresh.
@@ -15,12 +15,13 @@ import { useState } from 'react'
  */
 export const useLocalStorage = <T = any>(
   key: string | undefined | null,
-  initialValue: any = null
+  initialValue: any = null,
+  usedInSSR = false
 ): [T, (value: T) => any] => {
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      if (key) {
+      if (!usedInSSR && key) {
         const item = window.localStorage.getItem(key)
         return item ? JSON.parse(item) : initialValue
       }
@@ -39,6 +40,15 @@ export const useLocalStorage = <T = any>(
       }
     } catch (error) {}
   }
+
+  useEffect(() => {
+    if (usedInSSR && key) {
+      const item = window.localStorage.getItem(key)
+      if (item) {
+        setStoredValue(JSON.parse(item))
+      }
+    }
+  }, [usedInSSR, key])
 
   return [storedValue, setValue]
 }

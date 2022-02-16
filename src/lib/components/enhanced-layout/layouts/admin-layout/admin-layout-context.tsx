@@ -27,7 +27,8 @@ export const AdminLayoutProvider: React.FC<AdminLayoutProviderProps> = ({
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useLocalStorage(
     'default-layout-sidebar-collapsed',
-    initialSidebarCollapsed
+    initialSidebarCollapsed,
+    true
   )
 
   return (

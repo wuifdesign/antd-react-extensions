@@ -4,6 +4,7 @@ export type MenuItem = {
   title: string
   url: string
   icon?: React.ReactNode
+  prefetch?: boolean
   isActive?: string[] | ((currentPath: string) => boolean)
 }
 
