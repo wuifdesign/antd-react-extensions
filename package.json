@@ -1,6 +1,6 @@
 {
   "name": "antd-react-extensions",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "license": "MIT",
   "repository": "https://github.com/wuifdesign/antd-react-extensions",
   "main": "dist/index.js",
@@ -10,7 +10,6 @@
     "node": ">=14"
   },
   "sideEffects": [
-    "dist/*",
     "dist/**/style/*",
     "*.less"
   ],
