@@ -1,6 +1,6 @@
 {
   "name": "antd-react-extensions-nextjs",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "license": "MIT",
   "repository": "https://github.com/wuifdesign/antd-react-extensions/tree/nextjs",
   "main": "dist/index.js",
@@ -10,7 +10,6 @@
     "node": ">=14"
   },
   "sideEffects": [
-    "dist/*",
     "dist/**/style/*",
     "*.less"
   ],
