@@ -42,7 +42,7 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({
 }) => {
   const [css, setCss] = useState<string>()
   const [cssVariables, setCssVariables] = useState<CssVariablesType>({})
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileBreakpoint)
+  const [isMobile, setIsMobile] = useState(window && window.innerWidth <= mobileBreakpoint)
 
   useEffect(() => {
     const checkMobile = () => {

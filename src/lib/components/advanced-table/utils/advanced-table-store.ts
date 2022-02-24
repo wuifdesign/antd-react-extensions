@@ -58,7 +58,7 @@ const get = (cacheKey: string, { preserveToLocalStorage }: AdvancedTableStoreSet
   if (preserveToLocalStorage) {
     data = {
       ...data,
-      ...JSON.parse(window.localStorage.getItem(cacheKey) || '{}')
+      ...(typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem(cacheKey) || '{}') : {})
     }
   }
   return {
