@@ -1,6 +1,6 @@
 {
   "name": "antd-react-extensions-nextjs",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "license": "MIT",
   "repository": "https://github.com/wuifdesign/antd-react-extensions/tree/nextjs",
   "main": "dist/lib/index.js",

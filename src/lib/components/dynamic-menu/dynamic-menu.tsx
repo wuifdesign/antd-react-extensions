@@ -17,7 +17,7 @@ const enhanceMenu = (menuPart: MenuElement[], prefix: string = ''): EnhancedMenu
   return menuPart as EnhancedMenuElement[]
 }
 
-const renderMenu = (item: EnhancedMenuElement) => {
+const renderMenu = (item: EnhancedMenuElement, locale?: string) => {
   if ('type' in item) {
     if (!item.elements) {
       return null
@@ -25,19 +25,19 @@ const renderMenu = (item: EnhancedMenuElement) => {
     if (item.type === 'group') {
       return (
         <Menu.ItemGroup key={item.key} title={item.title}>
-          {item.elements.map(renderMenu)}
+          {item.elements.map((element) => renderMenu(element as EnhancedMenuElement, locale))}
         </Menu.ItemGroup>
       )
     }
     return (
       <Menu.SubMenu key={item.key} icon={item.icon} title={item.title}>
-        {item.elements.map(renderMenu)}
+        {item.elements.map((element) => renderMenu(element as EnhancedMenuElement, locale))}
       </Menu.SubMenu>
     )
   }
   return (
     <Menu.Item key={item.key} icon={item.icon}>
-      <Link href={item.url} prefetch={item.prefetch === true}>
+      <Link href={item.url} locale={locale} prefetch={item.prefetch === true}>
         {item.title}
       </Link>
     </Menu.Item>
@@ -79,7 +79,7 @@ export type DynamicMenuProps = MenuProps & {
 }
 
 export const DynamicMenu: FCWithoutChildren<DynamicMenuProps> = ({ elements, collapsed, ...props }) => {
-  const { pathname } = useRouter() || { pathname: '' }
+  const { pathname, locale } = useRouter() || { pathname: '' }
   const menuWithKeys = useMemo(() => enhanceMenu(elements), [elements])
 
   const [selectedKeys, setSelectedKeys] = useState(() => getActiveMenuKeys(pathname, menuWithKeys))
@@ -104,7 +104,7 @@ export const DynamicMenu: FCWithoutChildren<DynamicMenuProps> = ({ elements, col
       onOpenChange={onOpenChange}
       selectedKeys={selectedKeys}
     >
-      {menuWithKeys.map(renderMenu)}
+      {menuWithKeys.map((item) => renderMenu(item, locale))}
     </Menu>
   )
 }
