@@ -40,13 +40,17 @@ const EnhancedTabs: React.FC<EnhancedTabsProps> & ChildComponents = ({
       {...tabsProps}
       onChange={(value) => {
         if (useUrlState) {
-          replace({
-            pathname,
-            query: {
-              ...query,
-              [urlParamName]: value
-            }
-          })
+          replace(
+            {
+              pathname,
+              query: {
+                ...query,
+                [urlParamName]: value
+              }
+            },
+            undefined,
+            { shallow: true }
+          )
         }
         tabsProps.onChange?.(value)
       }}
